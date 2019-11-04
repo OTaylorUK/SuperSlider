@@ -1,19 +1,21 @@
 /*jshint esversion: 6 */
+
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+
+
 $(document).ready(function () {
 	
 	let windowWidth = window.innerWidth || $(window).width();
 
 	$(window).resize(function () {
 		windowWidth = window.innerWidth || $(window).width();
-	});   
+	});
 
 
 	function objIndex(array, id) {
 		let ix = array.findIndex((obj => obj.id == id));
 		return array[ix];
 	}
-
-
 
 	function genDynamicPath(getVal, path, resIndex, objVal) {
 
@@ -23,7 +25,7 @@ $(document).ready(function () {
 			newPath = (getVal) ? path[objVal] : path;
 		
 		// check if exists in responsive settings
-		Object.entries(respPath).forEach(([key, value], index) => { 
+		Object.entries(respPath).forEach(([key, value], index) => {
 			if (key == objVal) {
 				// is set in responsive 
 				newPath = (getVal) ? respPath[objVal] : respPath;
@@ -43,40 +45,104 @@ $(document).ready(function () {
 		let path = objIndex(settings, id);
 		let dots = genDynamicPath(true, path, resIndex, 'dots');
 		let actualCount = genDynamicPath(true, path, resIndex, 'actualCount');
-
-		$(`#${id}`).find(".slider-pagi").empty();
+		let appendContainer = genDynamicPath(true, path, resIndex, 'appendDots');
+		let dotIndicator = genDynamicPath(true, path, resIndex, 'dotIndicator');
+		let container = (appendContainer !== id) ? $(`#${id}`).find(`#${appendContainer}`) : $(`#${appendContainer}`);
+		let dotContainer = $(container).find(`.super-slider-pagination`).length !== 0 ?  true : false;
 
 		if (dots) {
-			for (let i = 0; i < actualCount; i++ ){
-				let listItem = `<li data-page="${i}" class='slider-pagi__elem slider-pagi__elem-${i} `;
-				if (!i) {
-					listItem += `active'><div></div></li>`;
-				} else {
-					listItem += `'><div></div></li>`;
+			if (dotContainer) {
+				$(dotContainer).empty();
+			} else {
+				$(container).append(`<div class="super-slider-pagination"><ul class="super-slider-list"></ul></div>`);
+				for (let i = 0; i < actualCount; i++) {
+					let dot = `<li data-page="${i}" class='super-slider-pag-elem slider-${i} `;
+
+					if (!i && dotIndicator) {
+						dot += `active'><div></div></li>`;
+					} else {
+						dot += `'><div></div></li>`;
+					}
+					$(container).find(".super-slider-list").append(dot);
 				}
-				$(`#${id}`).find(".slider-pagi").append(listItem);
 			}
 		}
 	}
 
+	function addButton(id, resIndex) {
+		
+		let path = objIndex(settings, id);
+		let navButton = genDynamicPath(true, path, resIndex, 'navButton');
+		let prevArrow = genDynamicPath(true, path, resIndex, 'prevArrow');
+		let nextArrow = genDynamicPath(true, path, resIndex, 'nextArrow');
+		let appendContainer = genDynamicPath(true, path, resIndex, 'appendArrows');
+		let container = (appendContainer !== id) ? $(`#${id}`).find(`#${appendContainer}`) : $(`#${appendContainer}`);
+
+		let navContainer = $(container).find(`.super-slider-nav`).length !== 0 ?  true : false;
+		let directionArray = ['left', 'right'];
+
+		if (navButton) {
+			if (navContainer) {
+				$(navContainer).empty();
+			} else {
+				$(directionArray).each(function (i) {
+					let direction = directionArray[i];
+					let content = `<button class="btn-arrow ${direction}">`;
+					if (direction == 'left') {
+						content += `${prevArrow}`;
+					} else if (direction == 'right') {
+						content += `${nextArrow}`;
+					}
+					content += `</button>`;
+					$(container).append(`<div class="super-slider-nav ${direction}" data-direction="${direction}">${content}</div>`);
+				});
+			}
+		}
+	
+	}
+
 	// CAROUSEL SLIDER
-	function sliderPosition(id, resIndex) {
+	function sliderPosition(id, resIndex, resize) {
 
 		let path = objIndex(settings, id);
 		let numberOfSlides = genDynamicPath(true, path, resIndex, 'numOfSlides');
 		let slidesToShow = genDynamicPath(true, path, resIndex, 'slidesToShow');
 		let actualCount = genDynamicPath(true, path, resIndex, 'actualCount');
+		let adaptiveHeight = genDynamicPath(true, path, resIndex, 'adaptiveHeight');
 
+		let itemWidth;
+		let itemHeight;
 
+		let iHeightArray = [];
 		
-		$(`#${id}`).find('.slide').each(function (i) {
+		$(`#${id}`).find('.super-slide').each(function (i) {
 			postition = (i * 100) / slidesToShow;
-			width = (1 * 100) / slidesToShow;
+			itemWidth = (1 * 100) / slidesToShow;
+			// itemHeight = $(this).find('.super-slide').outerWidth();
+			
 			$(this).css('left', `${postition}%`);
-			$(this).css('width', `${width}%`);
+			$(this).css('width', `${itemWidth}%`);
+			$(this).css('height', `100%`);
 			$(this).addClass(`slide-${i}`);
+			iHeightArray.push(itemHeight);
 		});
+
+		sliderWidth = ($(`#${id}`).find('.super-slider-wrapper').width());
+
+		OutersliderWidth = ($(`#${id}`).find('.super-slider-wrapper').outerWidth());
 		
+
+		if (resize) {
+			itemHeight = ($(`#${id}`).find('.super-slide').outerWidth());
+		} else {
+			itemHeight = ($(`#${id}`).find('.super-slide').width());
+			
+		}
+
+		let containerHeight =  itemHeight;
+		
+		$(`#${id}`).find('.super-slider-wrapper').css('height', `${containerHeight}`);
+
 	}
 
 	function findBreakpoint(array) {
@@ -87,13 +153,15 @@ $(document).ready(function () {
 
 		resArray = [];
 
-		responsive.forEach((el, index) => {
-			let breakPoint = el.breakpoint;
+		if (responsive) {
+			responsive.forEach((el, index) => {
+				let breakPoint = el.breakpoint;
 
-			if (windowWidth > breakPoint) {
-				resArray.push(breakPoint);
-			} 
-		});
+				if (windowWidth > breakPoint) {
+					resArray.push(breakPoint);
+				} 
+			});
+		}
 
 		let currentBreakPoint = (resArray === undefined || resArray.length == 0) ? 'default' : Math.max(...resArray);
 		return currentBreakPoint;
@@ -102,12 +170,14 @@ $(document).ready(function () {
 		let resIndex = 'default';
 		let responsive = array.responsive;
 
-		responsive.forEach((el, index) => {
-			if (el.breakpoint == currentBreakpoint) {
-				resIndex = index;
-				return resIndex;
-			}
-		});
+		if (responsive) {
+			responsive.forEach((el, index) => {
+				if (el.breakpoint == currentBreakpoint) {
+					resIndex = index;
+					return resIndex;
+				}
+			});
+		} 
 		return resIndex;
 	}
 
@@ -115,12 +185,7 @@ $(document).ready(function () {
 
 		let currentBreakpoint = findBreakpoint(sliderSettings, windowWidth);
 
-		console.log(`breakpoint: ${currentBreakpoint}`);
-
-
 		let responsiveIndex = findIndex(sliderSettings, currentBreakpoint);
-
-		console.log(`responsiveIndex: ${responsiveIndex}`);
 
 		return responsiveIndex;
 		
@@ -141,29 +206,39 @@ $(document).ready(function () {
 		});
 	}
 
-	function createSlider(id, sliderSettings, settings, numOfSlides) {
+	function createSlider(id, sliderSettings, settings, numOfSlides, resize) {
 		
-		let slider = $(`#${id}`).find('.slider');
+		let slider = $(`#${id}`).find('.super-slider-track');
 
 
 		let resIndex = responsiveActive(sliderSettings, windowWidth);
 		let path = objIndex(settings, id);
 		let actualCalc = Math.ceil((numOfSlides) / genDynamicPath(true, path, resIndex, 'slidesToShow'));
-		let speed = genDynamicPath(true, path, resIndex, 'animSpeed');
+		let animationSpeed = genDynamicPath(true, path, resIndex, 'animationSpeed');
+		let animationType = genDynamicPath(true, path, resIndex, 'animationType');
+
 		
 		path.resIndex = resIndex;
 		path.actualCount = actualCalc;
 
-		$(slider).css("transition", `transform ${speed}ms linear`);
+		// console.log(slider);
+
+		$(slider).css("transition", `transform ${animationSpeed}ms ${animationType}`);
+
+		// addButton(id, resIndex, 'left');
+		// addButton(id, resIndex, 'right');
+		addButton(id, resIndex);
 		pagination(id, resIndex);
-		sliderPosition(id, resIndex);
-
-
+		sliderPosition(id, resIndex, resize);
+		changeSlideNew(id, true);
 	}
 
 	let settings = [];
 
+	// DEFINE CUSTOM JQUERY PLUGIN //
+
 	(function ($) {
+		
 		$.fn.vJSlider = function (objCustom) {
 
 			/* NOTES:
@@ -173,16 +248,28 @@ $(document).ready(function () {
 			e.g. If you define breakpoint of 600px the settings will be applied to screens 600px and bigger (up to the next defined breakpoint), while the main settings applied (not in a responsive array) will be applied for all screen sizes smaller than the smallest breakpoint (600px in this case).
 
 
-
 			*/
 
 			// CONSTANT PARAMTERS //
 			let container = $(this);
 			let id = $(container).attr('id');
-			let slider = $(container).find('.slider');
-			let numOfSlides = $(slider).find(".slide").length;
-			let containerWidth = $(slider).width();
 
+
+			// DYNAMICALLY ADD WRAPPER ELEMENTS & CLASSES //
+			let content = $(container).html();
+			$(container).html(`<div class="super-slider-wrapper"><div class="super-slider-track"> ${content} </div></div>`);
+
+			let slider = $(container).find('.super-slider-track');
+			let sliderChildren = $(slider).children();
+
+			$(sliderChildren).each(function (i) {
+				let itemContent = $(this).html();
+				$(this).addClass(`super-slide slide-${i}`);
+				$(this).html(`<div class="item"> ${itemContent} </div>`);
+			});
+
+			let numOfSlides = $(container).find(".super-slide").length;
+			let containerWidth = $(slider).width();
 			let display = true; 
 			let diff = 0;
 			let currentX = 0;
@@ -202,42 +289,41 @@ $(document).ready(function () {
 				currentX: currentX,  
 				display: display,
 				transformPercent: transformPercent,
-
 			};
 
-			// DEFAULT SETTINGS //
+			// DEFAULT SETTINGS //   
 			let defaultSettings = {
-				infinite: false,
-				navIndicator: true,
-				slidesToShow: 3,
-				slidesToScroll: 3,
-				autoPlay: true,
-				animSpeed: 500,
-				slideTimer: 800,
+				animationSpeed: 650,
+				animationType: 'linear',
+				appendArrows: id,
+				appendDots: id,
+				arrows: true,
+				autoPlay: false,
+				autoPlaySpeed: 3000,
 				dots: true,
-				responsive: [{
-					breakpoint: 1200,
-					settings: {
-						slidesToShow: 3,
-						infinite: false
-					}
-				}, {
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 2,
-						dots: true
-					}
-				}]
+				dotIndicator: true,
+				dotClass: 'super-dots',
+				draggable: true,
+				infinite: false,
+				navButton: true,
+				prevArrow: 'Previous', //content
+				nextArrow: 'Next',
+				pauseOnDotsHover: false,
+				pauseOnFocus: true,
+				pauseOnHover: true,
+				slidesToScroll: 1,
+				slidesToShow: 1,
+				swipe: true,
+				touchMove: true,
+				vertical: false,
+				verticalSwiping: false,
+
+
+				animDelay: 3000,
+				slideTimer: 800,
+				showButton: true,
+				adaptiveHeight: false,
+				
 			};
 
 			// CHECK IF SETTING IS SET - IF NOT REVERTS TO DEFAULT
@@ -250,21 +336,25 @@ $(document).ready(function () {
 
 			// CREATE SLIDER - POSITION SLIDERS & DOTS - RESPONSIVE //
 			createSlider(id, sliderSettings, settings, numOfSlides);
-
+ 
 			// ON RESIZE - RECREATE SLIDERS //
 			$(window).resize(function () {
-				createSlider(id, sliderSettings, settings, numOfSlides);
-			});
-			
+				createSlider(id, sliderSettings, settings, numOfSlides, true);
+			}); 
+			 
 		};
+
+		
 	})(jQuery);
 
+	
 	console.log(settings);
+  
 
 	//////////////////////
 	// SLIDER FUNCTIONS //
 	//////////////////////
-	function changeSlideNew(container) {
+	function changeSlideNew(container, auto) {
 
 		let path = objIndex(settings, container);
 		let resIndex = path.resIndex;
@@ -274,8 +364,8 @@ $(document).ready(function () {
 		let currentSlide = genDynamicPath(true, path, resIndex, 'currentSlide');
 		let transformPercentPath = genDynamicPath(false, path, resIndex, 'transformPercent');
  
-		let sliderContainer = $(`#${container}`).find('.slider');
-		let slidePagination = $(`#${container}`).find('.slide-pagination li');
+		let sliderContainer = $(`#${container}`).find('.super-slider-track');
+		let slidePagination = $(`#${container}`).find('.super-slider-pagination li');
 
 
 		$(slidePagination).each(function (i) {
@@ -285,15 +375,15 @@ $(document).ready(function () {
 			}
 		});
 
-
 		let transformPercent = -(currentSlide * 100);
 
 		$(sliderContainer).css("transform", `translate3d(${transformPercent}%,0,0)`);
 
-
-
 		transformPercentPath.transformPercent = transformPercent;
 
+		if (auto) {
+			autoSlide(container);
+		}
 
 	}
 
@@ -301,7 +391,6 @@ $(document).ready(function () {
 
 		let path = objIndex(settings, container);
 		let resIndex = path.resIndex;
-		console.log(resIndex);
 
 		let startXPath = genDynamicPath(false, path, resIndex, 'startX');
 
@@ -319,29 +408,40 @@ $(document).ready(function () {
 		let currentSlide = genDynamicPath(true, path, resIndex, 'currentSlide');
 		let startX = genDynamicPath(true, path, resIndex, 'startX');
 		let containerWidth = genDynamicPath(true, path, resIndex, 'containerWidth');
-		let diffTest = genDynamicPath(true, path, resIndex, 'diff');
+
+		let diff = genDynamicPath(true, path, resIndex, 'diff');
 		let transformPercent = genDynamicPath(true, path, resIndex, 'transformPercent');
 		let transformPercentPath = genDynamicPath(false, path, resIndex, 'transformPercent');
-		let slider = $(`#${container}`).find('.slider');
+		let slider = $(`#${container}`).find('.super-slider-track');
+		let wrapper = $(`#${container}`);
+		let actualCount = genDynamicPath(true, path, resIndex, 'actualCount');
 
 		let diffPath = genDynamicPath(false, path, resIndex, 'diff');
 
 		let slideNum = currentSlide + 1;
 
-		let sliderWidth = (containerWidth * slidesToShow) * slideNum;
+		// let sliderWidth = (containerWidth * slidesToShow) * slideNum;
+		let sliderWidth = containerWidth * (actualCount * slidesToShow) ;
+
 		let difference = (startX - currentX);
-		let percentChange = (difference / sliderWidth) * 100;
+		let percentChange = (difference / containerWidth) * 100;
+
+		// let percentChange = (difference / sliderWidth) * 100;
 		let cumuChange = -percentChange + transformPercent;
 
 
 		if ((!currentSlide && difference < 0) || (currentSlide === numOfSlides && difference > 0)) difference /= 2;
-		$(slider).addClass('dragging');
+
+		$(wrapper).addClass('dragging');
 		$(slider).css("transform", "translate3d(" + cumuChange + "%,0,0)");
 
 		diffPath.diff = percentChange;
+
 	}
 
 	function touchEnd(container) {
+
+		console.log(`container: ${container}`);
 
 		let path = objIndex(settings, container);
 		let resIndex = path.resIndex;
@@ -351,20 +451,23 @@ $(document).ready(function () {
 		let currentSlide = genDynamicPath(true, path, resIndex, 'currentSlide');
 		let currentSlidePath = genDynamicPath(false, path, resIndex, 'currentSlide');
 		let actualCount = genDynamicPath(true, path, resIndex, 'actualCount')-1;
-		let slider = $(`#${container}`).find('.slider');
-
+		let slider = $(`#${container}`).find('.super-slider-track');
+		let wrapper = $(`#${container}`);
+		let diffPath = genDynamicPath(false, path, resIndex, 'diff');
 
 		let diff = genDynamicPath(true, path, resIndex, 'diff');
 		let infinite = genDynamicPath(true, path, resIndex, 'infinite');
 		let currentX = genDynamicPath(true, path, resIndex, 'currentX');
 
-		let sensor = 8;
+		let sensor = 10;
+
+		$(wrapper).removeClass('dragging');
 
 		// MOVE  - DID NOT MOVE (ANIMATION)
-		if (!diff) {
-			console.log(diff);
+		// if (!diff) {
+		// 	console.log(diff);
 			
-		}
+		// }
 
 		// MOVE - BACK
 		if (diff <= -sensor) {
@@ -379,8 +482,6 @@ $(document).ready(function () {
 
 			}
 		}
-		console.log(diff);
-		console.log(sensor);
 
 
 		// MOVE - FORWARD
@@ -397,7 +498,7 @@ $(document).ready(function () {
 			}
 		}
 
-		$(slider).removeClass('dragging');
+		diffPath.diff = 0;
 
 		changeSlideNew(container);
 
@@ -408,10 +509,6 @@ $(document).ready(function () {
 
 		let path = objIndex(settings, container);
 		let resIndex = path.resIndex;
-		
-		let numberOfSlides = genDynamicPath(true, path, resIndex, 'numOfSlides');
-		let slidesToShow = genDynamicPath(true, path, resIndex, 'slidesToShow');
-		let dots = genDynamicPath(true, path, resIndex, 'dots');
 		let actualCount = (genDynamicPath(true, path, resIndex, 'actualCount'))-1;
 		
 		let currentSlide = genDynamicPath(true, path, resIndex, 'currentSlide');
@@ -420,12 +517,15 @@ $(document).ready(function () {
 		let numOfSlides = genDynamicPath(true, path, resIndex, 'numOfSlides');
 		let infinite = genDynamicPath(true, path, resIndex, 'infinite');
 
-	
 		//Update object's currentSlide property.
 		if (direction == 'left') {
 			if (currentSlide > 0) {
-				currentSlidePath.currentSlide = actualCount - 1;
+				console.log('A        ');
+
+				currentSlidePath.currentSlide = currentSlide - 1;
 			} else {
+				console.log('B        ');
+
 				if (infinite === true) {
 					// Loop through 
 					currentSlidePath.currentSlide = actualCount;
@@ -433,6 +533,8 @@ $(document).ready(function () {
 
 			}
 		} else if (direction == 'right') {
+			console.log('C        ');
+
 			if (currentSlide < actualCount) {
 				currentSlidePath.currentSlide = currentSlide + 1;
 
@@ -461,92 +563,113 @@ $(document).ready(function () {
 	// automatic slide change
 	function autoSlide(container) {
 
+		let path = objIndex(settings, container);
+		let resIndex = path.resIndex;
+		
+		let actualCount = (genDynamicPath(true, path, resIndex, 'actualCount'))-1;
+		let currentSlide = genDynamicPath(true, path, resIndex, 'currentSlide');
+		let currentSlidePath = genDynamicPath(false, path, resIndex, 'currentSlide');
+		let autoPlay = genDynamicPath(true, path, resIndex, 'autoPlay');
+		let autoPlaySpeed = genDynamicPath(true, path, resIndex, 'autoPlaySpeed');
+		let isDragging = $(`#${container}`).hasClass('dragging');
 
-		let id = container.id;
-		let currentSlide = container.currentSlide;
-		let numOfSlides = container.numOfSlides;
-		let autoSlideDelay = container.autoSlideDelay;
+		if (autoPlay && isDragging !== true) {
+			
+			autoSlideTimeout = setTimeout(function () {
+
+				if (currentSlide < actualCount) {
+					currentSlidePath.currentSlide = currentSlide + 1;
+		
+				} else {
+					currentSlidePath.currentSlide = 0;
+		
+				}
+				changeSlideNew(container, true);
+
+			}, autoPlaySpeed);
+		}
+			
 
 
-
-		let autoSlideTimeout = setTimeout(function () {
-			container.currentSlide = currentSlide + 1;
-
-			if (currentSlide > numOfSlides) currentSlide = 0;
-
-			changeSlideNew(container);
-
-		}, autoSlideDelay);
 	}
 
-
-	///////////////////////
-	//    SLIDER INIT    //
-	//////////////////////	
-
-	
 
 
 	///////////////////////
 	//  EVENT LISTENERS  //
 	//////////////////////
 
-
-
 	// btn
-	$(document).on("click", '.slider-container  .slider-control .btn-arrow', function (e) {
+	$(document).on(touchEvent, '.super-slider .super-slider-nav .btn-arrow', function (e) {
 		e.preventDefault();
 
-		let container = $(this).closest('.slider-container').attr('id');
-		let direction = $(this).closest('.slider-control').data('direction');
+		let container = $(this).closest('.super-slider').attr('id');
+		let direction = $(this).closest('.super-slider-nav').data('direction');
 
+
+		
 		btnChangeSlide(container, direction);
 
 	});
 
 	// dots
-	$(document).on("click", '.slider-container   .slider-pagi__elem', function (e) {
+	$(document).on(touchEvent, '.super-slider   .super-slider-pag-elem', function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		let container = $(this).closest('.slider-container').attr('id');
+		let container = $(this).closest('.super-slider').attr('id');
 		let clickedSlide = $(this).data("page");
 
 		pagChangeSlide(container, clickedSlide);
 	});
 
+	// $(document).on("mousemove touchmove", function (e) {
+	// 	console.log('MOUSE MOVING');
+	// });
 
-	$(document).on("mousedown touchstart", ".slider-container   .wrapper ", function (e) {
+	$(document).on("mousedown touchstart", ".super-slider  ", function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var offset = $('.slider').offset();
 
-		let container = $(this).closest('.slider-container').attr('id');
+		var offset = $('.super-slider').offset();
+
+		let container = $(this).closest('.super-slider').attr('id');
+
 		let startX = event.pageX - offset.left;
 
 		touchStart(container, startX);
 
 		$(document).on("mousemove touchmove", function (e) {
+
+			console.log('2:   ALSO MOUSE MOVING');
+
 			var currentX = event.pageX - offset.left;
 
 			touchMove(container, currentX);
+
+			$(document).on("mouseleave", `#${container}` , function (e) {
+				$(document).off("mousemove touchmove");
+
+				e.preventDefault();
+				let container = $(this).closest('.super-slider').attr('id');
+				touchEnd(container);
+			});
+
+			
 		});
 
-
-		$(document).on("mouseleave", ".slider-container   .wrapper ", function (e) {
-			e.preventDefault();
-			let container = $(this).closest('.slider-container').attr('id');
-			$(document).off("mousemove touchmove");
-	
-			touchEnd(container);
-	
-		});
+		
 	});
 
-	$(document).on("mouseup touchend", ".slider-container  .wrapper ", function (e) {
+	
+
+	$(document).on("mouseup touchend", ".super-slider ", function (e) {
+
+		$(this).removeClass('currentlyActive');
+
 		e.preventDefault();
-		let container = $(this).closest('.slider-container').attr('id');
+		let container = $(this).closest('.super-slider').attr('id');
 		$(document).off("mousemove touchmove");
 
 		touchEnd(container);
