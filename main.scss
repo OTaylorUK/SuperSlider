@@ -30,11 +30,11 @@ section{
 
 	&.dragging{
 		cursor: grabbing; 
-		.super-slider-track{
+		.super-slider-track{ 
 			transition: none !important;
 		}
 	}
-	.super-slider-wrapper{
+	.super-wrapper{
 		position: relative;
 		flex: 4; 
 		order: 2;
@@ -42,15 +42,15 @@ section{
 		 overflow: hidden; 
 		height: 50vh;
 	}
-	.super-slider-nav{
+	.super-navigation{
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		padding: 1rem;
-		&.left{ 
+		&.back{ 
 			order: 1;
 		}
-		&.right{
+		&.forward{
 			order: 3;
 		}
 		button{
@@ -61,10 +61,10 @@ section{
 
 
 
-.super-slider-pagination{
+.super-dots{
 	order: 4;
 	flex-basis: 100%;
-	.super-slider-list{
+	.super-list{
 		width: 50%;
 		margin: auto;
 		padding: 1rem;
@@ -89,15 +89,25 @@ section{
 	}
 }
 
-.super-slider-track{
-	position: absolute;
+.super-track-wrapper{
+	// position: absolute;
 	width: 100%;
 	height: 100%;
-	left: 0px;
+	display: flex;
+	flex-flow: row;
+	position: relative;
+	.super-track{
+		width: 100%;
+		height: 100%;
+		left: 0px;
+		display: flex;
+		flex-flow: row;
+		position: relative;
+	}
 }
 .super-slide{
 	height: 100%;
-	position: absolute;
+	// position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: center;
