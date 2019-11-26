@@ -32,7 +32,6 @@
 			_.defaults = {
 
 				accessibility: true, // BOOLEAN - ALLOWS FOR KEYS TO MOVE SLIDER 
-	
 				arrows: true, // BOOLEAN - ADD ARROWS
 				arrowElement: '<button></button>',
 				arrowIcon: null,
@@ -62,7 +61,8 @@
 				transitionDelay: 0, 
 				transitionUnit: 'ms',
 
-			
+				touchThreshold: 2, // 1 least sensitive  5 most
+
 				infiniteScroll: true, // BOOLEAN - NEVER ENDING SCROLLING
 			
 				slidesToScroll: 1,
@@ -72,12 +72,6 @@
 			
 				zIndex: 1000,
 
-
-
-
-
-
-
 				////
 				adaptiveHeight: false,
 				
@@ -86,43 +80,10 @@
 				arrows: true,
 				asNavFor: null,
 			
-				autoplay: false,
-				autoplaySpeed: 3000,
-				centerMode: false,
-				centerPadding: '50px',
-				cssEase: 'ease',
-				dotsShow: true,
-				dots: '<div class="super-dot-inner"></div',
-				dotsClass: 'super-dots',
-				draggable: true,
-				easing: 'linear',
-				edgeFriction: 0.35,
-				fade: false,
-				infinite: true,
 				initialSlide: 1,
-				mobileFirst: true,
-				pauseOnHover: true,
-				pauseOnFocus: true,
-				pauseOnDotsHover: false,
-				respondTo: 'window',
-				responsive: null,
-				rows: 1,
-				rtl: false,
-				slidesPerRow: 1,
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				speed: 500,
-				swipe: true,
-				swipeToSlide: false,
-				touchMove: true,
-				touchThreshold: 2, // 1 least sensitive  5 most
-				useCSS: true,
-				useTransform: true,
-				variableWidth: false,
-				vertical: false,
-				verticalSwiping: false,
-				waitForAnimate: true,
-				zIndex: 1000
+				
+				mobileFirst: true, // to look at
+			
 			};
 
 			// DEFAULT INITIALS //
