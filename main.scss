@@ -25,7 +25,10 @@ section{
 .super-slider {
 	width: 100%;   
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: row wrap; 
+	&:focus{
+		outline: none;
+	}
 	cursor: grab;
 
 	&.dragging{
@@ -47,10 +50,10 @@ section{
 		justify-content: center;
 		align-items: center;
 		padding: 1rem;
-		&.back{ 
+		&.previous{ 
 			order: 1;
 		}
-		&.forward{
+		&.next{
 			order: 3;
 		}
 		button{
@@ -61,7 +64,7 @@ section{
 
 
 
-.super-dots{
+.super-indicators{
 	order: 4;
 	flex-basis: 100%;
 	.super-list{

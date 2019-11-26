@@ -30,14 +30,62 @@
 
 			// DEFAULT SETTINGS //
 			_.defaults = {
-				accessibility: true,
+
+				accessibility: true, // BOOLEAN - ALLOWS FOR KEYS TO MOVE SLIDER 
+	
+				arrows: true, // BOOLEAN - ADD ARROWS
+				arrowElement: '<button></button>',
+				arrowIcon: null,
+				arrowClass: '',
+				arrowDirections: ['previous', 'next'],
+				arrowAppend: $(element), // WHERE TO ADD ARROW ELEMENTS
+			
+				autoPlay: false, // BOOLEAN - AUTOPLAY SLIDES,
+				AutoPlayDelay: 3000,
+
+				APPauseOnHover: true,
+
+				customClass: null,
+			
+				indicator: true, // BOOLEAN - ADD INDICATORS/DOTS 
+				indicatorElement: '<div></div>',
+				indicatorClass: 'TEST',
+
+				indicatorAppend: $(element), // WHERE TO ADD INDICATOR ELEMENTS
+			
+				responsive: null,
+				respondTo: 'window',
+			
+				transitions: true, // BOOLEAN - CSS TRANSITION ON TRANSFORM 
+				transitionProperty: 'ease',
+				transitionSpeed: 800,  // DEFAULT 'MS'
+				transitionDelay: 0, 
+				transitionUnit: 'ms',
+
+			
+				infiniteScroll: true, // BOOLEAN - NEVER ENDING SCROLLING
+			
+				slidesToScroll: 1,
+				slidesToShow: 1,
+			
+				touchSensitivity: 2, // SCALE 1-5 (1 low, 5 highest)
+			
+				zIndex: 1000,
+
+
+
+
+
+
+
+				////
 				adaptiveHeight: false,
-				appendArrows: $(element),
+				
+				arrowAppend: $(element),
 				appendDots: $(element),
 				arrows: true,
 				asNavFor: null,
-				prevArrow: '<button class="super-prev" aria-label="Previous" type="button">Previous</button>',
-				nextArrow: '<div class="super-navigation forward"> <button class="super-next" aria-label="Next" type="button">Next</button> </div>',
+			
 				autoplay: false,
 				autoplaySpeed: 3000,
 				centerMode: false,
@@ -60,7 +108,6 @@
 				responsive: null,
 				rows: 1,
 				rtl: false,
-				slide: '',
 				slidesPerRow: 1,
 				slidesToShow: 1,
 				slidesToScroll: 1,
@@ -92,7 +139,7 @@
 				listHeight: null,
 				loadIndex: 0,
 				$nextArrow: null,
-				$prevArrow: null,
+				$previousArrow: null,
 				scrolling: false,
 				slideCount: null,
 				slideWidth: null,
@@ -132,7 +179,7 @@
 			_.windowWidth = 0;
 			_.windowTimer = null;
 
-			dataSettings = $(element).data('super') || {};
+			dataSettings = $(element).data('super') || {}; // get 'data-super' values
 
 			// ADDS CUSTOMISED SETTINGS TO THE OPTIONS //
 			_.options = $.extend({}, _.defaults, settings, dataSettings);
@@ -145,9 +192,12 @@
 
 
 			// STORES FUNCTIONS //
+
+			
+			_.config = $.proxy(_.config, _);
 			_.buildWrappers = $.proxy(_.buildWrappers, _);
 			_.buildNavigation = $.proxy(_.buildNavigation, _);
-			_.buildDots = $.proxy(_.buildDots, _);
+			_.buildIndicators = $.proxy(_.buildIndicators, _);
 			_.buildSlides = $.proxy(_.buildSlides, _);
 			_.initEvents = $.proxy(_.initEvents, _);
 			_.updateNavigation = $.proxy(_.updateNavigation, _);
@@ -155,6 +205,9 @@
 			_.changeSlide = $.proxy(_.changeSlide, _);
 			_.cloneReset = $.proxy(_.cloneReset, _);
 			_.updateClasses = $.proxy(_.updateClasses, _);
+			_.keyHandler = $.proxy(_.keyHandler, _);
+			
+
 
 			_.swipeHandler = $.proxy(_.swipeHandler, _);
 			_.autoPlayIterator = $.proxy(_.autoPlayIterator, _);
@@ -249,6 +302,8 @@
 
 		var _ = this;
 
+		_.config();
+
 		//  1. CONTAINER/WRAPPERS
 		_.buildWrappers();
 
@@ -256,7 +311,7 @@
 		_.buildNavigation();
 
 		//  3. DOTS
-		_.buildDots();
+		_.buildIndicators();
 
 		//  4. TRACK
 		_.buildTrack();
@@ -274,174 +329,213 @@
 		}
 
 	};
+	Super.prototype.config = function () {
 
+		var _ = this,
+			bodyStyle = document.body.style;
+		
+		// BROWSER SUPPORT FOR TRANSFORM ON DRAG  -- PUT SOMEWHERE SEPARATE //
+		if (bodyStyle.OTransform !== undefined) {
+			_.transformType = 'OTransform';
+			_.transformType = '-o-transform';
+			_.transitionType = 'OTransition';
+			if (bodyStyle.perspectiveProperty === undefined && bodyStyle.webkitPerspective === undefined) _.transformType = false;
+		}
+		if (bodyStyle.MozTransform !== undefined) {
+			_.transformType = 'MozTransform';
+			_.transformType = '-moz-transform';
+			_.transitionType = 'MozTransition';
+			if (bodyStyle.perspectiveProperty === undefined && bodyStyle.MozPerspective === undefined) _.transformType = false;
+		}
+		if (bodyStyle.webkitTransform !== undefined) {
+			_.transformType = 'webkitTransform';
+			_.transformType = '-webkit-transform';
+			_.transitionType = 'webkitTransition';
+			if (bodyStyle.perspectiveProperty === undefined && bodyStyle.webkitPerspective === undefined) _.transformType = false;
+		}
+		if (bodyStyle.msTransform !== undefined) {
+			_.transformType = 'msTransform';
+			_.transformType = '-ms-transform';
+			_.transitionType = 'msTransition';
+			if (bodyStyle.msTransform === undefined) _.transformType = false;
+		}
+		if (bodyStyle.transform !== undefined && _.transformType !== false) {
+			_.transformType = 'transform';
+			_.transformType = 'transform';
+			_.transitionType = 'transition';
+		}
+		console.log(bodyStyle.webkitTransform); 
+
+		console.log(_.transformType);
+		console.log(_.transitionType);
+
+	};
 	Super.prototype.buildWrappers = function () {
-		var _ = this;
+		var _ = this,
+			customClass = _.options.customClass !== null ? _.options.customClass : '',
+			newSlides,
+			tabIndex,
+			group,
+			slide,
+			content;
 
-		_.$slider.addClass(`super-slider super-${_.instanceUid} `)
-		
-		_.$originalslides = _.$slider.children(_.options.slide); // ORIGINAL CONTENT
+		// CREATE SLIDER DOM CONTENT //
 
-		_.$track = _.$originalslides.wrapAll('<div class="super-track"/>').parent();
+		// ORIGINAL CONTENT BEFORE INIT
+		_.$originalslides = _.$slider.children(); 
 
-		_.$trackWrapper = _.$track.wrap('<div class="super-track-wrapper"/>').parent();
+		_.$slider.addClass('super-slider ' + customClass + '').attr('tabindex', 1);
 
-		_.$wrapper = _.$trackWrapper.wrap('<div class="super-wrapper"/>').parent();
+		_.$track = _.$originalslides
+			.wrapAll('<div/>')
+			.parent()
+			.addClass('super-track');
 
-		var newSlides = document.createDocumentFragment();
-		 
+		_.$trackWrapper = _.$track
+			.wrap('<div/>')
+			.parent()
+			.addClass('super-track-wrapper');
 
+		_.$wrapper = _.$trackWrapper
+			.wrap('<div/>')
+			.parent()
+			.addClass('super-wrapper');
+
+
+		// TOTAL ACTUAL SLIDES & TOTAL SLIDE GROUPS 
 		_.slideCount = _.$originalslides.length;
-		_.totalSlides = Math.ceil(_.slideCount / _.options.slidesToShow); // SET THE TOTAL SLIDE VALUE
-		
+		_.totalSlides = Math.ceil(_.slideCount / _.options.slidesToShow); 
 
-		// CREATE SLIDES //
+		// REMOVE DOM ELEMENTS - TO BE REPLACED BY NEW SLIDES
+		_.$track.empty();
 
 		_.$originalslides.each(function (i) {  
-			var tabIndex = i + 1;
+			tabIndex = i + 1;
+			group = Math.ceil(tabIndex / _.options.slidesToShow);
+			content = $(_.$originalslides.get(i));
 
-			var slide = document.createElement('div');
-			slide.className = `super-slide`;
-			slide.dataset.groupIndex =  Math.ceil(tabIndex / _.options.slidesToShow); // GROUP
-			slide.dataset.tabIndex =  Math.ceil(tabIndex / _.options.slidesToShow) - 1; // MOVE AMOUNT
-			
+			slide = $(content)
+				.addClass('item')
+				.wrap('<div/>')
+				.parent()
+				.addClass('super-slide')
+				.attr('data-group-index', group)
+				.attr('data-group-tab-index', (group - 1));
 
-			var content = _.$originalslides.get(i);
-
-			$(content).addClass('item');
-
-			slide.appendChild(content);
-			newSlides.appendChild(slide);
-			
+			_.$track.append(slide);
 		});
 
-		// EMPTY CONTENT AND ADD NEW SLIDES //
-		_.$track.empty().append(newSlides);
+		// STORE NEW DOM ELEMENTS AS THE SLIDES
+		_.$slides = _.$track.children(); 
 
-
-		_.$slides = _.$track.children(); // SLIDES NEW
+		
 
 	};
 	Super.prototype.buildNavigation = function () {
 
-		var _ = this;
+		var _ = this,
+			element,
+			direction,
+			directions = _.options.arrowDirections,
+			content;
 
+		// ADD NAVIGATION IF ALLOWED
 		if (_.options.arrows === true) {
+			
+			for (direction of directions) {
+				content = _.options.arrowIcon !== null ? _.options.arrowIcon : direction;
 
-			// PREVIOUS ARROW //
-			_.$prevArrow = _.options.prevArrow;
-			_.$prevArrow = $(_.$prevArrow).wrap('<div class="super-navigation back"/>').parent();
-			$(_.$prevArrow).addClass(''); // ADD CUSTOM CLASS
-			_.$prevArrow.prependTo(_.options.appendArrows);
+				element = _.options.arrowElement;
+				element = $(element)
+					.html(content)
+					.addClass('super-' + direction + '')
+					.attr('aria-label', direction);
 
-			// NEXT ARROW //
-			_.$nextArrow = _.options.nextArrow;
-			_.$nextArrow = $(_.$nextArrow).wrap('<div class="super-navigation forward"/>').parent();
-			$(_.$nextArrow).addClass(''); // ADD CUSTOM CLASS
-			_.$nextArrow.appendTo(_.options.appendArrows);
+				element = $(element)
+					.wrap('<div/>')
+					.parent()
+					.addClass('super-navigation ' + direction + '');
 
+				if (direction == 'previous') {
+					_.$previousArrow = element;
+					element
+						.prependTo(_.options.arrowAppend);
+				} else {
+					_.$nextArrow = element;
+					element
+						.appendTo(_.options.arrowAppend);
+				}
+			}
 		}
 
 	};
-	Super.prototype.buildDots = function () {
+	Super.prototype.buildIndicators = function () {
 
-		var _ = this;
+		var _ = this,
+			i = 1,
+			container,
+			element;
 		
-		if (_.options.dotsShow === true) {
+		// ADD INDICATORS IF ALLOWED
+		if (_.options.indicator === true) {
 
-			var dotList = document.createDocumentFragment();
-			var wrapper = document.createElement('div');
-			wrapper.className = `super-dots`;
+			container = $('<ul/>')
+				.addClass('super-list');
 
-			var list = document.createElement('ul');
-			list.className = `super-list`;
+			while (i <= _.totalSlides) {
 
-			
-			for (let i = 1; i <= _.totalSlides; i++) {
+				element = $(_.options.indicatorElement)
+					.addClass('super-indicator-inner')
+					.wrap('<li/>')
+					.parent()
+					.addClass('super-indicator ' + _.options.indicatorClass + '')
+					.attr('data-tab-index', i);
 
-				var dot = document.createElement('li');
-				dot.className = `super-dot`;
-				dot.dataset.tabIndex = i;
-
-
-				var content = document.createElement('div');
-				content.className = `super-dot-inner`;
-
-
-				dot.appendChild(content);
-				list.appendChild(dot);
+				element.appendTo(container);
+				i++;
 			}
 
-			wrapper.appendChild(list);
-			dotList.appendChild(wrapper);
+			container = $(container)
+				.wrap('<div/>')
+				.parent()
+				.addClass('super-indicators')
 
+			container.appendTo(_.options.indicatorAppend);
 
-			_.$slider.append(dotList);
-
-
-			_.$dotContainer = _.$slider.find('.super-dots');
+			_.$dotContainer = _.$slider.find('.super-indicators');
 			_.$list = _.$dotContainer.children();
-
-			_.$dots = _.$list.children();
-
+			_.$indicators = _.$list.children();
 		}
-
+	
 		_.updateClasses();
-
 	};
+
 	Super.prototype.buildTrack = function () {
 		var _ = this,
-			bodyStyle = document.body.style;
+			groupCount,
+			trackWidth;
+		
+		_.sliderWidth = _.$wrapper.width();
 
-		_.sliderWidth =  _.$wrapper.width();
-		let slideCount = _.totalSlides + (2); // ADD TWO FOR CLONED GROUP AT START AND END
-		let trackWidth = _.sliderWidth * slideCount;
-		_.offset = _.sliderWidth; // THIS IS BASICALLY THE WRAPPER WIDTH BUT BETTER TO SET IT SEPERATE
+		groupCount = _.totalSlides + (2); // ADD TWO FOR CLONED GROUP AT START AND END
+		trackWidth = _.sliderWidth * groupCount;
 
-		_.$trackWrapper.css('left', `-${_.offset}px`);
+		_.offset = _.sliderWidth; 
 
-		_.$trackWrapper.width(trackWidth);
-
-
-		// BROWSER SUPPORT FOR TRANSFORM ON DRAG  -- PUT SOMEWHERE SEPARATE //
-		if (bodyStyle.OTransform !== undefined) {
-            _.transformType = 'OTransform';
-            _.transformType = '-o-transform';
-            _.transitionType = 'OTransition';
-            if (bodyStyle.perspectiveProperty === undefined && bodyStyle.webkitPerspective === undefined) _.transformType = false;
-        }
-        if (bodyStyle.MozTransform !== undefined) {
-            _.transformType = 'MozTransform';
-            _.transformType = '-moz-transform';
-            _.transitionType = 'MozTransition';
-            if (bodyStyle.perspectiveProperty === undefined && bodyStyle.MozPerspective === undefined) _.transformType = false;
-        }
-        if (bodyStyle.webkitTransform !== undefined) {
-            _.transformType = 'webkitTransform';
-            _.transformType = '-webkit-transform';
-            _.transitionType = 'webkitTransition';
-            if (bodyStyle.perspectiveProperty === undefined && bodyStyle.webkitPerspective === undefined) _.transformType = false;
-        }
-        if (bodyStyle.msTransform !== undefined) {
-            _.transformType = 'msTransform';
-            _.transformType = '-ms-transform';
-            _.transitionType = 'msTransition';
-            if (bodyStyle.msTransform === undefined) _.transformType = false;
-        }
-        if (bodyStyle.transform !== undefined && _.transformType !== false) {
-            _.transformType = 'transform';
-            _.transformType = 'transform';
-            _.transitionType = 'transition';
-        }
+		_.$trackWrapper
+			.css('left', `-${_.offset}px`)
+			.width(trackWidth);
 	};
+
 	Super.prototype.buildSlides = function () {
 
-		var _ = this;
+		var _ = this,
+			slideWidth,
+			addSlide = false,
+			i = 0,
+			groupIndex;
 
-		let wrapperWidth = _.$wrapper.width();
-
-		var slideWidth = wrapperWidth / _.options.slidesToShow;
-
+		slideWidth = _.sliderWidth / _.options.slidesToShow;
 
 		function fits(x, y) {
 			if (Number.isInteger(y / x)) {
@@ -450,87 +544,53 @@
 			return false;
 		}
 
-
-
-		var addSlide;
 		if (fits(_.options.slidesToShow, _.$originalslides.length) === false) {
 			addSlide = true;
 		}
 
-
-		var i = 0;
-
+		// SIZE SLIDES & CREATE CLONES
 		_.$slides.each(function (i) {  
-			$(this).css('width', `${slideWidth}px`); // SETS WIDTH DEPENDANT ON NUM OF SLIDES TO SHOW
-			let groupIndex = $(this).data('group-index');
+			$(this)
+				.css('width', `${slideWidth}px`); // SETS WIDTH DEPENDANT ON NUM OF SLIDES TO SHOW
+			groupIndex = $(this).data('group-index');
 
-			// FIRST
 			if (groupIndex == 1) {
-				
 				$(this).clone().appendTo(_.$track).addClass('cloned last');
 
 				// IF A SLIDE IS MISSING THEN ADD A 'FILLER SLIDE'
 				if (addSlide) { 
-						while (i < 1) {
-							$(this).clone().prependTo(_.$track).addClass('cloned cloned-filler');
-							i++;
-						}
+					// LIMIT TO ONLY ONCE
+					while (i < 1) {
+						$(this).clone().prependTo(_.$track).addClass('cloned cloned-filler');
+						i++;
+					}
 				}
-				
 			} 
-			
 		});
-
 		
 		// NEED TO REVERSE THE ORDER IN ORDER TO OUTPUT THE CLONES IN THE CORRECT ORDER //
 		$(_.$slides.get().reverse()).each(function (i) {  
-			$(this).css('width', `${slideWidth}px`); // SETS WIDTH DEPENDANT ON NUM OF SLIDES TO SHOW
-			let groupIndex = $(this).data('group-index');
+			groupIndex = $(this).data('group-index');
 
-			
-			// LAST
 			if (groupIndex == _.totalSlides) {
 				$(this).clone().prependTo(_.$track).addClass('cloned first');
 			} 
-		
 			
 		});
-
-	
-	
 
 		_.$clones = _.$track.children('.cloned'); // STORE CLONES
 
 	};
 
 
-
-	Super.prototype.slideBuild = function () {
-
-	};
-
-	Super.prototype.slidePosition = function () {
-
-	};
-	Super.prototype.slideClone = function () {
-
-	};
-
 	Super.prototype.initEvents = function () {
-        var _ = this;
+		var _ = this;
+		
+		_.currentOffset = 0;
 
 		_.initArrowEvents();
 		_.initDotEvents();
 
-		
-
-		// DRAGGIN FUNCTIONALITY TO ADD LATER //
-
-		// CONFIG SETTINGS
-		_.currentOffset = 0;
-
-	
-	
         _.$wrapper.on('touchstart mousedown', {
             action: 'start'
         }, _.swipeHandler);
@@ -544,17 +604,20 @@
             action: 'end'
         }, _.swipeHandler);
 
-
 		$(window).on('orientationchange' , $.proxy(_.orientationChange, _));
-
 		$(window).on('resize' , $.proxy(_.resize, _));
 		
-		if ( _.options.pauseOnHover ) {
+		// PAUSE AUTOPLAY ON MOUSE ENTER/HOVER //
+		if ( _.options.APPauseOnHover ) {
 
             _.$slider.on('mouseenter', $.proxy(_.interrupt, _, true));
             _.$slider.on('mouseleave', $.proxy(_.interrupt, _, false));
 
-        }
+		}
+		
+		if (_.options.accessibility === true) {
+			_.$slider.unbind('keydown').on('keydown', _.keyHandler);
+		}
 	};
 
 	// SWIPE EVENT HANDLERS //
@@ -581,7 +644,8 @@
 
 	Super.prototype.swipeStart = function (event) {
 		var _ = this,
-				touches;
+				touches,
+				positionProps = {};
 		
 		if (event.originalEvent !== undefined && event.originalEvent.touches !== undefined) {
             touches = event.originalEvent.touches[0];
@@ -592,12 +656,8 @@
 
 		// SET DRAGGING TO TRUE
 		_.dragging = true;
-		
 
-		// SET TRANSITION TO NOTHING ON CLICK
-		var positionProps = {};
-
-		positionProps[_.animProp] = 'transform 0ms ease 0s';
+		positionProps[_.animProp] = 'transform 0ms '+_.options.transitionProperty+' 0s';
 
 		_.$track.css(positionProps);
 		
@@ -605,30 +665,24 @@
 
 	Super.prototype.swipeMove = function (event) {
 		var _ = this,
-				touches;
+				touches,
+				currentOffset,
+				positionMove,
+				moveAmount;
 
 		touches = event.originalEvent !== undefined ? event.originalEvent.touches : null;
-
-		var currentOffset = _.currentOffset !== undefined ? _.currentOffset : 0;
+		currentOffset = _.currentOffset !== undefined ? _.currentOffset : 0;
 
 		_.touchObject.curX = touches !== undefined ? touches[0].pageX : event.clientX;
-
 		_.touchObject.difference = _.touchObject.curX - _.touchObject.startX;
 
-		var positionMove = _.touchObject.curX > _.touchObject.startX ? 1 : -1;
-
+		positionMove = _.touchObject.curX > _.touchObject.startX ? 1 : -1;
 
 		// CALCULATE THE DIFFERENCE BETWEEN START AND CURRENT POINT
-
 		_.touchObject.swipeLength = Math.round(Math.sqrt(Math.pow(_.touchObject.difference, 2)));
 
-		// GET CURRENT OFFSET AMOUNT
-		// 
-
 		// IF CURRENT POSITION IS GREATER THAN THE START POSITION THEN POSITIVE NUMBER
-
-		var moveAmount = currentOffset + _.touchObject.swipeLength * positionMove;
-
+		moveAmount = currentOffset + _.touchObject.swipeLength * positionMove;
 
 		_.sliderMoveCSS(moveAmount);
 		
@@ -636,83 +690,57 @@
 
 	Super.prototype.swipeEnd = function (event) {
 		var _ = this,
-		slideCount,
-		direction,
-		targetSlide;
+			movedClone = false,
+			swipeMessage;
 
 		_.dragging = false;
 		_.swiping = false;
-
-		if (_.scrolling) {
-			_.scrolling = false;
-			return false;
-		}
-
 		_.interrupted = false;
-		_.shouldClick = ( _.touchObject.swipeLength > 10 ) ? false : true;
 
 		if ( _.touchObject.curX === undefined ) {
 			return false;
 		}
-
-		var movedClone = false, swipeMessage;
 		
 		if (_.touchObject.swipeLength >= _.touchObject.minSwipe) {
+			// PREVIOUS SLIDE //
 			if (_.touchObject.difference > 0) {
-				// // PREVIOUS SLIDE //
 				swipeMessage = 'previous';
 
+			// NEXT SLIDE //
 			} else if (_.touchObject.difference < 0) {
-				// // NEXT SLIDE //
 				swipeMessage = 'next';
-
 			}
 		} else {
 			swipeMessage = 'no move';
-
 		}
-
+		
+		// RESET THE TOUCH OBJECT
 		_.touchObject = {};
 
 		if (swipeMessage !== 'no move') {
+			// MOVE TRACK TO NEW SLIDE
 			_.changeSlide(event, swipeMessage)
 
 		} else {
+			// RESET TRACK TO CURRENT SLIDE
 			_.resetTrack(event, swipeMessage)
-
 		}
 
 	};
 
-	// UPDATE SLIDER //
-	Super.prototype.updateTrack = function (targetSlide, movedClone) {
-	
-		var _ = this;
-
-		var trackMove = (targetSlide - 1) * _.offset;
-
-		// _.$track.css('transform',  'translate3d(' + trackMove + 'px, 0px, 0px)');
-
-		// _.currentSlide = targetSlide; // UPDATE CURRENT SLIDE
-	};
 
 	Super.prototype.resetTrack = function (moveAmount) {
-		var _ = this;
+		var _ = this,
+			positionProps = {},
+			x;
 
-		var positionProps = {};
+		x = -(_.currentSlide - 1) * _.offset;
 
-		x = x + 'px';
-
-		var x = -(_.currentSlide - 1) * _.offset;
-
-		positionProps[_.animProp] = 'transform '+ _.options.speed +'ms '+ _.options.cssEase +' 0s';
+		positionProps[_.animProp] = 'transform ' + _.options.transitionSpeed  + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
+		
 		positionProps[_.transformType] = 'translate3d(' + x + 'px, 0px, 0px)';
 
 		_.$track.css(positionProps);
-
-
-
-
 
 	};
 
@@ -740,7 +768,7 @@
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            _.$prevArrow
+            _.$previousArrow
                .off('click')
                .on('click', {
                     message: 'previous'
@@ -752,7 +780,7 @@
                }, _.changeSlide);
 
             // if (_.options.accessibility === true) {
-            //     _.$prevArrow.on('keydown.super', _.keyHandler);
+            //     _.$previousArrow.on('keydown.super', _.keyHandler);
             //     _.$nextArrow.on('keydown.super', _.keyHandler);
             // }
         }
@@ -768,7 +796,7 @@
 		// _.autoPlayTimer = setInterval( _.autoPlayIterator, _.options.autoplaySpeed );
 
 		if (!init) {
-			_.autoPlayTimer = setInterval( _.autoPlayIterator, _.options.autoplaySpeed );
+			_.autoPlayTimer = setInterval( _.autoPlayIterator, _.options.AutoPlayDelay );
 			
 		}
 	};
@@ -821,47 +849,73 @@
 
 		var _ = this;
 		
-		if (_.options.dotsShow === true && _.slideCount > _.options.slidesToShow) {
+		if (_.options.indicator === true && _.slideCount > _.options.slidesToShow) {
 
-			_.$dots.on('click', {
+			_.$indicators.on('click', {
 				message: 'dots'
 			}, _.changeSlide);
 				
+			
+			
 		}
 
         // if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
-        //     $('li', _.$dots).on('click.super', {
+        //     $('li', _.$indicators).on('click.super', {
         //         message: 'index'
         //     }, _.changeSlide);
 
         //     if (_.options.accessibility === true) {
-        //         _.$dots.on('keydown.super', _.keyHandler);
+        //         _.$indicators.on('keydown.super', _.keyHandler);
         //     }
         // }
 
         // if (_.options.dots === true && _.options.pauseOnDotsHover === true && _.slideCount > _.options.slidesToShow) {
 
-        //     $('li', _.$dots)
+        //     $('li', _.$indicators)
         //         .on('mouseenter.super', $.proxy(_.interrupt, _, true))
         //         .on('mouseleave.super', $.proxy(_.interrupt, _, false));
 
         // }
 
+	};
+
+	Super.prototype.keyHandler = function(event) {
+		var _ = this;
+
+        // IGNORE IF SELECTION ON A FORM
+        if(!event.target.tagName.match('TEXTAREA|INPUT|SELECT')) {
+
+			if (event.keyCode === 37) {
+				_.changeSlide({
+					data: {
+						message: 'previous'
+					}
+				});
+			} else if (event.keyCode === 39) {
+				_.changeSlide({
+					data: {
+						message: 'next'
+					}
+				});
+			}
+        }
     };
 	
 	Super.prototype.changeSlide = function(event, swipeMessage) {
-		var _ = this, trackMove, targetSlide, $target, message;
+		var _ = this,
+			targetGroup,
+			positionMove,
+			$target,
+			message = swipeMessage,
+			moveToClone = false,
+			slideTab,
+			positionProps = {};
 
-		message = swipeMessage;
+
 		if (event !== undefined) {
 			$target = $(event.currentTarget);
 			message = event.data.message !== undefined ? event.data.message : swipeMessage;
 		}
-
-		var positionMove;
-		var moveToClone = false;
-		var targetGroup;
-
 
 		if($target){
 			// If target is a link, prevent default action.
@@ -875,10 +929,10 @@
 			}
 		}
 
+		// EVENT HANDLER 
 		switch (message) {
 
 			case 'previous':
-
 				// IF THE PREVIOUS SLIDE IS SMALLER THAN 1 THEN RESET TO LAST ELSE MINUS 1
 				targetGroup = (_.currentSlide - 1 < 1) ? _.totalSlides : _.currentSlide - 1;
 
@@ -887,21 +941,17 @@
 					moveToClone = true;
 					positionMove = -1;
 				}
-
 				break;
 
 			case 'next':
 
-
 				// IF THE NEXT SLIDE IS EQUAL TO OR BIGGER THAN MAX SLIDES THEN RESET TO FIRST
 				targetGroup = (_.currentSlide + 1 > _.totalSlides) ? 1 : _.currentSlide + 1;
-
 
 				// INFINITE SCROLL -  IF NEXT SLIDE IS LOWER THAN CURRENT 
 				if(targetGroup < _.currentSlide){
 					moveToClone = true;
 					positionMove = _.totalSlides;
-
 				}
 
 				break;
@@ -918,14 +968,10 @@
 				} else if (_.currentSlide == _.totalSlides && targetGroup == 1) {
 					moveToClone = true;
 					positionMove = _.totalSlides;
-
 				} 
-
-
 				break;
 
 			default:
-
 				return;
 		}
 
@@ -933,56 +979,42 @@
 		// UPDATE CURRENT SLIDE
 		_.currentSlide = targetGroup;
 		
-		var slideTab = moveToClone !== true ? _.currentSlide - 1 : 1 * positionMove ; 
+		slideTab = moveToClone !== true ? _.currentSlide - 1 : 1 * positionMove ; 
 
 		// NEW CURRENT OFFSET
-		_.currentOffset = -(slideTab * _.offset);  // e.g.  (2 * 400px) * -1 = -800px
+		_.currentOffset = -(slideTab * _.offset); 
 
-		// MOVE TRACK TO NEW OFFSET
-		var positionProps = {};
-
-		positionProps[_.animProp] = 'transform '+ _.options.speed +'ms '+ _.options.cssEase +' 0s';
+		positionProps[_.animProp] = 'transform ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
+		
 		positionProps[_.transformType] = 'translate3d(' + _.currentOffset + 'px, 0px, 0px)';
 
 		_.$track.css(positionProps);
 
-
-
+		// RESET TRACK TO CLONES REAL POSITION
 		if (moveToClone === true) {
-
-			// RESET TRACK TO CLONES REAL POSITION
-			setTimeout(function () { _.cloneReset(_.currentSlide - 1, positionMove); }, 500);
-
+			setTimeout(function () { _.cloneReset(_.currentSlide - 1, positionMove); }, _.options.transitionSpeed);
 		}
-
 		setTimeout(function () { _.updateClasses(); }, 250);
-
-        
 
 	};
 
 	Super.prototype.updateClasses = function () { 
-		var _ = this;
+		var _ = this,
+			positionProps = {};;
 
-		var positionProps = {};
-
-		positionProps[_.animProp] = 'transform 0s linear 0s';
+		positionProps[_.animProp] = 'transform ' + '0' + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + '0' + _.options.transitionUnit;
 
 		_.$track.css(positionProps);
 
-		_.$dots.each(function (i) {
-			$(this).removeClass('current-slide');
+		_.$indicators.each(function () {
+			$(this).removeClass('current-slide active');
 
 			if ($(this).data('tab-index') == _.currentSlide) {
 				$(this).addClass('active');
-			} else {
-				$(this).removeClass('active');
-				
-			}
+			} 
 		});
-		
 
-		_.$slides.each(function (i) {
+		_.$slides.each(function () {
 			$(this).removeClass('current-slide');
 
 			if ($(this).data('group-index') == _.currentSlide) {
@@ -995,36 +1027,27 @@
 
 	Super.prototype.cloneReset = function (cloneTab, positionMove) { 
 
-		var _ = this;
-
+		var _ = this,
+			positionProps = {};
 
 		_.$slides.each(function (i) {
 			if($(this).data('tab-index') == cloneTab){
 				$(this).addClass('current-slide');
 			}
 		});
-
-
 		
 		// NEW CURRENT OFFSET
 		_.currentOffset = -(cloneTab * _.offset) ;  // e.g.  (2 * 400px) * -1 = -800px
 
+		positionProps[_.animProp] = 'transform ' + '0' + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + '0' + _.options.transitionUnit;
 
-
-		// MOVE TRACK TO NEW OFFSET
-		var positionProps = {};
-
-		positionProps[_.animProp] = 'transform 0ms ease 0s';
 		positionProps[_.transformType] = 'translate3d(' + _.currentOffset + 'px, 0px, 0px)';
 
 		_.$track.css(positionProps);
 
-
-		
 	}
 
 
-	// TO CHECK //
 	Super.prototype.resize = function() {
 
 		var _ = this;
@@ -1042,33 +1065,21 @@
 	};
 
 	Super.prototype.updateSizes = function () {
-		var _ = this;
+		var _ = this,
+			wrapperWidth = _.$wrapper.width(),
+			slideWidth;
 
 
-		let wrapperWidth = _.$wrapper.width();
-
-		var slideWidth = wrapperWidth / _.options.slidesToShow;
+		slideWidth = wrapperWidth / _.options.slidesToShow;
 
 		_.sliderWidth =  wrapperWidth;
-		_.offset = _.sliderWidth;
+		_.offset = wrapperWidth;
 
-
-		_.$track.children().each(function (i) {
-			$(this).css('width', `${slideWidth}px`); // SETS WIDTH DEPENDANT ON NUM OF SLIDES TO SHOW
-
+		_.$track.children().each(function () {
+			$(this).css('width', `${slideWidth}px`); 
 		});
-
-		_.$trackWrapper.css('left', `-${_.offset}px`);
-
-
 		
-		function fits(x, y) {
-			if (Number.isInteger(y / x)) {
-			  return 'Fits!';
-			}
-			return 'Does NOT fit!';
-		}
-
+		_.$trackWrapper.css('left', `-${_.offset}px`);
 		
 	};
 
@@ -1077,26 +1088,10 @@
         var _ = this,
 			breakpoint, 
 			targetBreakpoint, 
-			respondToWidth,
-			triggerBreakpoint = false;
+			triggerBreakpoint = false,
+			windowWidth = window.innerWidth || $(window).width(),
+			wrapperWidth = _.$wrapper.width();
 		
-        var sliderWidth = _.$slider.width();
-		var windowWidth = window.innerWidth || $(window).width();
-		
-		let wrapperWidth = _.$wrapper.width();
-
-		var slideWidth = wrapperWidth / _.options.slidesToShow;
-
-		
-        if (_.respondTo === 'window') {
-            respondToWidth = windowWidth;
-        } else if (_.respondTo === 'slider') {
-            respondToWidth = sliderWidth;
-        } else if (_.respondTo === 'min') {
-            respondToWidth = Math.min(windowWidth, sliderWidth);
-		}
-		
-		// 
 
         if ( _.options.responsive  !== null && _.options.responsive.length > 0) {
 
@@ -1106,7 +1101,7 @@
 				if (_.breakpoints.hasOwnProperty(breakpoint)) {
 					
                    
-					if (respondToWidth > _.breakpoints[breakpoint]) {
+					if (windowWidth > _.breakpoints[breakpoint]) {
 						targetBreakpoint = _.breakpoints[breakpoint];
 					}
                 }
@@ -1150,10 +1145,6 @@
                 }
             }
 
-            // only trigger breakpoints during an actual break. not on initialize.
-            if( !initial && triggerBreakpoint !== false ) {
-                _.$slider.trigger('breakpoint', [_, triggerBreakpoint]);
-            }
         }
 
     };
@@ -1162,39 +1153,33 @@
 
         var _ = this;
 		
-        // _.checkResponsive();
-        // _.setPosition();
-
+       _.checkResponsive();
 	};
 	
 
 
 	Super.prototype.refresh = function( initializing ) {
 
-		var _ = this, currentSlide, lastVisibleIndex;
+		var _ = this,
+			currentSlide,
+			lastVisibleIndex = _.slideCount - _.options.slidesToShow;
 		
-        lastVisibleIndex = _.slideCount - _.options.slidesToShow;
 
-        // in non-infinite sliders, we don't want to go past the
-        // last visible index.
-        if( !_.options.infinite && ( _.currentSlide > lastVisibleIndex )) {
+        // IF NOT INFINITE
+        if( !_.options.infiniteScroll && ( _.currentSlide > lastVisibleIndex )) {
             _.currentSlide = lastVisibleIndex;
         }
 
         // if less slides than to show, go to start.
         if ( _.slideCount <= _.options.slidesToShow ) {
             _.currentSlide = 0;
-
         }
 
         currentSlide = _.currentSlide;
 
 		_.destroy(true);
 		
-		
-
         $.extend(_, _.initials, { currentSlide: currentSlide });
-
 
         _.init();
 
@@ -1215,28 +1200,22 @@
 
         var _ = this;
 
-		
-        // _.autoPlayClear();
-
         _.touchObject = {};
 
-        // _.cleanUpEvents();
 
-
-        if (_.$dots) {
-            _.$dots.remove();
+        if (_.$indicators) {
+            _.$indicators.remove();
         }
 
-        if ( _.$prevArrow && _.$prevArrow.length ) {
+        if ( _.$previousArrow && _.$previousArrow.length ) {
 
-            _.$prevArrow
+            _.$previousArrow
                 .removeClass('super-disabled super-arrow super-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
                 .css('display','');
 
-            if ( _.htmlExpr.test( _.options.prevArrow )) {
-                _.$prevArrow.remove();
-            }
+           
+			_.$previousArrow.remove();
         }
 
         if ( _.$nextArrow && _.$nextArrow.length ) {
@@ -1245,10 +1224,8 @@
                 .removeClass('super-disabled super-arrow super-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
                 .css('display','');
-
-            if ( _.htmlExpr.test( _.options.nextArrow )) {
-                _.$nextArrow.remove();
-            }
+          
+			_.$nextArrow.remove();
         }
 
 
@@ -1270,51 +1247,29 @@
 
     };
 
-
-
-////////////////////////////////
-////////////////////////////////
-////////////////////////////////
-
-
 /* SLIDER FUNCTION */
-	
 	$.fn.super = function () {
 		let _ = this,
-			opt = arguments[0], // USER CUSTOMISATION
+			opt = arguments[0], // CUSTOMISED SETTINGS OBJECT
 			args = Array.prototype.slice.call(arguments, 1),
 			l = _.length,
 			i,
 			ret;
 
-		// console.log(args);
-		// console.log(l);
-
-
-
-
 		for (i = 0; i < l; i++) {
-			// console.log(`i ${i}`);
-			// console.log(`opt ${opt}`);
-
-			// FOR EACH SLIDER THAT MATCHES SELECTOR CREATE NEW SLIDER   -  E.G. console.log(this[0]);//
 			if (typeof opt == 'object' || typeof opt == 'undefined') {
 				_[i].super = new Super(_[i], opt);
 			}
 
 			else {
 				ret = _[i].super[opt].apply(_[i].super, args);
-
 			}
 
-			if (typeof ret != 'undefined') return ret;
-
-
+			if (typeof ret != 'undefined') {
+				return ret;
+			}
 		}
-
-		// console.log(i);
-		// console.log(ret);
-
+	
 		return _;
 	};
 
