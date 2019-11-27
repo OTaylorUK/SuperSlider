@@ -26,7 +26,7 @@ section{
 	width: 100%;   
 	display: flex;
 	flex-flow: row wrap; 
-	touch-action: pan-y pinch-zoom;
+	touch-action: pan-y ;
 	&:focus{ 
 		outline: none;
 	}
