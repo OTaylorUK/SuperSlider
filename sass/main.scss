@@ -139,7 +139,7 @@ sans-serif;
 
 .hero {
 	position: relative;
-	background-image: url('/hero2.svg');
+	background-image: url('../hero2.svg');
 	background-size: cover;
 	min-height: 70vh;
 	height: calc(100vw / 1.8);
@@ -171,7 +171,7 @@ sans-serif;
 
 footer{
 	position: relative;
-	background-image: url('/footer2.svg');
+	background-image: url('../footer2.svg');
 	background-size: cover;
 	min-height: 70vh;
 	height: calc(100vw / 1.8);
@@ -291,14 +291,12 @@ footer{
 				}
 			}
 		}
-	
 	}
-
 }
 
 .usp {
 	position: relative;
-	background-image: url('/usp3.svg');
+	background-image: url('../usp3.svg');
 	background-size: cover;
 	min-height: 100vh;
 	height: calc(100vw / 1.8);
