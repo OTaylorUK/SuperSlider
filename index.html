@@ -5,244 +5,780 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="stylesheet" href="main.min.css">
+		<link rel="stylesheet" href="dist/css/main.min.css"> <!-- SLIDER -->
+		<link rel="stylesheet" href="style.min.css"> <!-- LAYOUT -->
+		<link rel="stylesheet" href="sass/main.min.css"> <!-- PAGE -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-		<!-- <link rel="stylesheet" href="slick.css">
-		<link rel="stylesheet" href="theme.css">
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="customised.css"> -->
-
-
-
-		<title>Document</title>
+		<title>SuperSlider</title>
 	</head>
 
 	<body>
-		<div class="container">
 
-			<section class="section-one">
-				<h2>Fully Responsive</h2>
-				<div class="" id="slider-1">
-					<div class="item">
-						<h3>1</h3>
-					</div>
-					<div class="item">
-						<h3>2</h3>
-					</div>
-					<div class="item">
-						<h3>3</h3>
-					</div>
-					<div class="item">
-						<h3>4</h3>
-					</div>
-					<div class="item">
-						<h3>5</h3>
-					</div>
-					<div class="item">
-						<h3>6</h3>
-					</div>
-					<div class="item">
-						<h3>7</h3>
-					</div>
-					<div class="item">
-						<h3>8</h3>
-					</div>
-					<div class="item">
-						<h3>9</h3>
-					</div>
+		<!-- NAVIGATION -->
+		<header class="wrapper-fw">
+			<div class="navbar">
+				<div class="wrapper">
+					<section class="container-fw navigation">
+						<div class="col-4 logo">
+							<div class="svg-btn">
+								<svg class="logo-svg" width="127" height="19" viewBox="0 0 127 19" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M4.4599 15C3.31324 15 2.4199 14.7733 1.7799 14.32C1.15324 13.8533 0.759904 13.14 0.599904 12.18C0.573237 11.9 0.633237 11.6867 0.779904 11.54C0.92657 11.38 1.1399 11.3 1.4199 11.3C1.68657 11.3 1.88657 11.3667 2.0199 11.5C2.15324 11.62 2.24657 11.8267 2.2999 12.12C2.39324 12.5733 2.5999 12.8867 2.9199 13.06C3.25324 13.2333 3.76657 13.32 4.4599 13.32H7.3399C7.92657 13.32 8.37324 13.2533 8.6799 13.12C8.9999 12.9867 9.22657 12.7667 9.3599 12.46C9.49324 12.14 9.5599 11.6933 9.5599 11.12C9.5599 10.2667 9.3999 9.67999 9.0799 9.35999C8.7599 9.03999 8.1799 8.87999 7.3399 8.87999H4.8599C3.60657 8.87999 2.67324 8.57332 2.0599 7.95999C1.44657 7.34666 1.1399 6.40666 1.1399 5.13999C1.1399 3.88666 1.4399 2.95999 2.0399 2.35999C2.65324 1.74666 3.58657 1.43999 4.8399 1.43999H7.2199C9.32657 1.43999 10.5399 2.31999 10.8599 4.07999C10.8999 4.35999 10.8466 4.57999 10.6999 4.73999C10.5532 4.88666 10.3332 4.95999 10.0399 4.95999C9.77324 4.95999 9.57324 4.89332 9.4399 4.75999C9.30657 4.62666 9.2199 4.41999 9.1799 4.13999C9.07324 3.75332 8.87324 3.48666 8.5799 3.33999C8.28657 3.19332 7.83324 3.11999 7.2199 3.11999H4.8399C4.29324 3.11999 3.87324 3.17999 3.5799 3.29999C3.2999 3.41999 3.0999 3.62666 2.9799 3.91999C2.87324 4.19999 2.8199 4.60666 2.8199 5.13999C2.8199 5.68666 2.8799 6.10666 2.9999 6.39999C3.1199 6.67999 3.3199 6.88666 3.5999 7.01999C3.89324 7.13999 4.31324 7.19999 4.8599 7.19999H7.3399C8.6599 7.19999 9.6399 7.51999 10.2799 8.15999C10.9199 8.79999 11.2399 9.78666 11.2399 11.12C11.2399 12.44 10.9199 13.42 10.2799 14.06C9.6399 14.6867 8.6599 15 7.3399 15H4.4599Z"
+										fill="white" />
+									<path
+										d="M22.7769 4.85999C23.0436 4.85999 23.2503 4.93332 23.3969 5.07999C23.5436 5.22666 23.6169 5.43332 23.6169 5.69999V14.16C23.6169 14.72 23.3369 15 22.7769 15C22.2169 15 21.9369 14.72 21.9369 14.16V13.82C21.2303 14.6067 20.1903 15 18.8169 15H18.2569C16.9236 15 15.9369 14.68 15.2969 14.04C14.6569 13.4 14.3369 12.4133 14.3369 11.08V5.69999C14.3369 5.43332 14.4103 5.22666 14.5569 5.07999C14.7036 4.93332 14.9103 4.85999 15.1769 4.85999C15.4436 4.85999 15.6503 4.93332 15.7969 5.07999C15.9436 5.22666 16.0169 5.43332 16.0169 5.69999V11.08C16.0169 11.6667 16.0836 12.12 16.2169 12.44C16.3503 12.76 16.5769 12.9867 16.8969 13.12C17.2169 13.2533 17.6703 13.32 18.2569 13.32H18.8169C19.6569 13.32 20.3636 13.2267 20.9369 13.04C21.5236 12.84 21.8569 12.5533 21.9369 12.18V5.69999C21.9369 5.43332 22.0103 5.22666 22.1569 5.07999C22.3036 4.93332 22.5103 4.85999 22.7769 4.85999Z"
+										fill="white" />
+									<path
+										d="M33.3391 4.85999C34.6725 4.85999 35.6591 5.17999 36.2991 5.81999C36.9391 6.45999 37.2591 7.44666 37.2591 8.77999V11.08C37.2591 12.4133 36.9391 13.4 36.2991 14.04C35.6591 14.68 34.6725 15 33.3391 15H29.4591V18.16C29.4591 18.4267 29.3858 18.6333 29.2391 18.78C29.0925 18.9267 28.8858 19 28.6191 19C28.3525 19 28.1458 18.9267 27.9991 18.78C27.8525 18.6333 27.7791 18.4267 27.7791 18.16V5.69999C27.7791 5.43332 27.8525 5.22666 27.9991 5.07999C28.1458 4.93332 28.3525 4.85999 28.6191 4.85999C28.8858 4.85999 29.0925 4.93332 29.2391 5.07999C29.3858 5.22666 29.4591 5.43332 29.4591 5.69999V5.95999C30.1925 5.22666 31.2325 4.85999 32.5791 4.85999H33.3391ZM35.5791 8.77999C35.5791 8.19332 35.5125 7.73999 35.3791 7.41999C35.2458 7.09999 35.0191 6.87332 34.6991 6.73999C34.3791 6.60666 33.9258 6.53999 33.3391 6.53999H32.5791C31.6991 6.53999 30.9658 6.64666 30.3791 6.85999C29.8058 7.07332 29.4991 7.38666 29.4591 7.79999V13.32H33.3391C33.9258 13.32 34.3791 13.2533 34.6991 13.12C35.0191 12.9867 35.2458 12.76 35.3791 12.44C35.5125 12.12 35.5791 11.6667 35.5791 11.08V8.77999Z"
+										fill="white" />
+									<path
+										d="M42.1432 10.62V11.1C42.1432 11.6867 42.2099 12.14 42.3432 12.46C42.4765 12.7667 42.7032 12.9867 43.0232 13.12C43.3432 13.2533 43.7965 13.32 44.3832 13.32H46.0232C46.7032 13.32 47.2032 13.26 47.5232 13.14C47.8565 13.0067 48.0765 12.78 48.1832 12.46C48.2632 12.1933 48.3699 12 48.5032 11.88C48.6365 11.7467 48.8299 11.68 49.0832 11.68C49.3365 11.68 49.5299 11.74 49.6632 11.86C49.8099 11.9667 49.8832 12.1267 49.8832 12.34C49.8832 12.4333 49.8765 12.5 49.8632 12.54C49.5699 14.18 48.2899 15 46.0232 15H44.3832C43.0499 15 42.0632 14.68 41.4232 14.04C40.7832 13.4 40.4632 12.42 40.4632 11.1V8.77999C40.4632 7.43332 40.7832 6.43999 41.4232 5.79999C42.0632 5.15999 43.0499 4.84666 44.3832 4.85999H46.0232C47.3565 4.85999 48.3432 5.17999 48.9832 5.81999C49.6232 6.45999 49.9432 7.44666 49.9432 8.77999V9.77999C49.9432 10.0467 49.8699 10.2533 49.7232 10.4C49.5765 10.5467 49.3699 10.62 49.1032 10.62H42.1432ZM42.1432 8.93999H48.2632V8.77999C48.2632 8.19332 48.1965 7.73999 48.0632 7.41999C47.9299 7.09999 47.7032 6.87332 47.3832 6.73999C47.0632 6.60666 46.6099 6.53999 46.0232 6.53999H44.3832C43.7965 6.52666 43.3432 6.58666 43.0232 6.71999C42.7032 6.85332 42.4765 7.07999 42.3432 7.39999C42.2099 7.71999 42.1432 8.17999 42.1432 8.77999V8.93999Z"
+										fill="white" />
+									<path
+										d="M58.899 4.85999C59.1656 4.85999 59.3723 4.93332 59.519 5.07999C59.6656 5.22666 59.739 5.43332 59.739 5.69999C59.739 5.96666 59.6656 6.17332 59.519 6.31999C59.3723 6.46666 59.1656 6.53999 58.899 6.53999C57.7656 6.53999 56.8856 6.75332 56.259 7.17999C55.6456 7.59332 55.3256 8.15999 55.299 8.87999V14.16C55.299 14.4267 55.2256 14.6333 55.079 14.78C54.9323 14.9267 54.7256 15 54.459 15C54.1923 15 53.9856 14.9267 53.839 14.78C53.6923 14.6333 53.619 14.4267 53.619 14.16V5.69999C53.619 5.13999 53.899 4.85999 54.459 4.85999C55.019 4.85999 55.299 5.13999 55.299 5.69999V6.47999C56.1123 5.39999 57.3123 4.85999 58.899 4.85999Z"
+										fill="white" />
+									<path
+										d="M71.8232 15C70.6765 15 69.7832 14.7733 69.1432 14.32C68.5165 13.8533 68.1232 13.14 67.9632 12.18C67.9365 11.9 67.9965 11.6867 68.1432 11.54C68.2899 11.38 68.5032 11.3 68.7832 11.3C69.0499 11.3 69.2499 11.3667 69.3832 11.5C69.5165 11.62 69.6099 11.8267 69.6632 12.12C69.7565 12.5733 69.9632 12.8867 70.2832 13.06C70.6165 13.2333 71.1299 13.32 71.8232 13.32H74.7032C75.2899 13.32 75.7365 13.2533 76.0432 13.12C76.3632 12.9867 76.5898 12.7667 76.7232 12.46C76.8565 12.14 76.9232 11.6933 76.9232 11.12C76.9232 10.2667 76.7632 9.67999 76.4432 9.35999C76.1232 9.03999 75.5432 8.87999 74.7032 8.87999H72.2232C70.9698 8.87999 70.0365 8.57332 69.4232 7.95999C68.8099 7.34666 68.5032 6.40666 68.5032 5.13999C68.5032 3.88666 68.8032 2.95999 69.4032 2.35999C70.0165 1.74666 70.9499 1.43999 72.2032 1.43999H74.5832C76.6898 1.43999 77.9032 2.31999 78.2232 4.07999C78.2632 4.35999 78.2099 4.57999 78.0632 4.73999C77.9165 4.88666 77.6965 4.95999 77.4032 4.95999C77.1365 4.95999 76.9365 4.89332 76.8032 4.75999C76.6699 4.62666 76.5832 4.41999 76.5432 4.13999C76.4365 3.75332 76.2365 3.48666 75.9432 3.33999C75.6499 3.19332 75.1965 3.11999 74.5832 3.11999H72.2032C71.6565 3.11999 71.2365 3.17999 70.9432 3.29999C70.6632 3.41999 70.4632 3.62666 70.3432 3.91999C70.2365 4.19999 70.1832 4.60666 70.1832 5.13999C70.1832 5.68666 70.2432 6.10666 70.3632 6.39999C70.4832 6.67999 70.6832 6.88666 70.9632 7.01999C71.2565 7.13999 71.6765 7.19999 72.2232 7.19999H74.7032C76.0232 7.19999 77.0032 7.51999 77.6432 8.15999C78.2832 8.79999 78.6032 9.78666 78.6032 11.12C78.6032 12.44 78.2832 13.42 77.6432 14.06C77.0032 14.6867 76.0232 15 74.7032 15H71.8232Z"
+										fill="white" />
+									<path
+										d="M85.3108 15C84.2975 15 83.5375 14.7533 83.0308 14.26C82.5375 13.7533 82.2908 12.9867 82.2908 11.96V1.75999C82.2908 1.49332 82.3642 1.28666 82.5108 1.13999C82.6575 0.993324 82.8642 0.91999 83.1308 0.91999C83.3975 0.91999 83.6042 0.993324 83.7508 1.13999C83.8975 1.28666 83.9708 1.49332 83.9708 1.75999V11.96C83.9708 12.5067 84.0575 12.8733 84.2308 13.06C84.4175 13.2333 84.7775 13.32 85.3108 13.32C85.8842 13.32 86.1708 13.6 86.1708 14.16C86.1842 14.4267 86.1175 14.6333 85.9708 14.78C85.8242 14.9267 85.6042 15 85.3108 15Z"
+										fill="white" />
+									<path
+										d="M89.9863 15C89.7196 15 89.513 14.9267 89.3663 14.78C89.2196 14.6333 89.1463 14.4267 89.1463 14.16V5.69999C89.1463 5.43332 89.2196 5.22666 89.3663 5.07999C89.513 4.93332 89.7196 4.85999 89.9863 4.85999C90.253 4.85999 90.4596 4.93332 90.6063 5.07999C90.753 5.22666 90.8263 5.43332 90.8263 5.69999V14.16C90.8263 14.4267 90.753 14.6333 90.6063 14.78C90.4596 14.9267 90.253 15 89.9863 15ZM89.7063 3.21999C89.3996 3.21999 89.1596 3.13332 88.9863 2.95999C88.8263 2.78666 88.7463 2.55332 88.7463 2.25999V1.65999C88.7463 1.35332 88.8263 1.12666 88.9863 0.979991C89.1596 0.81999 89.3996 0.73999 89.7063 0.73999H90.2863C90.8863 0.73999 91.1863 1.04666 91.1863 1.65999V2.25999C91.1863 2.56666 91.1063 2.80666 90.9463 2.97999C90.7996 3.13999 90.5796 3.21999 90.2863 3.21999H89.7063Z"
+										fill="white" />
+									<path
+										d="M103.146 0.91999C103.413 0.91999 103.619 0.993324 103.766 1.13999C103.913 1.28666 103.986 1.49332 103.986 1.75999V14.16C103.986 14.4267 103.913 14.6333 103.766 14.78C103.619 14.9267 103.413 15 103.146 15C102.879 15 102.673 14.9267 102.526 14.78C102.379 14.6333 102.306 14.4267 102.306 14.16V14.02C101.973 14.3533 101.553 14.6 101.046 14.76C100.553 14.92 99.9328 15 99.1862 15H98.4262C97.0928 15 96.1062 14.68 95.4662 14.04C94.8262 13.4 94.5062 12.4133 94.5062 11.08V8.77999C94.5062 7.44666 94.8262 6.45999 95.4662 5.81999C96.1062 5.17999 97.0928 4.85999 98.4262 4.85999H102.306V1.75999C102.306 1.49332 102.379 1.28666 102.526 1.13999C102.673 0.993324 102.879 0.91999 103.146 0.91999ZM99.1862 13.32C100.106 13.32 100.853 13.2067 101.426 12.98C102.013 12.74 102.306 12.3933 102.306 11.94V6.53999H98.4262C97.8395 6.53999 97.3862 6.60666 97.0662 6.73999C96.7462 6.87332 96.5195 7.09999 96.3862 7.41999C96.2528 7.73999 96.1862 8.19332 96.1862 8.77999V11.08C96.1862 11.6667 96.2528 12.12 96.3862 12.44C96.5195 12.76 96.7462 12.9867 97.0662 13.12C97.3862 13.2533 97.8395 13.32 98.4262 13.32H99.1862Z"
+										fill="white" />
+									<path
+										d="M109.155 10.62V11.1C109.155 11.6867 109.222 12.14 109.355 12.46C109.488 12.7667 109.715 12.9867 110.035 13.12C110.355 13.2533 110.808 13.32 111.395 13.32H113.035C113.715 13.32 114.215 13.26 114.535 13.14C114.868 13.0067 115.088 12.78 115.195 12.46C115.275 12.1933 115.382 12 115.515 11.88C115.648 11.7467 115.842 11.68 116.095 11.68C116.348 11.68 116.542 11.74 116.675 11.86C116.822 11.9667 116.895 12.1267 116.895 12.34C116.895 12.4333 116.888 12.5 116.875 12.54C116.582 14.18 115.302 15 113.035 15H111.395C110.062 15 109.075 14.68 108.435 14.04C107.795 13.4 107.475 12.42 107.475 11.1V8.77999C107.475 7.43332 107.795 6.43999 108.435 5.79999C109.075 5.15999 110.062 4.84666 111.395 4.85999H113.035C114.368 4.85999 115.355 5.17999 115.995 5.81999C116.635 6.45999 116.955 7.44666 116.955 8.77999V9.77999C116.955 10.0467 116.882 10.2533 116.735 10.4C116.588 10.5467 116.382 10.62 116.115 10.62H109.155ZM109.155 8.93999H115.275V8.77999C115.275 8.19332 115.208 7.73999 115.075 7.41999C114.942 7.09999 114.715 6.87332 114.395 6.73999C114.075 6.60666 113.622 6.53999 113.035 6.53999H111.395C110.808 6.52666 110.355 6.58666 110.035 6.71999C109.715 6.85332 109.488 7.07999 109.355 7.39999C109.222 7.71999 109.155 8.17999 109.155 8.77999V8.93999Z"
+										fill="white" />
+									<path
+										d="M125.911 4.85999C126.177 4.85999 126.384 4.93332 126.531 5.07999C126.677 5.22666 126.751 5.43332 126.751 5.69999C126.751 5.96666 126.677 6.17332 126.531 6.31999C126.384 6.46666 126.177 6.53999 125.911 6.53999C124.777 6.53999 123.897 6.75332 123.271 7.17999C122.657 7.59332 122.337 8.15999 122.311 8.87999V14.16C122.311 14.4267 122.237 14.6333 122.091 14.78C121.944 14.9267 121.737 15 121.471 15C121.204 15 120.997 14.9267 120.851 14.78C120.704 14.6333 120.631 14.4267 120.631 14.16V5.69999C120.631 5.13999 120.911 4.85999 121.471 4.85999C122.031 4.85999 122.311 5.13999 122.311 5.69999V6.47999C123.124 5.39999 124.324 4.85999 125.911 4.85999Z"
+										fill="white" />
+								</svg>
+							</div>
+						</div>
+						<div class="col-8 nav">
+							<div class="menu">
+								<ul>
+									<li><div data-target="get-started-section" class=" link" >Get started</div</li>
+									<li><div data-target="examples-section" class="link" >Examples</div</li>
+									<li><div data-target="features-section" class="link" >Features</div</li>
+									<li class="cta"><div data-target="download-section" class="link" >Download</div</li>
+								</ul>
+							</div>
+						</div>
+					</section>
 				</div>
-			</section>
+			</div>
+		</header>
 
-			<section class="section-two">
-				<h2>Single Slide</h2>
-				<div class="super-slider" id="slider-2">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
-				</div>
-			</section>
 
-			<section class="section-three">
-				<h2>Multiple Slides</h2>
-				<div class="super-slider" id="slider-3">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
-				</div>
-			</section>
+		<main class="wrapper-fw main">
 
-			<section class="section-four">
-				<h2>Auto Slide</h2>
-				<div class="super-slider" id="slider-4">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
+			<!-- HERO -->
+			<div class="hero">
+				<div class="wrapper">
+					<section class="container">
+						<div class=" col-8 hero-text">
+							<h1 class="title">The all purpose, <span class="highlight">lightweight</span> and <span class="highlight">highly customisable</span> slider.</h1>
+							<p class="text">SuperSlider is a modern slider suitable for all projects that provides a simple and yet powerful level of customisation to suit your needs.</p>
+							<button class="cta-btn get-started">Get started</button>
+						</div>
+					</section>
 				</div>
-			</section>
-			<section class="section-five">
-				<h2>Auto Slide</h2>
-				<div class="super-slider" id="slider-5">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
-				</div>
-			</section>
-			<section class="section-six">
-				<h2>Auto Slide</h2>
-				<div class="super-slider" id="slider-6">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
-				</div>
-			</section>
-			<section class="section-seven">
-				<h2>Auto Slide</h2>
-				<div class="super-slider" id="slider-7">
-					<div>
-						<div class="image">1</div>
-					</div>
-					<div>
-						<div class="image">2</div>
-					</div>
-					<div>
-						<div class="image">3</div>
-					</div>
-					<div>
-						<div class="image">4</div>
-					</div>
-					<div>
-						<div class="image">5</div>
-					</div>
-					<div>
-						<div class="image">6</div>
-					</div>
-				</div>
-			</section>
-		</div>
 
+			</div>
+
+			<!-- DOWNLOAD -->
+			<div class="wrapper download" id="download-section">
+				<section class="container download">
+					<div class="col-12 section-header">
+						<h2 class="title">How to use SuperSlider on your website</h2>
+					</div>
+					<div class="col-12 section-content">
+						<div class="option-container">
+
+							<div class="option">
+								<div class="inner">
+									<div class="stage-indicator"><span>A</span></div>
+
+									<div class="option-content">
+										<div class="option-header">
+											<h3>Connect to a CDN</h3>
+										</div>
+										<div class="options">
+											<div class="option-btn">
+												<button class="cta-btn alt">jsDelivr</button>
+											</div>
+											<div class="option-btn">
+												<button class="cta-btn alt">CloudFlare</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="option">
+								<div class="inner">
+									<div class="stage-indicator"><span>B</span></div>
+
+									<div class="option-content">
+										<div class="option-header">
+											<h3>Link to directory</h3>
+										</div>
+										<div class="options">
+											<div class="option-btn">
+												<button class="cta-btn alt">GitHub</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="option">
+								<div class="inner">
+									<div class="stage-indicator"><span>C</span></div>
+
+									<div class="option-content">
+										<div class="option-header">
+											<h3>Download Folder</h3>
+										</div>
+										<div class="options">
+											<div class="option-btn">
+												<button class="cta-btn alt">download</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</section>
+			</div>
+
+
+			<!-- GET STARTED -->
+			<div class="get-started greybg" id="get-started-section">
+				<div class="wrapper">
+					<section class="container ">
+						<div class="col-12 section-header">
+							<h2 class="title">Getting started</h2>
+						</div>
+						<div class="col-12 section-content">
+
+							<div class="guide-step">
+								<div class="step-header">
+									<div class="stage-indicator"><span>1</span></div>
+									<h3>CSS</h3>
+								</div>
+								<div class="step-content code-wrapper">
+									<pre>
+<code class="language-html">
+&lt;link rel="stylesheet" type="text/css" href="super/super.css"/&gt;
+
+&lt;!-- Add the new super-theme.css if you want the default styling --&gt;
+&lt;link rel="stylesheet" type="text/css" href="super/super-theme-v1.css"/&gt;
+&lt;link rel="stylesheet" type="text/css" href="super/super-theme-v1.css"/&gt;
+&lt;link rel="stylesheet" type="text/css" href="super/super-theme-v1.css"/&gt;
+
+</code></pre>
+								</div>
+							</div>
+							<div class="guide-step">
+								<div class="step-header">
+									<div class="stage-indicator"><span>2</span></div>
+									<h3>HTML</h3>
+								</div>
+								<div class="step-content code-wrapper">
+									<pre>
+<code class="language-html">
+&lt;div class="your-class-here" id="your-id-here"  &gt;
+	&lt;div&gt;slide content&lt;/div&gt;
+	&lt;div&gt;slide content&lt;/div&gt;
+	&lt;div&gt;slide content&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- If you have more than one slide it's advisable to give each it's own unique id also --&gt;
+
+</code></pre>
+								</div>
+							</div>
+							<div class="guide-step">
+								<div class="step-header">
+									<div class="stage-indicator"><span>3</span></div>
+									<h3>Javascript</h3>
+								</div>
+								<div class="step-content code-wrapper">
+									<pre>
+<code class="language-html">
+&lt;link rel="stylesheet" type="text/css" href="super/super-theme-v1.css"/&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="dist/scripts/superSlider.min.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+</code></pre>
+								</div>
+							</div>
+							<div class="guide-step">
+								<div class="step-header">
+									<div class="stage-indicator"><span>4</span></div>
+									<h3>Initialise</h3>
+								</div>
+								<div class="step-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$(document).ready(function () {
+	$('.your-class-here').super({
+		// Any custom settings go here
+	});
+	
+});	
+
+// Note that if you have multiple sliders that will have the same settings you can simply initialise using the shared class
+
+</code></pre>
+								</div>
+							</div>
+
+						</div>
+					</section>
+				</div>
+			</div>
+
+			<!-- USP -->
+			<div class="usp greybg" id="usp-section">
+				<div class="wrapper">
+					<section class="container">
+						<div class="col-12 section-header">
+							<h2 class="title">A simple and lightweight slider.</h2>
+						</div>
+						<div class="col-12 section-content">
+							<div class="usp-item">
+								<div class="inner">
+									<div class="usp-icon">
+										<svg width="200" height="200" viewBox="0 0 200 200" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<circle cx="99.5117" cy="99.5117" r="99.5117" fill="#09AF93" />
+											<path
+												d="M117.216 104.62C122.496 99.339 129.545 95.8578 134.643 97.1215C145.153 82.5842 147.75 67.6378 133.362 57.1716C128.868 53.9037 120.954 55.5414 111.848 60.6127C109.346 65.778 106.54 72.0163 104.666 77.011C104.666 74.3355 104.666 70.3673 104.666 65.1581C93.9966 72.6639 82.5577 83.9848 73.423 97.0801C71.8568 102.746 71.3084 108.505 72.0375 112.152C70.4337 111.617 68.6052 109.715 66.9337 107.418C56.9782 115.914 59.4881 127.209 55.7734 143.543C68.2727 141.013 85.8419 144.778 93.3164 131.984C92.3651 131.807 91.3913 131.503 90.8617 130.974C93.3427 129.734 96.4349 129.106 99.2347 128.486C110.444 121.508 121.344 112.746 129.506 103.514C124.745 100.855 118.769 105.397 117.216 104.62Z"
+												fill="white" />
+											<path
+												d="M55.7734 143.543C59.4881 127.209 56.9782 115.915 66.9337 107.415C68.6052 109.711 70.4337 111.616 72.0375 112.15C71.3084 108.505 71.8568 102.744 73.423 97.0778C82.5577 83.9825 93.9966 72.6641 104.666 65.1558C104.666 70.3663 104.666 74.3344 104.666 77.01C106.54 72.0166 109.346 65.777 111.846 60.6141C120.952 55.5429 128.866 53.9052 133.359 57.1731C129.765 74.5013 80.8221 124.699 55.7734 143.543Z"
+												fill="white" />
+										</svg>
+
+									</div>
+									<div class="usp-header">
+										<h3 class="title">Lightweight</h3>
+									</div>
+									<div class="usp-content">
+										<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+											accusantium
+											labore dolor numquam. Accusantium deserunt similique voluptates illo! Odit,
+											ab!</p>
+									</div>
+								</div>
+
+							</div>
+							<div class="usp-item">
+								<div class="inner">
+									<div class="usp-icon">
+										<svg width="200" height="200" viewBox="0 0 200 200" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<circle cx="99.5117" cy="99.5117" r="99.5117" fill="#09AF93" />
+											<path
+												d="M131.004 99.5117C130.999 97.2174 130.743 94.9292 130.239 92.6901L142.409 85.6735L132.968 69.3182L120.779 76.3517C117.393 73.2312 113.364 70.8939 108.974 69.504V55.48H90.0913V69.504C85.701 70.8954 81.6703 73.2343 78.2865 76.3579L66.0976 69.3182L56.6562 85.6735L68.8267 92.6963C67.8064 97.1867 67.8064 101.849 68.8267 106.339L56.6562 113.35L66.0976 129.705L78.2865 122.672C81.6718 125.792 85.701 128.13 90.0913 129.519V143.543H108.974V129.519C113.364 128.128 117.395 125.789 120.779 122.666L132.968 129.705L142.409 113.35L130.239 106.327C130.743 104.09 130.998 101.805 131.004 99.5117V99.5117ZM99.5326 112.092C92.5807 112.092 86.9442 106.459 86.9442 99.5117C86.9442 92.5642 92.5807 86.9312 99.5326 86.9312C106.485 86.9312 112.121 92.5642 112.121 99.5117C112.121 106.459 106.485 112.092 99.5326 112.092Z"
+												fill="white" />
+										</svg>
+
+									</div>
+									<div class="usp-header">
+										<h3 class="title">Customisable</h3>
+									</div>
+									<div class="usp-content">
+										<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+											accusantium
+											labore dolor numquam. Accusantium deserunt similique voluptates illo! Odit,
+											ab!</p>
+									</div>
+								</div>
+
+							</div>
+							<div class="usp-item">
+								<div class="inner">
+									<div class="usp-icon">
+										<svg width="200" height="200" viewBox="0 0 200 200" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<circle cx="99.5117" cy="99.5117" r="99.5117" fill="#09AF93" />
+											<path
+												d="M95.2371 108.481L80.9854 122.732H90.7403C92.6403 122.732 94.1802 124.272 94.1802 126.172C94.1802 128.072 92.6403 129.612 90.7403 129.612H77.8403C73.0983 129.612 69.2404 125.754 69.2404 121.012V108.112C69.2404 106.212 70.7803 104.672 72.6804 104.672C74.5804 104.672 76.1203 106.212 76.1203 108.112V117.867L90.3714 103.616C91.7151 102.272 93.8933 102.272 95.2364 103.616C96.5802 104.959 96.5802 107.137 95.2371 108.481V108.481ZM126.344 94.0078C128.244 94.0078 129.784 92.4678 129.784 90.5678V77.6678C129.784 72.9258 125.926 69.0679 121.184 69.0679H108.284C106.384 69.0679 104.844 70.6078 104.844 72.5079C104.844 74.4079 106.384 75.9479 108.284 75.9479H118.039L103.788 90.1989C102.444 91.5427 102.444 93.7209 103.788 95.0639C104.459 95.7358 105.34 96.0717 106.22 96.0717C107.1 96.0717 107.981 95.7358 108.653 95.0646L122.904 80.8129V90.5678C122.904 92.4678 124.444 94.0078 126.344 94.0078ZM140.104 116.024C142.004 116.024 143.544 114.484 143.544 112.584V69.2399C143.544 61.6525 137.371 55.48 129.784 55.48H69.2404C61.6529 55.48 55.4805 61.6525 55.4805 69.2399V129.784C55.4805 137.371 61.6529 143.543 69.2404 143.543H129.784C137.371 143.543 143.544 137.371 143.544 129.784C143.544 127.883 142.004 126.344 140.104 126.344C138.204 126.344 136.664 127.883 136.664 129.784C136.664 133.577 133.577 136.663 129.784 136.663H69.2404C65.447 136.663 62.3604 133.577 62.3604 129.784V69.2399C62.3604 65.4465 65.447 62.3599 69.2404 62.3599H129.784C133.577 62.3599 136.664 65.4465 136.664 69.2399V112.584C136.664 114.484 138.204 116.024 140.104 116.024Z"
+												fill="white" />
+										</svg>
+									</div>
+									<div class="usp-header">
+										<h3 class="title">Responsive</h3>
+									</div>
+									<div class="usp-content">
+										<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+											accusantium
+											labore dolor numquam. Accusantium deserunt similique voluptates illo! Odit,
+											ab!</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-12 section-btn">
+							<button class="cta-btn">Get started</button>
+						</div>
+
+
+					</section>
+				</div>
+			</div>
+
+			<div class="example-features greybg" id="examples-section">
+				<div class="wrapper">
+					<section class="container ">
+						<div class="col-12 section-header">
+							<h2 class="title">Getting started</h2>
+						</div>
+
+						<div class="col-12 section-content">
+
+
+							<!-- DEFAULT -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Default settings</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+										
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super();
+
+// If you don't need to customise anything you can simply create your slider like this
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-1">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- AUTOPLAY -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Autoplay</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	autoplay: true,
+});
+
+// As default autoplay is set to false
+
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-2">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- MULTIPLE SLIDES -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Multiple slides</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	slidesToShow: 2,
+});
+
+// Control how many slides you want to show
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-3">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- RESPONSIVE -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Responsive</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	responsive: [
+		{
+			breakpoint: 600,
+			settings: {
+				slidesToShow: 2,
+				slidesToScroll: 2
+			}
+		},
+		{
+			breakpoint: 1200,
+			settings: {
+			slidesToShow: 3,
+			slidesToScroll: 3,
+			}
+		}
+	]
+});
+
+// You can customise how your SuperSlider looks at different screen sizes. Note: SuperSlider is mobile-first
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-4">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- INFINITE SCROLL -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Infinite scroll</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	infiniteScroll: false,
+});
+
+// As default infinite scroll is set to true
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-5">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- FADE EFFECT -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Fade effect</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	fadeEffect: true,
+});
+
+// Use any fade effect you want instead of transform. As default fade effect is set to false.
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-6">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- NAVIGATION -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Navigation</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	arrows: false,
+});
+
+// You can remove navigation buttons. As default navigation is set to true.
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-7">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- SLIDE INDICATOR -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Slide Indicator</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	indicator: false,
+});
+
+// You can remove indicator buttons. As default indicator is set to true.
+
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-8">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- TOUCH SENSITIVITY -->
+							<div class="example-feature">
+								<div class="feature-header">
+									<h3>Touch sensitivity</h3>
+								</div>
+								<div class="feature-content code-wrapper">
+									<pre>
+<code class="language-javascript">
+$('.your-class-here').super({
+	touchSensitivity: 'high',
+});
+
+// Control how sensitive you want the dragging to be to trigger changing the slide. 
+</code></pre>
+								</div>
+								<div class="feature-slider" id="slider-9">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+
+			</div>
+
+			<div class="wrapper table-features" id="features-section">
+				<section class="container">
+					<div class="col-12 section-header">
+						<h2 class="title">List of features</h2>
+					</div>
+
+					<div class="col-12 section-content">
+						<div class="feature-table">
+							<table>
+								<tr class="header">
+									<th class="left">Feature <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
+									<th>Type <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
+									<th>Default <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
+									<th class="right">Information <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Bccessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Zccessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								<tr>
+									<td>Accessability</td>
+									<td>Boolean</td>
+									<td>True</td>
+									<td>Allows navigation by pressing left/right arrow keys</td>
+								</tr>
+								
+							</table>
+						</div>
+					</div>
+
+				</section>
+			</div>
+
+		</main>
+
+		<footer class="wrapper-fw">
+			<div class="footer">
+				<div class="wrapper">
+					<section class="container-fw navigation">
+						<div class="scroll-to-top">
+							<div class="icon">
+								<svg class="scroll-arrow" width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M7.92208 2.1582V17.6582M7.92208 2.1582L1.52734 7.9707M7.92208 2.1582L14.3168 7.9707" stroke="white" stroke-width="2"/>
+								</svg>
+										
+							</div>
+							<span class="text">Back to the top</span>
+						</div>
+						<div class="col-4 logo">
+							<div class="svg-btn">
+								<svg class="logo-svg" width="190.5" height="28.5" viewBox="0 0 127 19" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M4.4599 15C3.31324 15 2.4199 14.7733 1.7799 14.32C1.15324 13.8533 0.759904 13.14 0.599904 12.18C0.573237 11.9 0.633237 11.6867 0.779904 11.54C0.92657 11.38 1.1399 11.3 1.4199 11.3C1.68657 11.3 1.88657 11.3667 2.0199 11.5C2.15324 11.62 2.24657 11.8267 2.2999 12.12C2.39324 12.5733 2.5999 12.8867 2.9199 13.06C3.25324 13.2333 3.76657 13.32 4.4599 13.32H7.3399C7.92657 13.32 8.37324 13.2533 8.6799 13.12C8.9999 12.9867 9.22657 12.7667 9.3599 12.46C9.49324 12.14 9.5599 11.6933 9.5599 11.12C9.5599 10.2667 9.3999 9.67999 9.0799 9.35999C8.7599 9.03999 8.1799 8.87999 7.3399 8.87999H4.8599C3.60657 8.87999 2.67324 8.57332 2.0599 7.95999C1.44657 7.34666 1.1399 6.40666 1.1399 5.13999C1.1399 3.88666 1.4399 2.95999 2.0399 2.35999C2.65324 1.74666 3.58657 1.43999 4.8399 1.43999H7.2199C9.32657 1.43999 10.5399 2.31999 10.8599 4.07999C10.8999 4.35999 10.8466 4.57999 10.6999 4.73999C10.5532 4.88666 10.3332 4.95999 10.0399 4.95999C9.77324 4.95999 9.57324 4.89332 9.4399 4.75999C9.30657 4.62666 9.2199 4.41999 9.1799 4.13999C9.07324 3.75332 8.87324 3.48666 8.5799 3.33999C8.28657 3.19332 7.83324 3.11999 7.2199 3.11999H4.8399C4.29324 3.11999 3.87324 3.17999 3.5799 3.29999C3.2999 3.41999 3.0999 3.62666 2.9799 3.91999C2.87324 4.19999 2.8199 4.60666 2.8199 5.13999C2.8199 5.68666 2.8799 6.10666 2.9999 6.39999C3.1199 6.67999 3.3199 6.88666 3.5999 7.01999C3.89324 7.13999 4.31324 7.19999 4.8599 7.19999H7.3399C8.6599 7.19999 9.6399 7.51999 10.2799 8.15999C10.9199 8.79999 11.2399 9.78666 11.2399 11.12C11.2399 12.44 10.9199 13.42 10.2799 14.06C9.6399 14.6867 8.6599 15 7.3399 15H4.4599Z"
+										fill="white" />
+									<path
+										d="M22.7769 4.85999C23.0436 4.85999 23.2503 4.93332 23.3969 5.07999C23.5436 5.22666 23.6169 5.43332 23.6169 5.69999V14.16C23.6169 14.72 23.3369 15 22.7769 15C22.2169 15 21.9369 14.72 21.9369 14.16V13.82C21.2303 14.6067 20.1903 15 18.8169 15H18.2569C16.9236 15 15.9369 14.68 15.2969 14.04C14.6569 13.4 14.3369 12.4133 14.3369 11.08V5.69999C14.3369 5.43332 14.4103 5.22666 14.5569 5.07999C14.7036 4.93332 14.9103 4.85999 15.1769 4.85999C15.4436 4.85999 15.6503 4.93332 15.7969 5.07999C15.9436 5.22666 16.0169 5.43332 16.0169 5.69999V11.08C16.0169 11.6667 16.0836 12.12 16.2169 12.44C16.3503 12.76 16.5769 12.9867 16.8969 13.12C17.2169 13.2533 17.6703 13.32 18.2569 13.32H18.8169C19.6569 13.32 20.3636 13.2267 20.9369 13.04C21.5236 12.84 21.8569 12.5533 21.9369 12.18V5.69999C21.9369 5.43332 22.0103 5.22666 22.1569 5.07999C22.3036 4.93332 22.5103 4.85999 22.7769 4.85999Z"
+										fill="white" />
+									<path
+										d="M33.3391 4.85999C34.6725 4.85999 35.6591 5.17999 36.2991 5.81999C36.9391 6.45999 37.2591 7.44666 37.2591 8.77999V11.08C37.2591 12.4133 36.9391 13.4 36.2991 14.04C35.6591 14.68 34.6725 15 33.3391 15H29.4591V18.16C29.4591 18.4267 29.3858 18.6333 29.2391 18.78C29.0925 18.9267 28.8858 19 28.6191 19C28.3525 19 28.1458 18.9267 27.9991 18.78C27.8525 18.6333 27.7791 18.4267 27.7791 18.16V5.69999C27.7791 5.43332 27.8525 5.22666 27.9991 5.07999C28.1458 4.93332 28.3525 4.85999 28.6191 4.85999C28.8858 4.85999 29.0925 4.93332 29.2391 5.07999C29.3858 5.22666 29.4591 5.43332 29.4591 5.69999V5.95999C30.1925 5.22666 31.2325 4.85999 32.5791 4.85999H33.3391ZM35.5791 8.77999C35.5791 8.19332 35.5125 7.73999 35.3791 7.41999C35.2458 7.09999 35.0191 6.87332 34.6991 6.73999C34.3791 6.60666 33.9258 6.53999 33.3391 6.53999H32.5791C31.6991 6.53999 30.9658 6.64666 30.3791 6.85999C29.8058 7.07332 29.4991 7.38666 29.4591 7.79999V13.32H33.3391C33.9258 13.32 34.3791 13.2533 34.6991 13.12C35.0191 12.9867 35.2458 12.76 35.3791 12.44C35.5125 12.12 35.5791 11.6667 35.5791 11.08V8.77999Z"
+										fill="white" />
+									<path
+										d="M42.1432 10.62V11.1C42.1432 11.6867 42.2099 12.14 42.3432 12.46C42.4765 12.7667 42.7032 12.9867 43.0232 13.12C43.3432 13.2533 43.7965 13.32 44.3832 13.32H46.0232C46.7032 13.32 47.2032 13.26 47.5232 13.14C47.8565 13.0067 48.0765 12.78 48.1832 12.46C48.2632 12.1933 48.3699 12 48.5032 11.88C48.6365 11.7467 48.8299 11.68 49.0832 11.68C49.3365 11.68 49.5299 11.74 49.6632 11.86C49.8099 11.9667 49.8832 12.1267 49.8832 12.34C49.8832 12.4333 49.8765 12.5 49.8632 12.54C49.5699 14.18 48.2899 15 46.0232 15H44.3832C43.0499 15 42.0632 14.68 41.4232 14.04C40.7832 13.4 40.4632 12.42 40.4632 11.1V8.77999C40.4632 7.43332 40.7832 6.43999 41.4232 5.79999C42.0632 5.15999 43.0499 4.84666 44.3832 4.85999H46.0232C47.3565 4.85999 48.3432 5.17999 48.9832 5.81999C49.6232 6.45999 49.9432 7.44666 49.9432 8.77999V9.77999C49.9432 10.0467 49.8699 10.2533 49.7232 10.4C49.5765 10.5467 49.3699 10.62 49.1032 10.62H42.1432ZM42.1432 8.93999H48.2632V8.77999C48.2632 8.19332 48.1965 7.73999 48.0632 7.41999C47.9299 7.09999 47.7032 6.87332 47.3832 6.73999C47.0632 6.60666 46.6099 6.53999 46.0232 6.53999H44.3832C43.7965 6.52666 43.3432 6.58666 43.0232 6.71999C42.7032 6.85332 42.4765 7.07999 42.3432 7.39999C42.2099 7.71999 42.1432 8.17999 42.1432 8.77999V8.93999Z"
+										fill="white" />
+									<path
+										d="M58.899 4.85999C59.1656 4.85999 59.3723 4.93332 59.519 5.07999C59.6656 5.22666 59.739 5.43332 59.739 5.69999C59.739 5.96666 59.6656 6.17332 59.519 6.31999C59.3723 6.46666 59.1656 6.53999 58.899 6.53999C57.7656 6.53999 56.8856 6.75332 56.259 7.17999C55.6456 7.59332 55.3256 8.15999 55.299 8.87999V14.16C55.299 14.4267 55.2256 14.6333 55.079 14.78C54.9323 14.9267 54.7256 15 54.459 15C54.1923 15 53.9856 14.9267 53.839 14.78C53.6923 14.6333 53.619 14.4267 53.619 14.16V5.69999C53.619 5.13999 53.899 4.85999 54.459 4.85999C55.019 4.85999 55.299 5.13999 55.299 5.69999V6.47999C56.1123 5.39999 57.3123 4.85999 58.899 4.85999Z"
+										fill="white" />
+									<path
+										d="M71.8232 15C70.6765 15 69.7832 14.7733 69.1432 14.32C68.5165 13.8533 68.1232 13.14 67.9632 12.18C67.9365 11.9 67.9965 11.6867 68.1432 11.54C68.2899 11.38 68.5032 11.3 68.7832 11.3C69.0499 11.3 69.2499 11.3667 69.3832 11.5C69.5165 11.62 69.6099 11.8267 69.6632 12.12C69.7565 12.5733 69.9632 12.8867 70.2832 13.06C70.6165 13.2333 71.1299 13.32 71.8232 13.32H74.7032C75.2899 13.32 75.7365 13.2533 76.0432 13.12C76.3632 12.9867 76.5898 12.7667 76.7232 12.46C76.8565 12.14 76.9232 11.6933 76.9232 11.12C76.9232 10.2667 76.7632 9.67999 76.4432 9.35999C76.1232 9.03999 75.5432 8.87999 74.7032 8.87999H72.2232C70.9698 8.87999 70.0365 8.57332 69.4232 7.95999C68.8099 7.34666 68.5032 6.40666 68.5032 5.13999C68.5032 3.88666 68.8032 2.95999 69.4032 2.35999C70.0165 1.74666 70.9499 1.43999 72.2032 1.43999H74.5832C76.6898 1.43999 77.9032 2.31999 78.2232 4.07999C78.2632 4.35999 78.2099 4.57999 78.0632 4.73999C77.9165 4.88666 77.6965 4.95999 77.4032 4.95999C77.1365 4.95999 76.9365 4.89332 76.8032 4.75999C76.6699 4.62666 76.5832 4.41999 76.5432 4.13999C76.4365 3.75332 76.2365 3.48666 75.9432 3.33999C75.6499 3.19332 75.1965 3.11999 74.5832 3.11999H72.2032C71.6565 3.11999 71.2365 3.17999 70.9432 3.29999C70.6632 3.41999 70.4632 3.62666 70.3432 3.91999C70.2365 4.19999 70.1832 4.60666 70.1832 5.13999C70.1832 5.68666 70.2432 6.10666 70.3632 6.39999C70.4832 6.67999 70.6832 6.88666 70.9632 7.01999C71.2565 7.13999 71.6765 7.19999 72.2232 7.19999H74.7032C76.0232 7.19999 77.0032 7.51999 77.6432 8.15999C78.2832 8.79999 78.6032 9.78666 78.6032 11.12C78.6032 12.44 78.2832 13.42 77.6432 14.06C77.0032 14.6867 76.0232 15 74.7032 15H71.8232Z"
+										fill="white" />
+									<path
+										d="M85.3108 15C84.2975 15 83.5375 14.7533 83.0308 14.26C82.5375 13.7533 82.2908 12.9867 82.2908 11.96V1.75999C82.2908 1.49332 82.3642 1.28666 82.5108 1.13999C82.6575 0.993324 82.8642 0.91999 83.1308 0.91999C83.3975 0.91999 83.6042 0.993324 83.7508 1.13999C83.8975 1.28666 83.9708 1.49332 83.9708 1.75999V11.96C83.9708 12.5067 84.0575 12.8733 84.2308 13.06C84.4175 13.2333 84.7775 13.32 85.3108 13.32C85.8842 13.32 86.1708 13.6 86.1708 14.16C86.1842 14.4267 86.1175 14.6333 85.9708 14.78C85.8242 14.9267 85.6042 15 85.3108 15Z"
+										fill="white" />
+									<path
+										d="M89.9863 15C89.7196 15 89.513 14.9267 89.3663 14.78C89.2196 14.6333 89.1463 14.4267 89.1463 14.16V5.69999C89.1463 5.43332 89.2196 5.22666 89.3663 5.07999C89.513 4.93332 89.7196 4.85999 89.9863 4.85999C90.253 4.85999 90.4596 4.93332 90.6063 5.07999C90.753 5.22666 90.8263 5.43332 90.8263 5.69999V14.16C90.8263 14.4267 90.753 14.6333 90.6063 14.78C90.4596 14.9267 90.253 15 89.9863 15ZM89.7063 3.21999C89.3996 3.21999 89.1596 3.13332 88.9863 2.95999C88.8263 2.78666 88.7463 2.55332 88.7463 2.25999V1.65999C88.7463 1.35332 88.8263 1.12666 88.9863 0.979991C89.1596 0.81999 89.3996 0.73999 89.7063 0.73999H90.2863C90.8863 0.73999 91.1863 1.04666 91.1863 1.65999V2.25999C91.1863 2.56666 91.1063 2.80666 90.9463 2.97999C90.7996 3.13999 90.5796 3.21999 90.2863 3.21999H89.7063Z"
+										fill="white" />
+									<path
+										d="M103.146 0.91999C103.413 0.91999 103.619 0.993324 103.766 1.13999C103.913 1.28666 103.986 1.49332 103.986 1.75999V14.16C103.986 14.4267 103.913 14.6333 103.766 14.78C103.619 14.9267 103.413 15 103.146 15C102.879 15 102.673 14.9267 102.526 14.78C102.379 14.6333 102.306 14.4267 102.306 14.16V14.02C101.973 14.3533 101.553 14.6 101.046 14.76C100.553 14.92 99.9328 15 99.1862 15H98.4262C97.0928 15 96.1062 14.68 95.4662 14.04C94.8262 13.4 94.5062 12.4133 94.5062 11.08V8.77999C94.5062 7.44666 94.8262 6.45999 95.4662 5.81999C96.1062 5.17999 97.0928 4.85999 98.4262 4.85999H102.306V1.75999C102.306 1.49332 102.379 1.28666 102.526 1.13999C102.673 0.993324 102.879 0.91999 103.146 0.91999ZM99.1862 13.32C100.106 13.32 100.853 13.2067 101.426 12.98C102.013 12.74 102.306 12.3933 102.306 11.94V6.53999H98.4262C97.8395 6.53999 97.3862 6.60666 97.0662 6.73999C96.7462 6.87332 96.5195 7.09999 96.3862 7.41999C96.2528 7.73999 96.1862 8.19332 96.1862 8.77999V11.08C96.1862 11.6667 96.2528 12.12 96.3862 12.44C96.5195 12.76 96.7462 12.9867 97.0662 13.12C97.3862 13.2533 97.8395 13.32 98.4262 13.32H99.1862Z"
+										fill="white" />
+									<path
+										d="M109.155 10.62V11.1C109.155 11.6867 109.222 12.14 109.355 12.46C109.488 12.7667 109.715 12.9867 110.035 13.12C110.355 13.2533 110.808 13.32 111.395 13.32H113.035C113.715 13.32 114.215 13.26 114.535 13.14C114.868 13.0067 115.088 12.78 115.195 12.46C115.275 12.1933 115.382 12 115.515 11.88C115.648 11.7467 115.842 11.68 116.095 11.68C116.348 11.68 116.542 11.74 116.675 11.86C116.822 11.9667 116.895 12.1267 116.895 12.34C116.895 12.4333 116.888 12.5 116.875 12.54C116.582 14.18 115.302 15 113.035 15H111.395C110.062 15 109.075 14.68 108.435 14.04C107.795 13.4 107.475 12.42 107.475 11.1V8.77999C107.475 7.43332 107.795 6.43999 108.435 5.79999C109.075 5.15999 110.062 4.84666 111.395 4.85999H113.035C114.368 4.85999 115.355 5.17999 115.995 5.81999C116.635 6.45999 116.955 7.44666 116.955 8.77999V9.77999C116.955 10.0467 116.882 10.2533 116.735 10.4C116.588 10.5467 116.382 10.62 116.115 10.62H109.155ZM109.155 8.93999H115.275V8.77999C115.275 8.19332 115.208 7.73999 115.075 7.41999C114.942 7.09999 114.715 6.87332 114.395 6.73999C114.075 6.60666 113.622 6.53999 113.035 6.53999H111.395C110.808 6.52666 110.355 6.58666 110.035 6.71999C109.715 6.85332 109.488 7.07999 109.355 7.39999C109.222 7.71999 109.155 8.17999 109.155 8.77999V8.93999Z"
+										fill="white" />
+									<path
+										d="M125.911 4.85999C126.177 4.85999 126.384 4.93332 126.531 5.07999C126.677 5.22666 126.751 5.43332 126.751 5.69999C126.751 5.96666 126.677 6.17332 126.531 6.31999C126.384 6.46666 126.177 6.53999 125.911 6.53999C124.777 6.53999 123.897 6.75332 123.271 7.17999C122.657 7.59332 122.337 8.15999 122.311 8.87999V14.16C122.311 14.4267 122.237 14.6333 122.091 14.78C121.944 14.9267 121.737 15 121.471 15C121.204 15 120.997 14.9267 120.851 14.78C120.704 14.6333 120.631 14.4267 120.631 14.16V5.69999C120.631 5.13999 120.911 4.85999 121.471 4.85999C122.031 4.85999 122.311 5.13999 122.311 5.69999V6.47999C123.124 5.39999 124.324 4.85999 125.911 4.85999Z"
+										fill="white" />
+								</svg>
+							</div>
+						</div>
+						<div class="col-8 nav">
+							<div class="menu">
+								<ul>
+									<li><a class="link" href="">Get started</a></li>
+									<li><a class="link" href="">Examples</a></li>
+									<li><a class="link" href="">Features</a></li>
+									<li class="cta"><a class="link" href="">Download</a></li>
+
+								</ul>
+							</div>
+						</div>
+						<div class="col-12 credit">
+							<div class="content">
+								<a href="http://virtualjungle.co.uk" target="_blank" rel="noopener noreferrer">Made by <strong>Virtual Jungle</strong></a>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+
+
+
+		</footer>
+
+
+
+		<!-- Javascript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="superSlider.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/scripts/superSlider.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="home.js" type="text/javascript" charset="utf-8"></script>
 
-
-
-		<script type="text/javascript">
-			$(document).ready(function () {
-
-				$('#slider-1').super({
-					slidesToShow: 1,
-					responsive: [
-						{
-							breakpoint: 800,
-							settings: {
-								slidesToShow: 2,
-								slidesToScroll: 2,
-								infinite: true,
-								dots: true,
-
-							}
-						},
-						{
-							breakpoint: 1000,
-							settings: {
-								slidesToShow: 3,
-								slidesToScroll: 3,
-								infinite: true,
-								dots: true,
-								autoplay: true,
-
-							}
-						}
-
-					]
-				});
-				
-				$('#slider-2').super({
-				
-				});
-				$('#slider-3').super({
-					infinite: true,
-					slidesToShow: 2,
-
-					
-				});
-
-			});
-		</script>
 
 	</body>
 

@@ -9,24 +9,12 @@
 	color: inherit;
 }
 
-ul,ol{
-	list-style: none;
-}
-a{
-	text-decoration: none;
-}
-section{
-	margin: 3rem 0;
-}
-.container{ 
-	max-width: 600px;
-	margin: auto;
-} 
 .super-slider {
 	width: 100%;   
 	display: flex;
 	flex-flow: row wrap; 
 	touch-action: pan-y ;
+	user-select: none;
 	&:focus{ 
 		outline: none;
 	}
@@ -43,8 +31,8 @@ section{
 		flex: 4; 
 		order: 2;
 		position: relative;
-		 overflow: hidden; 
-		height: 50vh;
+		overflow: hidden; 
+		height: 300px;
 	}
 	.super-navigation{
 		display: flex;
@@ -78,15 +66,12 @@ section{
 		align-items: center;
 		li{
 			cursor: pointer;
-			opacity: 0.6;
 			padding: 0.2rem;
-			&.active{
-				opacity: 1;
-			}
+			
 			div{
 				width: 1rem;
 				height: 1rem;
-				background: #000;
+				// background: #000;
 				border-radius: 50%;
 			}
 		}
@@ -119,12 +104,7 @@ section{
 	padding: 1rem;
 	
 	.item{
-		background: rgb(54, 54, 170);
-		color: #fff;
 		height: 100%;
 		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 }
