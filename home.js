@@ -12,20 +12,7 @@ $(document).ready(function () {
 	// DETECT ON LOAD WHETHER WINDOW IS SCROLLED ALREADY
 	checkScroll();
 
-	var sections = [];
-		
-	$('.navbar').find('.link').each(function (i) {
-		var linkTarget = $(this).data('target');
-		var sectionTarget = Math.round($('#' + linkTarget).offset().top);
-		
-		var section = {
-			'target': linkTarget,
-			'sectionTarget': sectionTarget,
-		}
-		sections[i] = section;
-	});
 
-	var sectionOffsets = [];
 
 	// EVENT LISTENER FOR SCROLL
 	$(window).scroll(function (event) {
@@ -35,6 +22,21 @@ $(document).ready(function () {
 			currentSection,
 			activeSection;
 
+
+			var sections = [];
+		
+			$('.navbar').find('.link').each(function (i) {
+				var linkTarget = $(this).data('target');
+				var sectionTarget = Math.round($('#' + linkTarget).offset().top);
+				
+				var section = {
+					'target': linkTarget,
+					'sectionTarget': sectionTarget,
+				}
+				sections[i] = section;
+			});
+		
+			var sectionOffsets = [];
 		if (scrolled > 0) {
 			$('.navbar').addClass('scrolled');
 		} else {

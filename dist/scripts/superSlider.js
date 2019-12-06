@@ -266,7 +266,7 @@
 		_.buildNavigation();
 
 		//  3. DOTS
-		_.buildIndicators();
+		_.buildIndicators(init);
 
 		//  4. TRACK
 		_.buildTrack();
@@ -287,6 +287,8 @@
 		if (_.options.removeSuper) {
 			_.removeSuper(true);
 		}
+
+
 
 	};
 	Super.prototype.config = function () {
@@ -459,12 +461,13 @@
 		}
 
 	};
-	Super.prototype.buildIndicators = function () {
+	Super.prototype.buildIndicators = function (init) {
 
 		var _ = this,
 			i = 1,
 			container,
 			element;
+
 		
 		// ADD INDICATORS IF ALLOWED
 		if (_.options.indicator === true) {
@@ -497,7 +500,7 @@
 			_.$indicators = _.$list.children();
 		}
 	
-		_.updateClasses();
+		_.updateClasses(init);
 	};
 
 	Super.prototype.buildTrack = function () {
@@ -1126,7 +1129,7 @@
 
 	};
 
-	Super.prototype.updateClasses = function () {
+	Super.prototype.updateClasses = function (init) {
 		var _ = this,
 			positionProps = {};;
 
@@ -1152,6 +1155,12 @@
 				$(this).addClass('current-slide');
 			}
 		});
+
+
+		if (init) {
+			_.$wrapper.addClass('loading');
+		}
+		
 		
 	};
 	
@@ -1277,6 +1286,9 @@
 			}
 
 		}
+
+		_.$wrapper.removeClass('loading');
+		
 
 	};
 	
