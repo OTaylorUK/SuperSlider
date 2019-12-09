@@ -204,75 +204,69 @@ $(document).ready(function () {
 
 	// TABLE //
 
-	// $('th').each(function () {
+	$('tr').each(function () {
+		$(this).addClass('row-section');
+		$(this).children('td').each(function (i) {
+
+			// var content = $(this).text();
+
+
+			if (i == 0) {
+				$(this).addClass('feature-name');
+			} else if (i == 1) {
+				$(this).addClass('feature-type');
+			} else if (i == 2) {
+				$(this).addClass('feature-default');
+			} else if (i == 3) {
+				$(this).addClass('feature-info');
+			}
+
+
+		});
+	})
+
+	/// TABLE ////
+
+	$(document).on('click','.feature-name',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var section = $(this).closest('.row-section');
+
 		
-	// })
+		// if already active then close
+		if(!$(section).hasClass('active')){
+			$(section).addClass('active');
+		} else {
+			$(section).removeClass('active');
+		}
+
+		// remove all active classes on other features
+		$('.row-section').not(section).removeClass('active');
+
+	});
 
 	var row = $('tr').children();
 
+		
 
+	$(document).on('keyup','#search-field',function(e){
+		var searchVal = $(this).val().toUpperCase();
 
-	$('th').on('mouseover', function() {
-		$(this).closest('tr').addClass('highlight');
-        $(this).closest('table').find('td').removeClass('highlight');
-        $(this).closest('table').find('td:nth-child(' + ($(this).index() + 1) + ')').addClass('highlight');
+		var contains = true;
+
+		var test = false;
+
+		$('.feature-name').each(function () { 
+			var text = $(this).text().toUpperCase();
+
+			if (text.indexOf(searchVal) > -1) { 
+				$(this).closest('.row-section').css('display', 'flex');
+			} else {
+				$(this).closest('.row-section').css('display', 'none');
+			}
+		});
+		
 	});
-	
-	$('th').on('mouseout', function () {
-		$(this).closest('tr').removeClass('highlight');
-        $(this).closest('table').find('td').removeClass('highlight');
-    });
-	
-	// $('tr').each(function () {
-	// 	var index;
-	// 	var hoverIndex;
-
-	// 	var $children = $(this).children();
-
-	// 	$children.each(function (i) {
-	// 		i++;
-	// 		index = $(this).attr('data-index', i);
-
-	// 		$(this).hover(function () {
-	// 			hoverIndex = $(this).attr('data-index');
-	// 			console.log(hoverIndex);
-
-	// 			$children.each(function (i) {
-	// 				test = $(this).attr('data-index', i);
-
-	// 				if (test == hoverIndex) {
-	// 					$('this').addClass('hovered');
-						
-	// 				} else {
-	// 					$(this).removeClass('hovered');
-	// 				}
-	// 			});
-				
-	// 		});
-
-		
-			
-	// 	});
-	
-
-	// 	// $(this).children().each(function () {
-	// 	// 	var other = $(this).attr('data-index');
-	// 	// 	console.log('reacahe');
-
-	// 	// 	if (other === index) {
-	// 	// 		console.log('reacahe');
-				
-	// 	// 		$(this).addClass('hovered');
-	// 	// 	} else {
-	// 	// 		$(this).removeClass('hovered');
-				
-	// 	// 	}
-			
-	// 	// });
-		
-
-
-	// });
 
 
 

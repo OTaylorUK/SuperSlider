@@ -20,7 +20,7 @@
 			<div class="navbar">
 				<div class="wrapper">
 					<section class="container-fw navigation">
-						<div class="col-4 logo">
+						<div class="col-2 logo">
 							<div class="svg-btn">
 								<svg class="logo-svg" width="127" height="19" viewBox="0 0 127 19" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -60,14 +60,19 @@
 								</svg>
 							</div>
 						</div>
-						<div class="col-8 nav">
-							<div class="menu">
-								<ul>
+						<div class="col-10 nav">
+							<div class="navigation-wrapper">
+								<ul class="navigation">
 									<li><div data-target="get-started-section" class=" link" >Get started</div</li>
 									<li><div data-target="examples-section" class="link" >Examples</div</li>
 									<li><div data-target="features-section" class="link" >Features</div</li>
 									<li class="cta"><div data-target="download-section" class="link" >Download</div</li>
 								</ul>
+							</div>
+							<div class="hamburger-container">
+								<span></span>
+								<span></span>
+								<span></span>
 							</div>
 						</div>
 					</section>
@@ -82,7 +87,7 @@
 			<div class="hero">
 				<div class="wrapper">
 					<section class="container">
-						<div class=" col-8 hero-text">
+						<div class="col-lg-8 col-12 hero-text">
 							<h1 class="title">The all purpose, <span class="highlight">lightweight</span> and <span class="highlight">highly customisable</span> slider.</h1>
 							<p class="text">SuperSlider is a modern slider suitable for all projects that provides a simple and yet powerful level of customisation to suit your needs.</p>
 							<button class="cta-btn get-started">Get started</button>
@@ -604,8 +609,13 @@ $('.your-class-here').super({
 					</div>
 
 					<div class="col-12 section-content">
+							<form>
+								<div class="search-field-wrapper">
+									<input id="search-field" type="text" placeholder="Search">
+								</div>
+							</form>
 						<div class="feature-table">
-							<table>
+							<table class="table-content">
 								<tr class="header">
 									<th class="left">Feature <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
 									<th>Type <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
@@ -613,76 +623,196 @@ $('.your-class-here').super({
 									<th class="right">Information <object class="arrow-toggle" data="/Vector 4.svg" type=""></object></th>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>accessibility</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>Enable the use of keys (left &amp; right) to navigate through the slides of the selected slider.</td>
 								</tr>
 								<tr>
-									<td>Bccessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowAppend</td>
+									<td>element<br></td>
+									<td>$(element)</td>
+									<td>The DOM element where the arrows will be appended to. As default this is set to the slider.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowClass</td>
+									<td>string</td>
+									<td>' '</td>
+									<td>Enables for any custom classes to be added to both arrow containers.</td>
 								</tr>
 								<tr>
-									<td>Zccessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowDirections</td>
+									<td>array</td>
+									<td>['left', 'right']</td>
+									<td>Array of the directions of the slider. Used as content if the arrowLeft/Right are empty.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowElement</td>
+									<td>element<br></td>
+									<td>&lt;button&gt;&lt;/button&gt;'</td>
+									<td>The type of element the arrow content is wrapped in.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowLeft</td>
+									<td>string</td>
+									<td>&lt;svg width="15" height="24" viewBox="0 0 15 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"&gt;&lt;path d="M13 2L3 12L13 22" stroke="#0E1427"
+										stroke-width="3"/&gt;&lt;/svg&gt;'</td>
+									<td>The content for the left navigation button.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrowRight</td>
+									<td>string</td>
+									<td>&lt;svg width="15" height="24" viewBox="0 0 15 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"&gt;&lt;path d="M2 2L12 12L2 22" stroke="#0E1427"
+										stroke-width="3"/&gt;&lt;/svg&gt;'<br></td>
+									<td>The content for the right navigation button.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>arrows</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>Enable navigation elements to be added to the slider.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>autoPlay</td>
+									<td>boolean</td>
+									<td>false<br></td>
+									<td>Enable the slides to automatically scroll.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>autoPlayDelay</td>
+									<td>integer</td>
+									<td>3000</td>
+									<td>The delay to triggering autoplay.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>customClass</td>
+									<td>string</td>
+									<td>' '<br></td>
+									<td>Enables for any custom classes to be added to the slider.</td>
 								</tr>
 								<tr>
-									<td>Accessability</td>
-									<td>Boolean</td>
-									<td>True</td>
-									<td>Allows navigation by pressing left/right arrow keys</td>
+									<td>indicator</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>Enable indicator elements to be added to the slider.</td>
+								</tr>
+								<tr>
+									<td>indicatorClass</td>
+									<td>string</td>
+									<td>' '<br></td>
+									<td>Enables for any custom classes to be added to the indicator container.</td>
+								</tr>
+								<tr>
+									<td>indicatorElement</td>
+									<td>element</td>
+									<td>$(element)</td>
+									<td> The DOM element where the indicator container will be appended to. As default this is set to the slider.</div>
+									</td>
+								</tr>
+								<tr>
+									<td>infiniteScroll</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>Enables continous scrolling - creates cloned slides to create the allusion of infinite scrolling.</td>
+								</tr>
+								<tr>
+									<td>initialSlide</td>
+									<td>integer</td>
+									<td>1</td>
+									<td>The starting slide.</td>
+								</tr>
+								<tr>
+									<td>mobileFirst</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>All breakpoints defined in responsive are mobile first.</td>
+								</tr>
+								<tr>
+									<td>pauseOnHover<br></td>
+									<td>boolean</td>
+									<td>true<br></td>
+									<td>Pause the autoplay animation on hover.</td>
+								</tr>
+								<tr>
+									<td>removeSuper</td>
+									<td>boolean</td>
+									<td>FALSE</td>
+									<td>Completely removes the slider from the DOM.</div>
+									</td>
+								</tr>
+								<tr>
+									<td>respondTo</td>
+									<td>string</td>
+									<td>window'<br></td>
+									<td>Control whether the breakpoints respond tothe window or the slider width.</td>
+								</tr>
+								<tr>
+									<td>responsive</td>
+									<td>object<br></td>
+									<td>null</td>
+									<td>An array of objects with any custom settings applied at each breakpoint.</td>
+								</tr>
+								<tr>
+									<td>slidesToScroll</td>
+									<td>integer</td>
+									<td>1</td>
+									<td>The number of slides to scroll.</td>
+								</tr>
+								<tr>
+									<td>slidesToShow</td>
+									<td>integer</td>
+									<td>1</td>
+									<td>The number of slides that are visible.</td>
+								</tr>
+								<tr>
+									<td>touchSensitivity</td>
+									<td>integer</td>
+									<td>'default'</td>
+									<td>Control how sensitive the slider drag is. Accepts any of the following: 'low', 'normal, 'default', and 'high'.</td>
+								</tr>
+								<tr>
+									<td>transitionDelay</td>
+									<td>integer</td>
+									<td>0</td>
+									<td>The delay applied to the transitions of changing slides.</td>
+								</tr>
+								<tr>
+									<td>transitionProperty</td>
+									<td>string</td>
+									<td>'ease'</td>
+									<td>The transition property type, accepts any valid css transition type.</div>
+									</td>
+								</tr>
+								<tr>
+									<td>transitions</td>
+									<td>boolean</td>
+									<td>TRUE</td>
+									<td>Enables the css transitions on all change slide types.</td>
+								</tr>
+								<tr>
+									<td>transitionSpeed</td>
+									<td>integer</td>
+									<td>800</td>
+									<td>The speed that the transitions are carried out.</td>
+								</tr>
+								<tr>
+									<td>transitionUnit</td>
+									<td>string</td>
+									<td>'ms'</td>
+									<td>The unit for the speed/delay.</td>
+								</tr>
+								<tr>
+									<td>z-index</td>
+									<td>integer</td>
+									<td>100</td>
+									<td>Controls the z-index of the slider.</td>
+								</tr>
+								<tr>
+									<td>type</td>
+									<td>default</td>
+									<td>notes</td>
 								</tr>
 								
 							</table>
@@ -707,7 +837,7 @@ $('.your-class-here').super({
 							</div>
 							<span class="text">Back to the top</span>
 						</div>
-						<div class="col-4 logo">
+						<div class="col-12 col-lg-4 logo">
 							<div class="svg-btn">
 								<svg class="logo-svg" width="190.5" height="28.5" viewBox="0 0 127 19" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -747,7 +877,7 @@ $('.your-class-here').super({
 								</svg>
 							</div>
 						</div>
-						<div class="col-8 nav">
+						<div class="col-12 col-lg-8 nav">
 							<div class="menu">
 								<ul>
 									<li><a class="link" href="">Get started</a></li>
@@ -758,7 +888,7 @@ $('.your-class-here').super({
 								</ul>
 							</div>
 						</div>
-						<div class="col-12 credit">
+						<div class="col-12 col-lg-12 credit">
 							<div class="content">
 								<a href="http://virtualjungle.co.uk" target="_blank" rel="noopener noreferrer">Made by <strong>Virtual Jungle</strong></a>
 							</div>

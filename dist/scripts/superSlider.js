@@ -26,66 +26,103 @@
 			var _ = this,
 				dataSettings;
 
-
-
 			// DEFAULT SETTINGS //
 			_.defaults = {
 
-				accessibility: true, // BOOLEAN - ALLOWS FOR KEYS TO MOVE SLIDER 
-				arrows: true, // BOOLEAN - ADD ARROWS
+				accessibility: true,
+				// BOOLEAN: KEYS NAVIGATE THROUGH SLIDES (LEFT & RIGHT)
+
+				arrows: true,
+				// BOOLEAN: CREATE ARROWS FOR THE SLIDER
+
 				arrowElement: '<button></button>',
-				arrowClass: '',
+				// STRING: ARROW HTML ELEMENT
+
+				arrowClass: '', // MAKE NULL
+				// STRING: CUSTOM CLASS FOR THE ARROW WRAPPER
+
 				arrowDirections: ['left', 'right'],
+				// ARRAY: DIRECTION NAMES DEFINED HERE
+
 				arrowLeft: '<svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 12L13 22" stroke="#0E1427" stroke-width="3"/></svg>',
+				// STRING: CONTENT FOR THE LEFT ARROW
+
 				arrowRight: '<svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2L12 12L2 22" stroke="#0E1427" stroke-width="3"/></svg>',
+				// STRING: CONTENT FOR THE RIGHT ARROW
 
-				arrowAppend: $(element), // WHERE TO ADD ARROW ELEMENTS
+				arrowAppend: $(element),
+				// ELEMENT: DOM ELEMENT WHERE TO APPEND THE ARROWS
 			
-				autoPlay: false, // BOOLEAN - AUTOPLAY SLIDES,
-				AutoPlayDelay: 3000,
+				autoPlay: false, 
+				// BOOLEAN: AUTO SLIDES THROUGH THE SLIDES
+				
+				autoPlayDelay: 3000,
+				// INT: DELAY FOR THE AUTOPLAY
 
-				APPauseOnHover: true,
+				pauseOnHover: true,
+				// BOOLEAN: PAUSE AUTOPLAY ON HOVER
 
 				customClass: null,
-			
-				fadeEffect: false,
-				indicator: true, // BOOLEAN - ADD INDICATORS/DOTS 
-				indicatorElement: '<div></div>',
-				indicatorClass: 'TEST',
+				// BOOLEAN: PAUSE AUTOPLAY ON HOVER
 
-				indicatorAppend: $(element), // WHERE TO ADD INDICATOR ELEMENTS
+			
+				indicator: true,
+				// BOOLEAN: CREATE SLIDE INDICATORS
+
+				indicatorElement: '<div></div>',
+				// STRING: INDICATOR HTML ELEMENT
+
+				indicatorClass: 'TEST', // MAKE NULL
+				// STRING: CUSTOM CLASS FOR THE INDICATOR WRAPPER
+
+
+				indicatorAppend: $(element),
+				// ELEMENT: DOM ELEMENT WHERE TO APPEND THE INDICATORS
 			
 				responsive: null,
+				// ARRAY: CHANGE HOW THE SLIDER APPEARS/WORKS AT CUSTOM BREAKPOINTS
+
 				respondTo: 'window',
+				// STRING: RESPONDS TO EITHER THE WINDOW OR SLIDER WIDTH
 			
-				transitions: true, // BOOLEAN - CSS TRANSITION ON TRANSFORM 
+				transitions: true, 
+				// BOOLEAN: CSS TRANSITION ON THE TRANSFORM 
+
 				transitionProperty: 'ease',
-				transitionSpeed: 800,  // DEFAULT 'MS'
+				// STRING: CSS TRANSITION PROPERTY
+
+				transitionSpeed: 800,  
+				// INT: CSS TRANSITION PROPERTY
+
 				transitionDelay: 0,
+				// INT: CSS TRANSITION DELAY
+
 				transitionUnit: 'ms',
+				// STRING: CSS TRANSITION SPEED/DELAY UNIT
 
-
-				infiniteScroll: true, // BOOLEAN - NEVER ENDING SCROLLING
+				infiniteScroll: true, 
+				// BOOLEAN: CONTINOUS SCROLLING
 			
 				removeSuper: false,
-				slidesToScroll: 1,
-				slidesToShow: 1, // to add functionality later
-			
-				touchSensitivity: 'default', // SCALE 1-3 // accepts low, normal, default, high
-			
-				zIndex: 1000,
+				// BOOLEAN: REMOVES SLIDER
 
-				////
-				adaptiveHeight: false,
-				
-				arrowAppend: $(element),
-				appendDots: $(element),
-				arrows: true,
-				asNavFor: null,
+				slidesToScroll: 1,
+				// INT: NUMBER OF SLIDES TO SCROLL
+
+				slidesToShow: 1, 
+				// INT: NUMBER OF SLIDES THAT ARE VISIBLE
 			
-				initialSlide: 1,
+				touchSensitivity: 'default', 
+				// STRING: HOW MUCH THE SLIDER NEEDS TO BE DRAGGED TO CHANGE SLIDE - ACCEPTS 'LOW', 'NORMAL', 'DEFAULT' AND 'HIGH'
 				
-				mobileFirst: true, // to look at
+				zIndex: 100,
+				// INT: CONTROL THE Z-INDEX OF THE SLIDER
+
+				initialSlide: 1,
+				// INT: THE SLIDE TO START ON
+
+				mobileFirst: true, 
+				// BOOLEAN: BREAKPOINTS ARE MOBILE FIRST
 			
 			};
 
@@ -533,7 +570,7 @@
 		// TRANSFORM IS USED TO MOVE SLIDER REGARDLESS
 		animationProp[_.transformType] = 'translate3d(' + _.currentOffset + 'px, 0px, 0px)';
 
-		if (_.options.fadeEffect) { 
+		if (_.options.transitions) { 
 			// NO TRANSITION ON THE TRANFORM
 
 			_.$slides.each(function () {
@@ -643,7 +680,7 @@
 		$(window).on('resize', $.proxy(_.resize, _));
 		
 		// PAUSE AUTOPLAY ON MOUSE ENTER/HOVER //
-		if (_.options.APPauseOnHover) {
+		if (_.options.pauseOnHover) {
 
 			_.$slider.on('mouseenter', $.proxy(_.interrupt, _, true));
 			_.$slider.on('mouseleave', $.proxy(_.interrupt, _, false));
@@ -866,7 +903,7 @@
 
 		
 
-		if (_.options.fadeEffect !== true) {
+		if (_.options.transitions !== true) {
 			
 			positionProps[_.transformType] = 'translate3d(' + x + ', 0px, 0px)';
 		}
@@ -907,10 +944,10 @@
 
 		var _ = this;
 
-		_.autoPlayTimer = setInterval(_.autoPlayIterator, _.options.AutoPlayDelay);
+		_.autoPlayTimer = setInterval(_.autoPlayIterator, _.options.autoPlayDelay);
 
 		// if (!init) {
-		// 	_.autoPlayTimer = setInterval(_.autoPlayIterator, _.options.AutoPlayDelay);
+		// 	_.autoPlayTimer = setInterval(_.autoPlayIterator, _.options.autoPlayDelay);
 			
 		// }
 	};
@@ -1086,7 +1123,7 @@
 		_.currentOffset = -(slideTab * _.offset);
 
 
-		if (_.options.fadeEffect !== true) {
+		if (_.options.transitions !== true) {
 			
 			animationProp[_.animProp] = 'transform ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
 		
