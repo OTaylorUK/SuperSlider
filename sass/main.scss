@@ -1,20 +1,25 @@
-$black: #0E1427;
+$black: #10191f;
 $blackLight: lighten($black, 10%);
 $white: #ffffff;
 $whiteDark: rgba($white, .8);
 
 $grey: #F8F8F8;
 $darkgrey: #C4C4C4;
-$accent: #09AF93;
+$accent: #e7004b;
 $darkaccent: #2A4285F0;
 $main: #2A4285;
 $mainLight: rgba($main, .8);
 
-$mainFont: 'Montserrat',
-sans-serif;
+
+$mainFont: 'Raleway', sans-serif;
 
 * {
 	box-sizing: border-box;
+}
+
+.gradient-background{
+	fill: $accent
+
 }
 
 
@@ -103,7 +108,12 @@ sans-serif;
 						}
 
 						&:hover {
-							
+							&.cta{
+								background-color: $accent;
+								border-color: $accent;
+								color: $black;
+
+							}
 							.link {
 								color: $white;
 							}
@@ -115,46 +125,13 @@ sans-serif;
 	}
 
 	&.scrolled {
-		background-color: $white;
+		background: linear-gradient(100deg, #10191f 0%, #1a1919 100%);
 		top: 0;
 		transition: top 500ms ease 0s;
-		box-shadow: 0px 4px 10px rgba(19, 5, 6, 0.1);
+		box-shadow: 0px 4px 10px rgba(19, 5, 6, 0.44);
 
-		.hamburger-container {
-			span {
-				background-color: $main;
-			}
-		}
-		.nav {
-			.navigation-wrapper ul {
-				li {
-					.link {
-						color: $mainLight;
-					}
-
-					&.cta {
-						border-color: $mainLight;
-					}
-
-					&:hover {
-						.link {
-							color: $main;
-						}
-
-						&.cta {
-							border-color: $main;
-						}
-					}
-				}
-			}
-		}
-
-		.logo-svg {
-			path {
-				fill: $main;
-
-			}
-		}
+		
+	
 	}
 
 	.nav{
@@ -181,6 +158,38 @@ sans-serif;
 					justify-content: center;
 					align-items: center;
 					padding: 0 1rem;
+				}
+			}
+		}
+		&.active{
+			height: 100vh;
+			width: 100vw;
+			background: $black;
+			position: fixed;
+			top: 0;
+			left: 0;
+			flex-flow: row;
+			z-index: 99;
+			justify-content: center;
+			align-items: center;
+			.navigation{
+				flex-flow: column;
+				padding: 5rem;
+
+				text-align: center;
+				li{
+					justify-content: center;
+					padding: 1rem ;
+					.link{
+						padding: 1rem !important;
+					}
+					&.cta{
+						border: none !important;
+						margin: 0 !important;
+					}
+					&:hover{
+						box-shadow: 0px 0px 10px #0000003b;
+					}
 				}
 			}
 		}
@@ -300,20 +309,25 @@ sans-serif;
 
 .hero {
 	position: relative;
-	min-height: 80vh;
+	min-height: 85vh;
 	display: flex;
 	justify-content: center;
 	align-content: center;
-	background-color: $main;
+	width: 100%;
 
+	
+
+	
 	.wrapper {
 		display: flex;
 		align-items: center;
+		padding: 100px 0 150px 0;
+		margin-top: calc(3rem + 70px);
 	}
 
-	.container {
-
+	.container { 
 		.hero-text {
+			z-index: 10;
 			.title {
 				color: $white;
 				margin-bottom: 2rem;
@@ -328,144 +342,147 @@ sans-serif;
 		}
 	}
 	// responsive
-
-	@media (min-width: 900px) {
-		background-image: url('../hero2.svg');
-		background-size: cover;
-		min-height: 70vh;
-		height: calc(100vw / 1.8);
-		background-color: transparent;
-		.wrapper {
-			min-height: 70vh;
-			height: calc(100vw / 1.8);
-		}
-	}
+	
+	
 
 	
 }
 
-footer{
-	position: relative;
-	background-color: $main;
-	margin-top: 10vh;
-	.scroll-to-top{
+.background-container{
+	background: linear-gradient(100deg, #10191f 0%, #1a1919 100%);
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+
+}
+
+.svg-container{
+	display: none;
+	position: absolute;
+	right: 0;
+	width: 100%;
+	z-index: 2;
+	bottom: -1px;
+	top: auto;
+	height: 264px;
+	.svg{
+		height: auto;
+		width: 100%;
 		position: absolute;
-		bottom: 100%;
-		right: 1rem;
-		padding-bottom: 2rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-flow: column;
-		cursor: pointer;
-
-		.icon{
-			background: rgba($accent, 0.9);
-			padding: 0.5rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin-bottom: 1rem;
-			transition: all 450ms ease;
-
-		}
-		.text{
-			color: $white;
-		}
-		&:hover{
-			.icon{
-				background: $accent;
-				transform: translateY(-10px);
-				transition: all 450ms ease;
-			}
+		bottom: 0;
+		path{
+			fill: white;
 		}
 	}
+}
 
+@media (min-width: 600px) {
+	.svg-container{
+		display: block;
+	}
+}
+
+.footer{
+	position: relative;
+	margin-top: 10vh;
+	padding-top: 26px;
+	min-height: 450px;
+	display: flex;
+	align-items: flex-end;
+
+	.svg-container{
+		top: 0;
+		height: 23px;
+		.svg{
+			top: 0;
+
+		}
+	}
 	.navigation{
 		width: 100%;
 		position: relative;
 	}
 
 	.wrapper {
-		min-height: 70vh;
-		height: calc(100vw / 1.8);
 		display: flex;
-		align-items: flex-end;
-		.logo {
+		.content{
 			display: flex;
-			justify-content: center;
-			align-content: center;
-			cursor: pointer;
-			transition: transform 500ms ease 0s;
-
-			&:hover {
-				transform: scale(1.05);
-				transition: transform 500ms ease 0s;
-			}
-
-			.svg-btn {
+			flex-flow: row wrap;
+			color: $white;
+			margin-top: 3rem;
+			.content-item{
+				flex: 1 0 100%;
 				display: flex;
-				align-items: center;
-				cursor: pointer;
-
-				.logo-svg {
-					cursor: pointer;
-
-				}
-
-			}
-		}
-
-		.nav {
-			padding: 2rem 0;
-			.menu {
-				display: flex;
-				// justify-content: flex-end;
 				justify-content: center;
-				
-
-				ul {
-					display: flex;
-					color: $white;
-					flex-flow: column;
+				text-align: center;
+				padding: 1rem;
+				li{
+					padding-bottom: 0.5rem;
+					cursor: pointer;
+					&.title{
+						font-weight: bold;
+						font-size: 1.2rem;
+						padding-bottom: 1rem;
+						&:hover{
+							color: $white;
+						}
+					}
+					&:hover{
+						font-weight: bold;
+						color: $accent;
+					}
+				}
+				&.scroll-top{
 					justify-content: center;
-					align-items: center;
-
-					li {
+					align-items: flex-start;
+					button{
+						height: auto;
+						padding: 1rem;
 						display: flex;
-						margin: 0 0.8rem;
-
-						a {
-							padding: 0.5rem 1.5rem;
-							color: $whiteDark;
-
+						flex-flow: column;
+						svg{
+							width: 1.5rem;
+							height: 1.5rem;
 						}
-
-
-						&.active {
-							background: #ffffff12;
+						.text{
+							font-size: 1rem;
 						}
-
-						&:hover {
-							a {
-								color: $white;
+					}
+					.icon{
+						padding: 0.5rem;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						transition: all 450ms ease;
+			
+					}
+				
+					&:hover{
+						.icon{
+							transform: translateY(-10px);
+							transition: all 450ms ease;
+							path{
+								fill: $accent;
 							}
 						}
 					}
+
 				}
 			}
 		}
-
-
 		.credit{
-			margin-top: 6vh;
-			.content{
-				display: flex;
-				justify-content: center;
-				align-content: center;
-				padding: 2rem 0;
-				a{
-					color: $white;
+			border-top: 2px #ffffff30 solid;
+			margin-top: 4rem;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			padding: 2rem;
+			color:white;
+			a{
+				&:hover{
+					font-weight: bold;
 				}
 			}
 		}
@@ -473,14 +490,8 @@ footer{
 
 	// responsive
 
+
 	@media (min-width: 900px) {
-	background-image: url('../footer2.svg');
-	background-size: cover;
-	min-height: 70vh;
-	height: calc(100vw / 1.8);
-
-	background-color: transparent;
-
 
 	.wrapper{
 		.nav {
@@ -494,17 +505,60 @@ footer{
 		}
 	}
 	}
+	@media (min-width: 900px) {
+		.wrapper {
+			.content{
+				.content-item{
+					flex: 1;
+					order: 2;
+					justify-content: flex-start;
+					text-align: left;
+					padding: 0;
+					&.scroll-top{
+						flex: 1 0 100%;
+						order: 1;
+						margin-bottom: 3rem;
+					}
+
+				}
+			}
+		}
+	}
+	@media (min-width: 1200px) {
+		.wrapper {
+			.content{
+				.content-item{
+					order: 1;
+					&.scroll-top{
+						flex: 1;
+						margin-bottom: 0;
+						order: 2;
+					}
+				}
+			}
+		}
+	}
+
 }
 
 .usp {
 	position: relative;
 	background-image: url('../usp3.svg');
 	background-size: cover;
-	min-height: 100vh;
-	height: calc(100vw / 1.8);
-
+	height: auto;
+	padding-bottom: 150px;
+	.svg-container{
+		.svg{
+			path{
+				fill: $grey;
+			}
+		}
+	}
 	.wrapper {
 		display: flex;
+	}
+	@media (min-width: 600px) {
+		padding-bottom: 264px;
 	}
 
 
@@ -522,10 +576,14 @@ footer{
 			.usp-item {
 				flex: 1;
 				text-align: center;
-
+				padding: 0.5rem;
+				display: flex;
 				.inner {
 					padding: 2rem;
 					cursor: pointer;
+					max-width: 500px;
+					margin: 0 auto;
+					border-radius: 0.5rem;
 
 					.usp-icon {
 						margin-bottom: 3rem;
@@ -549,6 +607,9 @@ footer{
 					}
 
 					&:hover {
+						box-shadow: 0px 0px 10px #0d0d0d82;
+						// transition: background 350ms ease;
+
 						svg {
 							transform: scale(1.05);
 							transition: transform 500ms ease;
@@ -558,9 +619,8 @@ footer{
 			}
 			// responsive
 
-			@media (min-width: 900px) {
+			@media (min-width: 1000px) {
 				flex-flow: row wrap;
-
 			}
 		}
 
@@ -620,14 +680,14 @@ footer{
 		cursor: pointer;
 		button{
 			svg path{
-				stroke: rgba($main, 0.7);
+				stroke: rgba($black, 0.7);
 				transition: all 450ms ease;
 			}
 		}
 		&:hover{
 			button{
 				svg path{
-					stroke: $main;
+					stroke: $black;
 					transform: scale(1.1);
 					transition: all 450ms ease;
 				}
@@ -636,9 +696,9 @@ footer{
 	}
 	.super-wrapper {
 		.item {
-			background: $main;
+			background: $accent;
 			color: $white;
-			border: 3px $main solid;
+			border: 3px $accent solid;
 			border-radius: 0.5rem;
 			display: flex;
 			justify-content: center;
@@ -652,7 +712,7 @@ footer{
 
 		.super-indicator{
 			.super-indicator-inner{
-				background: rgba($main, 0.7);
+				background: rgba($black, 0.7);
 				transition: background 450ms ease;
 
 			}
@@ -660,7 +720,7 @@ footer{
 
 				.super-indicator-inner{
 					transform: scale(1.1);
-					background: rgba($main, 0.9);
+					background: rgba($black, 0.9);
 					transition: background 450ms ease;
 
 				}
@@ -668,7 +728,7 @@ footer{
 			}
 			&.active{
 				.super-indicator-inner{
-					background: $main;
+					background: $accent;
 				}
 			
 			}
@@ -797,11 +857,24 @@ footer{
 					&:nth-child(1){
 						height: auto;
 						visibility: visible;
-						background: $accent;
+						background: $black;
+						// background: $accent;
+
 						border-radius: 0.5rem;
 						color: $white;
 						cursor: pointer;
 						
+					}
+
+				}
+				&:hover{
+					td{
+						
+						&:nth-child(1){
+							background: $accent;
+
+						}
+
 					}
 
 				}
@@ -1038,7 +1111,8 @@ button {
 	font-size: 1.1rem;
 	cursor: pointer;
 	transition: all 450ms ease;
-
+	z-index: 10;
+	
 	&:hover {
 		background-color: transparent;
 		border-color: $white;
@@ -1225,6 +1299,8 @@ h3,
 h4,
 h5,
 h6 {
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	&.title {
 		span.highlight {
 			color: $accent;
@@ -1233,19 +1309,17 @@ h6 {
 }
 
 h1.title {
-	font-weight: 900;
 	font-size: 3rem;
 	line-height: 150%;
+	font-size: 4rem;
 }
 
 h2.title {
-	font-weight: 900;
 	font-size: 2.5rem;
 	line-height: 150%;
 }
 
 h3.title {
-	font-weight: bold;
 	font-size: 1.5rem;
 	line-height: 150%;
 }
@@ -1254,8 +1328,20 @@ h3.title {
 p {
 	color: $black;
 	font-family: $mainFont;
-	font-weight: 300;
+	font-weight: lighter;
+	font-size: 1.1rem;
 	line-height: 150%;
+	&.featured{
+		font-size: 1.4rem;
+
+	}
+}
+
+span{
+	color: inherit;
+	font-family: $mainFont;
+	font-weight: inherit;
+	
 }
 
 
@@ -1307,7 +1393,7 @@ pre[class*="language-"] {
 
 :not(pre)>code[class*="language-"],
 pre[class*="language-"] {
-	background: #262323;
+	background: $black;
 }
 
 /* Inline code */

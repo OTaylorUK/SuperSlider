@@ -65,7 +65,8 @@
 				customClass: null,
 				// BOOLEAN: PAUSE AUTOPLAY ON HOVER
 
-			
+				fadeEffect: false,
+				
 				indicator: true,
 				// BOOLEAN: CREATE SLIDE INDICATORS
 
@@ -570,7 +571,7 @@
 		// TRANSFORM IS USED TO MOVE SLIDER REGARDLESS
 		animationProp[_.transformType] = 'translate3d(' + _.currentOffset + 'px, 0px, 0px)';
 
-		if (_.options.transitions) { 
+		if (_.options.fadeEffect) { 
 			// NO TRANSITION ON THE TRANFORM
 
 			_.$slides.each(function () {
@@ -903,7 +904,7 @@
 
 		
 
-		if (_.options.transitions !== true) {
+		if (_.options.fadeEffect !== true) {
 			
 			positionProps[_.transformType] = 'translate3d(' + x + ', 0px, 0px)';
 		}
@@ -1123,7 +1124,7 @@
 		_.currentOffset = -(slideTab * _.offset);
 
 
-		if (_.options.transitions !== true) {
+		if (_.options.fadeEffect !== true) {
 			
 			animationProp[_.animProp] = 'transform ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
 		
