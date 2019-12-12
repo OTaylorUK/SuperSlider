@@ -72,6 +72,7 @@ $mainFont: 'Raleway', sans-serif;
 			display: flex;
 			
 			justify-content: flex-end;
+			align-items: center;
 			align-content: center;
 			flex-flow: wrap;
 			.navigation-wrapper {
@@ -145,6 +146,7 @@ $mainFont: 'Raleway', sans-serif;
 		z-index: -9;
 		position: absolute;
 		right: -100%;
+		max-height: 44px;
 
 		ul {
 			display: flex;
@@ -162,6 +164,7 @@ $mainFont: 'Raleway', sans-serif;
 			}
 		}
 		&.active{
+			max-height: none;
 			height: 100vh;
 			width: 100vw;
 			background: $black;
@@ -332,6 +335,18 @@ $mainFont: 'Raleway', sans-serif;
 				color: $white;
 				margin-bottom: 2rem;
 				font-size: 3rem;
+				&::selection {
+					background-color: $accent !important;
+					color: #fff !important;
+				}
+				
+				
+			}
+			span{
+				&::selection {
+					background-color: $white !important;
+					color: $accent;
+				}
 			}
 
 			.text {
@@ -455,6 +470,8 @@ $mainFont: 'Raleway', sans-serif;
 						padding: 1rem;
 						display: flex;
 						flex-flow: column;
+						justify-content: center;
+						align-items: center;
 						svg{
 							width: 1.5rem;
 							height: 1.5rem;
@@ -496,6 +513,9 @@ $mainFont: 'Raleway', sans-serif;
 			a{
 				&:hover{
 					font-weight: bold;
+					.link-highlight{
+						color: $accent;
+					}
 				}
 			}
 		}
@@ -820,24 +840,37 @@ $mainFont: 'Raleway', sans-serif;
 				}
 				&.feature-type{
 					position: relative;
+					flex-flow: column;
+
 					&::before{
 						content: 'Type: ';
-						padding-right: 1rem;
 					}
 				}
 				&.feature-default{
 					position: relative;
+					display: flex;
+					flex-flow: column;
 					&::before{
 						content: 'Default: ';
-						padding-right: 1rem;
 					}
 				}
+				@media only screen and (min-width: 900px) {
+					&.feature-default, &.feature-type, &.feature-info{
+						flex-flow: row;
+					}
+				}
+				
 				&.feature-info{
 					position: relative;
+					flex-flow: column;
+
 					&::before{
 						content: 'Notes: ';
-						padding-right: 1rem;
 					}
+				}
+				&::before{
+					padding: 0 1rem 1rem 0;
+
 				}
 				
 			}
@@ -863,11 +896,12 @@ $mainFont: 'Raleway', sans-serif;
 
 				td{
 					display: flex;
-					padding: 1rem;
 					height: 0;
 					visibility: collapse;
 
 					&:nth-child(1){
+						padding: 1rem;
+
 						height: auto;
 						visibility: visible;
 						background: $black;
@@ -898,6 +932,8 @@ $mainFont: 'Raleway', sans-serif;
 					position: relative;
 					
 					td{
+						padding: 1rem;
+
 						z-index: 10;
 						height: auto;
 						visibility: visible;
