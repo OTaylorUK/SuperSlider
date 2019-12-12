@@ -331,19 +331,32 @@ $mainFont: 'Raleway', sans-serif;
 			.title {
 				color: $white;
 				margin-bottom: 2rem;
+				font-size: 3rem;
 			}
 
 			.text {
 				color: $white;
 				font-size: 1.3rem;
 
-				padding-right: 5rem;
+				padding: 0;
 			}
 		}
 	}
 	// responsive
 	
+	@media (min-width: 900px) {
+		.container { 
+			.hero-text {
+				.title {
+					font-size: 4rem;
+				}
 	
+				.text {
+					padding-right: 5rem;
+				}
+			}
+		}
+	}
 
 	
 }
@@ -958,11 +971,37 @@ $mainFont: 'Raleway', sans-serif;
 
 	.step-header {
 		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-flow: column;
+		text-align: center;
+		.stage-indicator{
+			margin: 0.5rem;
+		}
 	}
 
 	.step-content {
 		&.code-wrapper {
-			margin: 1.5rem 0 1.5rem 3rem;
+			margin: 1rem 0;
+		}
+	}
+
+	// responsive
+
+	@media (min-width: 600px) {
+		.step-header {
+			text-align: left;
+			display: flex;
+			flex-flow: revert;
+			justify-content: flex-start;
+			.stage-indicator{
+				margin-right: 1rem;
+			}
+		}
+		.step-content {
+			&.code-wrapper {
+				margin: 1.5rem 0 1.5rem 3rem;
+			}
 		}
 	}
 }
@@ -974,7 +1013,7 @@ $mainFont: 'Raleway', sans-serif;
 	border-radius: 0.5rem;
 	box-shadow: 0px 4px 10px rgba(19, 5, 6, 0.1);
 	position: relative;
-
+	z-index: 1;
 	pre {
 		width: 100%;
 
@@ -1020,6 +1059,11 @@ $mainFont: 'Raleway', sans-serif;
 			display: flex;
 			padding: 2rem;
 			flex: 1;
+			flex-flow: column;
+			align-items: center;
+			.stage-indicator{
+				margin: 0 2rem 2rem 2rem;
+			}
 		}
 	}
 
@@ -1056,9 +1100,18 @@ $mainFont: 'Raleway', sans-serif;
 	}
 	// responsive
 
-	@media (min-width: 900px) {
+	@media (min-width: 600px) {
 		flex-flow: row wrap;
 
+		.option {
+			.inner {
+				flex-flow: row;
+				align-items: flex-start;
+				.stage-indicator{
+					margin: 0 1rem 0 0;
+				}
+			}
+		}
 	}
 }
 
@@ -1311,7 +1364,6 @@ h6 {
 h1.title {
 	font-size: 3rem;
 	line-height: 150%;
-	font-size: 4rem;
 }
 
 h2.title {

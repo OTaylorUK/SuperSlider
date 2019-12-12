@@ -132,11 +132,13 @@ $(document).ready(function () {
 		return false;
 	});
 
-	$(document).on('click','.cta-btn.get-started',function(){
+	$(document).on('click','.scroll-btn',function(){
 
-		var target = $('#download-section').offset().top;
+		var linkTarget = $(this).data('target');
+		var sectionTarget = $('#'+linkTarget).offset().top;
 
-		$("html, body").animate({ scrollTop: target }, "slow");
+
+		$("html, body").animate({ scrollTop: sectionTarget }, "slow");
 		return false;
 	});
 
