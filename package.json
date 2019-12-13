@@ -4,7 +4,8 @@
   "description": "View example: https://otayloruk.github.io/SuperSlider/",
   "main": "./dist/superSlider.min.js",
   "files": [
-    "/dist"
+    "/dist/css",
+    "/dist/js"
   ],
   "scripts": {
     "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
