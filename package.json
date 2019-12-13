@@ -4,7 +4,7 @@
   "description": "View example: https://otayloruk.github.io/SuperSlider/",
   "main": "./dist/superSlider.min.js",
   "files": [
-    "/dist"
+    "/docs"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,5 +26,7 @@
   "bugs": {
     "url": "https://github.com/OTaylorUK/SuperSlider/issues"
   },
-  "homepage": "https://github.com/OTaylorUK/SuperSlider#readme"
+  "homepage": "https://github.com/OTaylorUK/SuperSlider#readme",
+  "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
+  "postpublish": "git clean -fd"
 }
