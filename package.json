@@ -27,7 +27,6 @@
   "bugs": {
     "url": "https://github.com/OTaylorUK/SuperSlider/issues"
   },
-  "homepage": "https://github.com/OTaylorUK/SuperSlider#readme",
-  // "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
-  // "postpublish": "git clean -fd"
+  "homepage": "https://github.com/OTaylorUK/SuperSlider#readme"
+ 
 }
