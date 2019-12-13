@@ -1,6 +1,6 @@
 {
   "name": "superslider",
-  "version": "1.0.7",
+  "version": "1.0.5",
   "description": "View example: https://otayloruk.github.io/SuperSlider/",
   "main": "./dist/superSlider.min.js",
   "files": [
@@ -8,8 +8,7 @@
     "/dist/js"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
-    "postpublish": "git clean -fd"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
