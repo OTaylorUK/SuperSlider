@@ -7,7 +7,8 @@
     "/dist"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
+    "postpublish": "git clean -fd"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,5 @@
     "url": "https://github.com/OTaylorUK/SuperSlider/issues"
   },
   "homepage": "https://github.com/OTaylorUK/SuperSlider#readme",
-  "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
-  "postpublish": "git clean -fd"
+ 
 }
