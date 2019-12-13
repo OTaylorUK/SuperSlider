@@ -1,6 +1,6 @@
 {
   "name": "superslider",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "View example: https://otayloruk.github.io/SuperSlider/",
   "main": "./dist/superSlider.min.js",
   "files": [
