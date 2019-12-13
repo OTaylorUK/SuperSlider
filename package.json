@@ -18,6 +18,7 @@
     "super",
     "slider",
     "image",
+    "layout",
     "responsive",
     "js"
   ],
@@ -27,6 +28,6 @@
     "url": "https://github.com/OTaylorUK/SuperSlider/issues"
   },
   "homepage": "https://github.com/OTaylorUK/SuperSlider#readme",
-  "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
-  "postpublish": "git clean -fd"
+  // "prepublishOnly": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
+  // "postpublish": "git clean -fd"
 }
