@@ -4,12 +4,8 @@
   "description": "View example: https://otayloruk.github.io/SuperSlider/",
   "main": "./dist/superSlider.min.js",
   "files": [
-    "/dist/css",
-    "/dist/js"
+    "/dist/"
   ],
-  "scripts": {
-    "prepublishOnly": "cp -r ./dist/* ."
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OTaylorUK/SuperSlider.git"
