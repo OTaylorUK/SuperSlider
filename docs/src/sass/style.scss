@@ -1189,6 +1189,22 @@ button {
 
 }
 
+.modal-wrapper{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 999999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background:	#0009;
+	.code-wrapper{
+		max-width: 90%;
+	}
+}
+
 .cta-btn {
 	background-color: $accent;
 	padding: 1rem 2rem;
@@ -1210,7 +1226,7 @@ button {
 		transition: all 450ms ease;
 	}
 
-	&.alt {
+	&.download-btn {
 		background-color: $white;
 		border-color: $black;
 		color: $black;

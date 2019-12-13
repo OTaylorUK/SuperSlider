@@ -142,6 +142,51 @@ $(document).ready(function () {
 		return false;
 	});
 
+	$(document).on('click','.download-btn',function(){
+
+		var linkTarget = $(this).data('target');
+
+		var content;
+
+		if(linkTarget == 'jsdelivr'){
+			content = '&lt;script type="text/javascript" src="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/js/superSlider.min.js"/&gt&lt;/script&gt <br>&lt;link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/css/main.min.css"/&gt;';
+
+		}
+
+		var el = $('<code/>')
+			.addClass('language-html')
+			.html(content)
+			.wrap('<pre/>')
+			.parent()
+			.addClass('language-html')
+			.wrap('<div/>')
+			.parent()
+			.addClass('code-wrapper')
+			.append('<div class="copy-code"><span>copy code</span></div>')
+			.wrap('<div/>')
+			.parent()
+			.addClass('modal-wrapper')
+
+		el.appendTo($('body'));
+
+
+	});
+
+	$(document).on('click','.modal-wrapper',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+
+		var test = e.originalEvent.originalTarget.innerHTML;
+
+		if($(this).find('.copy-code').hasClass('success')){
+			setTimeout(function () { $('.modal-wrapper').remove() }, 900);
+		}
+		
+	});
+
+
+
+	
 
 	$(document).on('click', '.link', function () {
 		
