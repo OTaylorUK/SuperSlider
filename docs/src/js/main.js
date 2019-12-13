@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 	// DETECT ON LOAD WHETHER WINDOW IS SCROLLED ALREADY
 	checkScroll();
-
+ 
 
 
 	// EVENT LISTENER FOR SCROLL

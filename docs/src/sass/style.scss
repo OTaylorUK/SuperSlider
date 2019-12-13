@@ -2,19 +2,19 @@ $black: #10191f;
 $blackLight: lighten($black, 10%);
 $white: #ffffff;
 $whiteDark: rgba($white, .8);
-
+ 
 $grey: #F8F8F8;
-$darkgrey: #C4C4C4;
+$darkgrey: #C4C4C4; 
 $accent: #e7004b;
 $darkaccent: #2A4285F0;
 $main: #2A4285;
 $mainLight: rgba($main, .8);
-
-
-$mainFont: 'Raleway', sans-serif;
+  
+$mainFont: 'Raleway', sans-serif; 
+ 
 
 * {
-	box-sizing: border-box;
+	box-sizing: border-box; 
 }
 
 .gradient-background{

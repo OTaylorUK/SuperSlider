@@ -6,10 +6,10 @@
 	} else if (typeof exports !== 'undefined') {
 		module.exports = factory(require('jquery'));
 	} else {
-		factory(jQuery);
+		factory(jQuery); 
 	}
-
-}(function ($) {
+  
+}(function ($) { 
 	'use strict';
 	var Super = window.Super || {};
 

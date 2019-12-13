@@ -9,7 +9,7 @@
 	color: inherit;
 }
 
-.super-slider {
+.super-slider { 
 	width: 100%;   
 	display: flex;
 	flex-flow: row wrap; 
@@ -17,7 +17,7 @@
 	user-select: none;
 	&:focus{ 
 		outline: none;
-	}
+	} 
 	cursor: grab;
 
 	&.dragging{
