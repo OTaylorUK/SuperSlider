@@ -1071,13 +1071,15 @@ $mainFont: 'Raleway', sans-serif;
 			text-transform: capitalize;
 		}
 		&:hover{
-			color: $black;
+			color: $accent;
 			span{
 				font-weight: bold;
 			}
 		}
 		&.success{
-			color: $accent;
+			color: #13d01f;
+			font-weight: bold;
+
 		}
 	}
 }
@@ -1199,9 +1201,31 @@ button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background:	#0009;
+	
+	.background{
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		cursor: pointer;
+		background:	rgba(0, 0, 0, 0.719);
+
+		&:hover{
+			background:	rgba(0, 0, 0, 0.6);
+
+		}
+	}
 	.code-wrapper{
 		max-width: 90%;
+		display: none;
+		z-index: 9999999;
+		&.active{
+			display: block;
+		}
+	}
+	&.hidden{
+		display: none;
 	}
 }
 

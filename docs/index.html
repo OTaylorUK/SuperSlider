@@ -142,7 +142,7 @@
 												<button class="cta-btn download-btn" data-target="jsdelivr">jsDelivr</button>
 											</div>
 											<div class="option-btn">
-												<button class="cta-btn download-btn" data-target="cloudflare">CloudFlare</button>
+												<button class="cta-btn download-btn" data-target="unpkg">unpkg</button>
 											</div>
 										</div>
 									</div>
@@ -154,11 +154,11 @@
 
 									<div class="option-content">
 										<div class="option-header">
-											<h3>Link to directory</h3>
+											<h3>GitHub</h3>
 										</div>
 										<div class="options">
 											<div class="option-btn">
-												<button class="cta-btn download-btn" data-target="github">GitHub</button>
+												<a class="cta-btn download-btn" data-target="github" href="https://github.com/OTaylorUK/SuperSlider" target="_blank" rel="noopener noreferrer">GitHub</a>
 											</div>
 										</div>
 
@@ -175,13 +175,42 @@
 										</div>
 										<div class="options">
 											<div class="option-btn">
-												<button class="cta-btn download-btn" data-target="zip">download</button>
+												<a class="cta-btn download-btn" data-target="zip" download href="./archive/superSlider-v1.0.10.zip">Download</a>
 											</div>
 										</div>
 
 									</div>
 								</div>
 							</div>
+							<div class="modal-wrapper hidden">
+								<div class="background"></div>
+
+							
+							<div class="jsdelivr code-wrapper">
+								<pre>
+<code class="language-html">
+&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/css/main.min.css"/&gt
+
+&lt;!-- JAVASCRIPT --&gt;
+&lt;script type="text/javascript" src="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/js/superSlider.min.js"/&gt&lt;/script&gt
+
+
+</code></pre>
+							</div>
+
+							<div class="unpkg code-wrapper">
+									<pre>
+	<code class="language-html">
+&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" type="text/css" href="https://unpkg.com/superslider@1.0.10/dist/css/main.min.css"/&gt
+
+&lt;!-- JAVASCRIPT --&gt;
+&lt;script type="text/javascript" src="https://unpkg.com/superslider@1.0.10/dist/js/superSlider.min.js"/&gt&lt;/script&gt
+	
+	</code></pre>
+								</div>
+						</div>
 						</div>
 
 					</div>
@@ -918,9 +947,9 @@ $('.your-class-here').super({
 		<!-- superSlider -->
 		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/js/superSlider.min.js"></script>
 		
+		
 		<!-- page javascript-->
 		<script src="src/js/main.js" type="text/javascript" charset="utf-8"></script>
-
 
 	</body>
 

@@ -142,45 +142,78 @@ $(document).ready(function () {
 		return false;
 	});
 
+	// $(document).on('click','.download-btn',function(){
+
+	// 	var linkTarget = $(this).data('target');
+
+	// 	var content;
+
+	// 	if(linkTarget == 'jsdelivr'){
+	// 		content = '&lt;script type="text/javascript" src="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/js/superSlider.min.js"/&gt&lt;/script&gt<br>&lt;link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/css/main.min.css"/&gt;';
+
+	// 	}
+
+	// 	var el = $('<code/>')
+	// 		.addClass('language-html')
+	// 		.html(content)
+	// 		.wrap('<pre/>')
+	// 		.parent()
+	// 		.addClass('language-html')
+	// 		.wrap('<div/>')
+	// 		.parent()
+	// 		.addClass('code-wrapper')
+	// 		.append('<div class="copy-code"><span>copy code</span></div>')
+	// 		.wrap('<div/>')
+	// 		.parent()
+	// 		.addClass('modal-wrapper')
+
+	// 	el.appendTo($('body'));
+
+	// 	var test = $('.modal-wrapper').find('pre');
+	// 	var test2 = $('.modal-wrapper').find('pre');
+
+
+	// 	Prism.highlightElement(test[0]);
+	// 	// Prism.highlightAll();
+
+	// });
 	$(document).on('click','.download-btn',function(){
+		var linkTarget = '.'+$(this).data('target');
+		var $wrapper = $('.modal-wrapper');
 
-		var linkTarget = $(this).data('target');
+		var $el = $wrapper.find(linkTarget);
 
-		var content;
-
-		if(linkTarget == 'jsdelivr'){
-			content = '&lt;script type="text/javascript" src="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/js/superSlider.min.js"/&gt&lt;/script&gt <br>&lt;link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/superslider@1.0.10/dist/css/main.min.css"/&gt;';
-
+		if ($el.length > 0) {
+			modalUpdate('show', $el);
 		}
+		
+	});
 
-		var el = $('<code/>')
-			.addClass('language-html')
-			.html(content)
-			.wrap('<pre/>')
-			.parent()
-			.addClass('language-html')
-			.wrap('<div/>')
-			.parent()
-			.addClass('code-wrapper')
-			.append('<div class="copy-code"><span>copy code</span></div>')
-			.wrap('<div/>')
-			.parent()
-			.addClass('modal-wrapper')
+	function modalUpdate(action, $el ) {
+		var $wrapper = $('.modal-wrapper');
 
-		el.appendTo($('body'));
+		if (action == 'show'){
+			$wrapper.removeClass('hidden');
+			$el.addClass('active');
 
+		} else if (action == 'hide'){
+			$wrapper.addClass('hidden');
+			$wrapper.children().removeClass('active');
+		} 
+	
+	}
+
+	$(document).on('click','.modal-wrapper .background',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		modalUpdate('hide');
 
 	});
 
-	$(document).on('click','.modal-wrapper',function(e){
+	$(document).on('click','.modal-wrapper .copy-code',function(e){
 		e.stopPropagation();
 		e.preventDefault();
-
-		var test = e.originalEvent.originalTarget.innerHTML;
-
-		if($(this).find('.copy-code').hasClass('success')){
-			setTimeout(function () { $('.modal-wrapper').remove() }, 900);
-		}
+		setTimeout(function(){ modalUpdate('hide'); }, 500);
 		
 	});
 
@@ -380,6 +413,11 @@ $(document).ready(function () {
 		}
 	}
 	function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+
+
+
+
+
 
 	// prism code //
 	/* PrismJS 1.17.1
