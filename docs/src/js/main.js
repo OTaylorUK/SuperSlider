@@ -41,19 +41,6 @@ $(document).ready(function () {
 			$('.navbar').removeClass('scrolled');
 		}
 
-
-		// add active to navigation menu
-
-	
-
-		// console.log(activeSection);
-		// console.log(scrolled);
-		
-		// if (scrolled > Math.max.apply(Math, sectionOffsets)) {
-		// 	console.log();
-			
-		// }
-		
 		var biggerThan = [];
 
 		var sectionIsActive = false;
@@ -93,7 +80,6 @@ $(document).ready(function () {
 			activeSection = sections.filter(section => (section.sectionTarget === currentSection));
 			
 			activeSection = activeSection[0].target
-			console.log(activeSection);
 
 			$('.navbar').find('.link').each(function (i) {
 				var linkTarget = $(this).data('target');
@@ -380,8 +366,6 @@ $(document).ready(function () {
 		var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
 		this.asc = !this.asc;
 
-		console.log(this.asc);
-		
 
 		if (!this.asc) {
 			rows = rows.reverse()
@@ -389,8 +373,6 @@ $(document).ready(function () {
 
 		} else {
 			$(this).find('.arrow-toggle').css('transform', 'rotate(0deg)');
-			console.log('reached here');
-			
 		}
 		
 		for (var i = 0; i < rows.length; i++){
