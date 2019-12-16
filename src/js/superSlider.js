@@ -829,7 +829,7 @@
 
 		
 		_.dragging = false;
-		_.swiping = false;
+		_.swiping = false; 
 		_.interrupted = false;
 
 		_.$slider.removeClass('dragging');
