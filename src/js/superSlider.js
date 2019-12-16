@@ -834,9 +834,6 @@
 
 		_.$slider.removeClass('dragging');
 
-		console.log('SWIPE LENGTH:' + _.touchObject.swipeLength);
-
-
 
 		
 		if (_.touchObject.swipeLength >= _.touchObject.minSwipe) {
