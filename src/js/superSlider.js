@@ -264,7 +264,6 @@
 					// Removes duplicates
 
 					while (l >= 0) {
-						// console.log(`_.breakpoints[l]: ${_.breakpoints[l]}`);
 						if (_.breakpoints[l] && _.breakpoints[l] === currentBreakpoint) {
 							_.breakpoints.splice(l, 1);
 						}
@@ -728,10 +727,6 @@
 		_.touchObject.minSwipe = Math.round(_.sliderWidth / (touchSensivity * 3), 2);
 			
 
-		console.log(_.touchObject.minSwipe);
-		
-
-		
 		switch (event.data.action) {
 			case 'start':
 				_.swipeStart(event);
@@ -921,15 +916,17 @@
 
 		var _ = this;
 
+
+
 		if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
 			_.$previousArrow
-				.off('click')
-				.on('click', {
+				.off('click ontouchstart')
+				.on('click ontouchstart', {
 					message: 'previous'
 				}, _.changeSlide);
 			_.$nextArrow
-				.off('click')
-				.on('click', {
+				.off('click ontouchstart')
+				.on('click ontouchstart', {
 					message: 'next'
 				}, _.changeSlide);
 
@@ -1132,7 +1129,6 @@
 
 
 		} else {
-			// console.log('do here');
 
 			animationProp[_.transformType] = 'translate3d(' + _.currentOffset + 'px, 0px, 0px)';
 			animationProp['transition'] = 'opacity ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + 0 + _.options.transitionUnit;

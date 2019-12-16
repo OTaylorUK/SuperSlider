@@ -11,8 +11,6 @@ $(document).ready(function () {
 
 	// DETECT ON LOAD WHETHER WINDOW IS SCROLLED ALREADY
 	checkScroll();
- 
-
 
 	// EVENT LISTENER FOR SCROLL
 	$(window).scroll(function (event) {
@@ -114,13 +112,7 @@ $(document).ready(function () {
 		
 	});
 
-	
 
-
-
-	// console.log(sections);
-
-	
 
 	$(document).on('click','.svg-btn',function(){
 		$("html, body").animate({ scrollTop: 0 }, "slow");

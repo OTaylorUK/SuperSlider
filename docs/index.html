@@ -14,7 +14,7 @@
 		<!-- PAGE STYLING -->
 		<link rel="stylesheet" href="dist/css/style.min.css">
 
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Poppins:100,200,300,400,500,600,700,800,900|Raleway:100,200,300,400,500,600,700,800,900|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900|Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet"> 
 
 		<title>SuperSlider</title>
 	</head>
@@ -113,7 +113,7 @@
 						<div class="col-xl-8 col-12 hero-text">
 							<h1 class="title">The all purpose, <span class="highlight">lightweight</span> and <span class="highlight">highly customisable</span> slider.</h1>
 							<p class="text featured">SuperSlider is a modern slider suitable for all projects that provides a simple and yet powerful level of customisation to suit your needs.</p>
-							<button class="cta-btn scroll-btn" data-target="get-started-section">Get started</button>
+							<button class="cta-btn scroll-btn styled" data-target="get-started-section">Get started</button>
 						</div>
 					</section>
 				</div>
@@ -139,10 +139,10 @@
 										</div>
 										<div class="options">
 											<div class="option-btn">
-												<button class="cta-btn download-btn" data-target="jsdelivr">jsDelivr</button>
+												<button class="cta-btn download-btn styled" data-target="jsdelivr">jsDelivr</button>
 											</div>
 											<div class="option-btn">
-												<button class="cta-btn download-btn" data-target="unpkg">unpkg</button>
+												<button class="cta-btn download-btn styled" data-target="unpkg">unpkg</button>
 											</div>
 										</div>
 									</div>
@@ -158,7 +158,7 @@
 										</div>
 										<div class="options">
 											<div class="option-btn">
-												<a class="cta-btn download-btn" data-target="github" href="https://github.com/OTaylorUK/SuperSlider" target="_blank" rel="noopener noreferrer">GitHub</a>
+												<a class="cta-btn download-btn styled" data-target="github" href="https://github.com/OTaylorUK/SuperSlider" target="_blank" rel="noopener noreferrer">GitHub</a>
 											</div>
 										</div>
 
@@ -175,7 +175,7 @@
 										</div>
 										<div class="options">
 											<div class="option-btn">
-												<a class="cta-btn download-btn" data-target="zip" download href="./archive/superSlider-v1.0.10.zip">Download</a>
+												<a class="cta-btn download-btn styled" data-target="zip" download href="./archive/superSlider-v1.0.10.zip">Download</a>
 											</div>
 										</div>
 
@@ -391,7 +391,7 @@ $(document).ready(function () {
 							</div>
 						</div>
 						<div class="col-12 section-btn">
-							<button class="cta-btn scroll-btn" data-target="download-section">Download SuperSlider</button>
+							<button class="cta-btn scroll-btn styled" data-target="download-section">Download SuperSlider</button>
 						</div>
 					</section>
 				</div>
@@ -890,23 +890,24 @@ $('.your-class-here').super({
 							<div class="contact-me content-item">
 								<ul class="footer-list">
 									<li class="title">Get in touch</li>
-									<li><a href="mailto:ollie@virtualjungle.co.uk">ollie@virtualjungle.co.uk</a></li>
+									<li><a href="mailto:ollie@virtualjungle.co.uk?subject=SuperSlider">ollie@virtualjungle.co.uk</a></li>
 								</ul>
 							</div>
 							<div class="links content-item">
 								<ul class="footer-list">
 									<li class="title">Links</li>
-									<li>Get started</li>
-									<li>Examples</li>
-									<li>Features</li>
+									<li><div data-target="get-started-section" class=" link" >Get started</div</li>
+									<li><div data-target="examples-section" class="link" >Examples</div</li>
+									<li><div data-target="features-section" class="link" >Features</div</li>
 								</ul>
 							</div>
 							<div class="download content-item">
 								<ul class="footer-list">
 									<li class="title">Use SuperSlider</li>
-									<li>CDN - jsDelivr</li>
-									<li>CDN - Cloudflare</li>
-									<li>Zip - Download</li>
+									<li><button class="cta-btn download-btn" data-target="jsdelivr">CDN - jsDelivr</button></li>
+									<li><button class="cta-btn download-btn" data-target="unpkg">CDN - Unpkg</button></li>
+									<li>	<a class="cta-btn download-btn" data-target="github" href="https://github.com/OTaylorUK/SuperSlider" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+									<li><a class="cta-btn download-btn" data-target="zip" download href="./archive/superSlider-v1.0.10.zip">Zip - Download</a></li>
 								</ul>
 							</div>
 							<div class="scroll-top content-item">

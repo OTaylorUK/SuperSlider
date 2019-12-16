@@ -26,7 +26,7 @@ $mainFont: 'Raleway', sans-serif;
 .navbar {
 	position: fixed;
 	z-index: 999999;
-	top: 3rem;
+	top: 1rem;
 	transition: top 500ms ease 0s;
 	width: 100%;
 
@@ -274,6 +274,8 @@ $mainFont: 'Raleway', sans-serif;
 	// responsive
 
 	@media (min-width: 900px) {
+		top: 3rem;
+
 		.hamburger-container {
 			display: none;
 
@@ -324,7 +326,8 @@ $mainFont: 'Raleway', sans-serif;
 	.wrapper {
 		display: flex;
 		align-items: center;
-		padding: 100px 0 150px 0;
+		// padding: 100px 0 150px 0;
+		padding: 0 0 80px 0;
 		margin-top: calc(3rem + 70px);
 	}
 
@@ -334,7 +337,7 @@ $mainFont: 'Raleway', sans-serif;
 			.title {
 				color: $white;
 				margin-bottom: 2rem;
-				font-size: 3rem;
+				font-size: 2.5rem;
 				&::selection {
 					background-color: $accent !important;
 					color: #fff !important;
@@ -351,7 +354,7 @@ $mainFont: 'Raleway', sans-serif;
 
 			.text {
 				color: $white;
-				font-size: 1.3rem;
+				font-size: 1.1rem;
 
 				padding: 0;
 			}
@@ -448,6 +451,17 @@ $mainFont: 'Raleway', sans-serif;
 				padding: 1rem;
 				li{
 					padding-bottom: 0.5rem;
+					
+					.download-btn{
+						background: none;
+						color:$white;
+						padding: 0;
+						margin: 0;
+						font-size: inherit;
+						&:hover{
+							border: none;
+						}
+					}
 					cursor: pointer;
 					&.title{
 						font-weight: bold;
@@ -669,7 +683,7 @@ $mainFont: 'Raleway', sans-serif;
 .example-feature {
 	display: flex;
 	flex-flow: row wrap;
-	margin: 10vh 0;
+	margin: 5vh 0;
 	align-items: flex-start;
 
 	.feature-header {
@@ -689,13 +703,13 @@ $mainFont: 'Raleway', sans-serif;
 	.feature-slider {
 		flex: 1 0 100%;
 		max-width: 100%;
-		padding: 0 2rem;
+		padding: 0;
 		margin: 4rem auto;
 	}
 
 	@media only screen and (min-width: 800px) {
 		.feature-content {
-			flex: 1;
+			flex: 1; 
 			max-width: 50%;
 		}
 	
@@ -703,6 +717,7 @@ $mainFont: 'Raleway', sans-serif;
 			flex: 1;
 			max-width: 50%;
 			margin: 0 auto;
+			padding: 0 2rem;
 
 		}
 	  }
@@ -854,12 +869,6 @@ $mainFont: 'Raleway', sans-serif;
 						content: 'Default: ';
 					}
 				}
-				@media only screen and (min-width: 900px) {
-					&.feature-default, &.feature-type, &.feature-info{
-						flex-flow: row;
-					}
-				}
-				
 				&.feature-info{
 					position: relative;
 					flex-flow: column;
@@ -868,6 +877,13 @@ $mainFont: 'Raleway', sans-serif;
 						content: 'Notes: ';
 					}
 				}
+				@media only screen and (min-width: 900px) {
+					&.feature-default, &.feature-type, &.feature-info{
+						flex-flow: row;
+					}
+				}
+				
+				
 				&::before{
 					padding: 0 1rem 1rem 0;
 
@@ -1009,10 +1025,13 @@ $mainFont: 'Raleway', sans-serif;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		flex-flow: column;
-		text-align: center;
+		flex-flow: row;
+		text-align: left;
 		.stage-indicator{
 			margin: 0.5rem;
+		}
+		h3{
+			padding-left: 1rem;
 		}
 	}
 
@@ -1159,7 +1178,7 @@ $mainFont: 'Raleway', sans-serif;
 
 
 .stage-indicator {
-	background: $darkgrey;
+	background: $accent;
 	width: 2rem;
 	height: 2rem;
 	border-radius: 50%;
@@ -1168,6 +1187,10 @@ $mainFont: 'Raleway', sans-serif;
 	align-items: center;
 	box-shadow: 0px 4px 10px rgba(19, 5, 6, 0.1);
 	margin-right: 1rem;
+	cursor: pointer;
+	&:hover{
+		background-color: lighten($accent, 10%);
+	}
 
 	span {
 		color: $white;
@@ -1229,7 +1252,7 @@ button {
 	}
 }
 
-.cta-btn {
+.cta-btn.styled {
 	background-color: $accent;
 	padding: 1rem 2rem;
 	border: 2px $accent solid;
