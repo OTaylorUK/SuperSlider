@@ -70,6 +70,9 @@
 				indicator: true,
 				// BOOLEAN: CREATE SLIDE INDICATORS
 
+				cloneSlides: true,
+				// BOOLEAN: CREATE SLIDE INDICATORS
+
 				indicatorElement: '<div></div>',
 				// STRING: INDICATOR HTML ELEMENT
 
@@ -624,31 +627,37 @@
 				.css('width', `${slideWidth}px`); // SETS WIDTH DEPENDANT ON NUM OF SLIDES TO SHOW
 			groupIndex = $(this).data('group-index');
 
-			if (groupIndex == 1) {
-				$(this).clone().appendTo(_.$track).addClass('cloned last');
+			if (_.options.cloneSlides === true) {
+				if (groupIndex == 1) {
+					$(this).clone().appendTo(_.$track).addClass('cloned last');
 
-				// IF A SLIDE IS MISSING THEN ADD A 'FILLER SLIDE'
-				if (addSlide) {
-					// LIMIT TO ONLY ONCE
-					while (i < 1) {
-						$(this).clone().prependTo(_.$track).addClass('cloned cloned-filler');
-						i++;
+					// IF A SLIDE IS MISSING THEN ADD A 'FILLER SLIDE'
+					if (addSlide) {
+						// LIMIT TO ONLY ONCE
+						while (i < 1) {
+							$(this).clone().prependTo(_.$track).addClass('cloned cloned-filler');
+							i++;
+						}
 					}
 				}
 			}
+
 		});
 		
 		// NEED TO REVERSE THE ORDER IN ORDER TO OUTPUT THE CLONES IN THE CORRECT ORDER //
-		$(_.$slides.get().reverse()).each(function (i) {
-			groupIndex = $(this).data('group-index');
+		if (_.options.cloneSlides === true) {
 
-			if (groupIndex == _.totalSlides) {
-				$(this).clone().prependTo(_.$track).addClass('cloned first');
-			}
+			$(_.$slides.get().reverse()).each(function (i) {
+				groupIndex = $(this).data('group-index');
+
+				if (groupIndex == _.totalSlides) {
+					$(this).clone().prependTo(_.$track).addClass('cloned first');
+				}
 			
-		});
+			});
 
-		_.$clones = _.$track.children('.cloned'); // STORE CLONES
+			_.$clones = _.$track.children('.cloned'); // STORE CLONES
+		}
 
 	};
 
@@ -1152,9 +1161,11 @@
 
 		_.$track.css(animationProp);
 
-		// RESET TRACK TO CLONES REAL POSITION
-		if (moveToClone === true) {
-			setTimeout(function () { _.cloneReset(_.currentSlide - 1, positionMove); }, _.options.transitionSpeed);
+		if (_.options.cloneSlides === true) {
+			// RESET TRACK TO CLONES REAL POSITION
+			if (moveToClone === true) {
+				setTimeout(function () { _.cloneReset(_.currentSlide - 1, positionMove); }, _.options.transitionSpeed);
+			}
 		}
 		setTimeout(function () { _.updateClasses(); }, 250);
 
