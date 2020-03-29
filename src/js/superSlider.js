@@ -547,16 +547,16 @@
 		var _ = this,
 			groupCount,
 			trackWidth;
-		
-		_.sliderWidth = _.$wrapper.width();
+			_.sliderWidth = _.$wrapper.width();
+
+			_.offset = _.sliderWidth;
 
 		groupCount = _.totalSlides + (2); // ADD TWO FOR CLONED GROUP AT START AND END
 		trackWidth = _.sliderWidth * groupCount;
 
-		_.offset = _.sliderWidth;
 
 		_.$trackWrapper
-			.css('left', `-${_.offset}px`)
+			.css('left', `-0px`)
 			.width(trackWidth);
 		
 		_.setUpAnimation();
@@ -880,6 +880,9 @@
 
 		x = -(_.currentSlide - 1) * _.offset;
 
+		console.log(x);
+		
+
 		
 		positionProps[_.animProp] = 'transform ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
 		
@@ -1075,10 +1078,12 @@
 				// IF THE PREVIOUS SLIDE IS SMALLER THAN 1 THEN RESET TO LAST ELSE MINUS 1
 				targetGroup = (_.currentSlide - 1 < 1) ? _.totalSlides : _.currentSlide - 1;
 
-				// INFINITE SCROLL -  IF PREVIOUS SLIDE IS HIGHER THAN CURRENT 
-				if (_.options.infiniteScroll && targetGroup > _.currentSlide) {
-					moveToClone = true;
-					positionMove = -1;
+				if (_.options.cloneSlides === true) {
+					// INFINITE SCROLL -  IF PREVIOUS SLIDE IS HIGHER THAN CURRENT 
+					if (_.options.infiniteScroll && targetGroup > _.currentSlide) {
+						moveToClone = true;
+						positionMove = -1;
+					}
 				}
 				break;
 
@@ -1086,11 +1091,13 @@
 
 				// IF THE NEXT SLIDE IS EQUAL TO OR BIGGER THAN MAX SLIDES THEN RESET TO FIRST
 				targetGroup = (_.currentSlide + 1 > _.totalSlides) ? 1 : _.currentSlide + 1;
-
-				// INFINITE SCROLL -  IF NEXT SLIDE IS LOWER THAN CURRENT 
-				if ( _.options.infiniteScroll && targetGroup < _.currentSlide) {
-					moveToClone = true;
-					positionMove = _.totalSlides;
+				
+				if (_.options.cloneSlides === true) {
+					// INFINITE SCROLL -  IF NEXT SLIDE IS LOWER THAN CURRENT 
+					if (_.options.infiniteScroll && targetGroup < _.currentSlide) {
+						moveToClone = true;
+						positionMove = _.totalSlides;
+					}
 				}
 
 				break;
@@ -1120,6 +1127,7 @@
 
 		// UPDATE CURRENT SLIDE
 		_.currentSlide = targetGroup;
+		
 		
 		slideTab = moveToClone !== true ? _.currentSlide - 1 : 1 * positionMove;
 
@@ -1255,7 +1263,15 @@
 		slideWidth = wrapperWidth / _.options.slidesToShow;
 
 		_.sliderWidth = wrapperWidth;
+
 		_.offset = wrapperWidth;
+
+		// if (_.options.cloneSlides === true) {
+		// 	_.offset = wrapperWidth;
+
+		// } else {
+		// 	_.offset = 0;
+		// }
 
 		_.$track.children().each(function () {
 			$(this).css('width', `${slideWidth}px`);
