@@ -640,9 +640,9 @@
 						}
 					}
 				}
-			}
+			} 
 
-		});
+		}); 
 		
 		// NEED TO REVERSE THE ORDER IN ORDER TO OUTPUT THE CLONES IN THE CORRECT ORDER //
 		if (_.options.cloneSlides === true) {
