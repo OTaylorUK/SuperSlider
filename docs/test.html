@@ -104,16 +104,26 @@
 						<div class="col-12 section-header">
 							<h2 class="title">Examples of the key features</h2>
 						</div>
-
-						<div class="col-12 section-content">
-
-
-							<!-- AUTOPLAY -->
-							<div class="example-feature">
+							<div class="col-12 example-feature">
 								<div class="feature-header">
 									<h3>Autoplay</h3>
 								</div>
 								<div class="feature-slider" id="slider-1">
+									<div> <span>1</span> </div>
+									<div> <span>2</span> </div>
+									<div> <span>3</span> </div>
+									<div> <span>4</span> </div>
+									<div> <span>5</span> </div>
+									<div> <span>6</span> </div>
+								</div>
+							</div>
+
+							<!-- AUTOPLAY -->
+							<div class="col-12 example-feature">
+								<div class="feature-header">
+									<h3>Autoplay</h3>
+								</div>
+								<div class="feature-slider" id="slider-2">
 									<div> <span>1</span> </div>
 									<div> <span>2</span> </div>
 									<div> <span>3</span> </div>
@@ -209,6 +219,9 @@
 			$(document).ready(function () {
 
 				$('#slider-1').super({
+					cloneSlides: true,
+				});
+				$('#slider-2').super({
 					cloneSlides: false,
 				});
 			});

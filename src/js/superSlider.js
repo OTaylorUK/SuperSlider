@@ -546,17 +546,24 @@
 	Super.prototype.buildTrack = function () {
 		var _ = this,
 			groupCount,
-			trackWidth;
-			_.sliderWidth = _.$wrapper.width();
+			trackWidth,
+			init_offset;
+			_.sliderWidth = _.$wrapper.width(),
+			
 
 			_.offset = _.sliderWidth;
 
 		groupCount = _.totalSlides + (2); // ADD TWO FOR CLONED GROUP AT START AND END
 		trackWidth = _.sliderWidth * groupCount;
 
+		if (_.options.cloneSlides === true) { 
+			init_offset = -(_.offset)+'px';
+		} else {
+			init_offset = -0+'px';
+		}
 
 		_.$trackWrapper
-			.css('left', `-0px`)
+			.css('left', init_offset)
 			.width(trackWidth);
 		
 		_.setUpAnimation();
