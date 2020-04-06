@@ -1273,12 +1273,11 @@
 
 		_.offset = wrapperWidth;
 
-		// if (_.options.cloneSlides === true) {
-		// 	_.offset = wrapperWidth;
-
-		// } else {
-		// 	_.offset = 0;
-		// }
+		if (_.options.cloneSlides === true) { 
+			init_offset = -(_.offset)+'px';
+		} else {
+			init_offset = -0+'px';
+		}
 
 		_.$track.children().each(function () {
 			$(this).css('width', `${slideWidth}px`);
