@@ -319,6 +319,21 @@
 
 		_.checkResponsive();
 
+		
+		_.$slides.each(function () {
+
+			if ($(this).data('group-index') == _.currentSlide) {
+				var new_track_height = $(this).outerHeight() + 'px';
+				console.log(new_track_height);
+
+				_.$trackWrapper.css({
+					height: new_track_height
+				});
+			}
+		});
+	
+		
+
 		if (_.options.autoplay) {
 			
 			_.autoPlay(init);
