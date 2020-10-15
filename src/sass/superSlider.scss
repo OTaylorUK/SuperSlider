@@ -84,6 +84,7 @@
 	height: 100%;
 	display: flex;
 	flex-flow: row;
+	align-items: center;
 	position: relative;
 	.super-track{
 		width: 100%;
@@ -95,8 +96,7 @@
 	}
 }
 .super-slide{
-	height: 100%;
-	// position: absolute;
+	height: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
