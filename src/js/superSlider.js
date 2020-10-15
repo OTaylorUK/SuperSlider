@@ -215,7 +215,7 @@
 			_.swipeHandler = $.proxy(_.swipeHandler, _);
 			_.autoPlayIterator = $.proxy(_.autoPlayIterator, _);
 			_.setUpAnimation = $.proxy(_.setUpAnimation, _);
-
+			_.resetSlider = $.proxy(_.resetSlider, _);
 			
 			
 			// STARTS AT 0 - INCREMENT EACH TIME THIS IS CALLED //
@@ -693,7 +693,12 @@
 		
 
 		$(window).on('orientationchange', $.proxy(_.orientationChange, _));
-		$(window).on('resize', $.proxy(_.resize, _));
+
+	
+		$(window).on('resize', function () {
+			clearTimeout(window.resizedFinished);
+			window.resizedFinished = setTimeout($.proxy(_.resetSlider, _), 250);
+		});
 		
 		// PAUSE AUTOPLAY ON MOUSE ENTER/HOVER //
 		if (_.options.pauseOnHover) {
@@ -886,9 +891,6 @@
 			x;
 
 		x = -(_.currentSlide - 1) * _.offset;
-
-		console.log(x);
-		
 
 		
 		positionProps[_.animProp] = 'transform ' + _.options.transitionSpeed + _.options.transitionUnit + ' ' + _.options.transitionProperty + ' ' + _.options.transitionDelay + _.options.transitionUnit;
@@ -1204,15 +1206,20 @@
 				}
 			});
 		}
-
 		_.$slides.each(function () {
 			$(this).removeClass('current-slide');
 
 			if ($(this).data('group-index') == _.currentSlide) {
 				$(this).addClass('current-slide');
+				var new_track_height = $(this).outerHeight() + 'px';
+				_.$trackWrapper.css({
+					height: new_track_height
+				});
+				// console.log($(this).outerHeight());
 			}
 		});
 
+		
 
 		if (init) {
 			_.$wrapper.addClass('loading');
@@ -1278,6 +1285,7 @@
 		} else {
 			init_offset = -0+'px';
 		}
+
 
 		_.$track.children().each(function () {
 			$(this).css('width', `${slideWidth}px`);
@@ -1363,14 +1371,18 @@
 		_.checkResponsive();
 	};
 	
+	Super.prototype.resetSlider = function () {
 
+		var _ = this;
+		_.destroy(false);	
+		_.init();
+	};
 
 	Super.prototype.refresh = function (initializing) {
 
 		var _ = this,
 			currentSlide,
 			lastVisibleIndex = _.slideCount - _.options.slidesToShow;
-		
 
 		// IF NOT INFINITE
 		if (!_.options.infiniteScroll && (_.currentSlide > lastVisibleIndex)) {
@@ -1405,7 +1417,6 @@
 	
 	Super.prototype.removeSuper = function () {
 		var _ = this;
-
 		_.destroy(true);	
 	};
 	
