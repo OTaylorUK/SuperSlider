@@ -694,11 +694,17 @@
 
 		$(window).on('orientationchange', $.proxy(_.orientationChange, _));
 
-	
-		$(window).on('resize', function () {
-			clearTimeout(window.resizedFinished);
-			window.resizedFinished = setTimeout($.proxy(_.resetSlider, _), 250);
-		});
+
+		$(window).on('resize', _.resetSlider);
+		
+
+
+		// $(window).on('resize', function () {
+			 
+
+		// 	clearTimeout(window.resizedFinished);
+		// 	window.resizedFinished = setTimeout(_.resetSlider, 250);
+		// });
 		
 		// PAUSE AUTOPLAY ON MOUSE ENTER/HOVER //
 		if (_.options.pauseOnHover) {
@@ -1374,8 +1380,13 @@
 	Super.prototype.resetSlider = function () {
 
 		var _ = this;
-		_.destroy(false);	
-		_.init();
+
+		_.destroy(false);
+
+		clearTimeout(window.resizedFinished);
+
+		window.resizedFinished = setTimeout(_.init(), 250);
+		
 	};
 
 	Super.prototype.refresh = function (initializing) {
@@ -1480,6 +1491,7 @@
 			i,
 			ret;
 
+		
 		
 		for (i = 0; i < l; i++) {
 
