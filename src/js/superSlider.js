@@ -324,7 +324,6 @@
 
 			if ($(this).data('group-index') == _.currentSlide) {
 				var new_track_height = $(this).outerHeight() + 'px';
-				console.log(new_track_height);
 
 				_.$trackWrapper.css({
 					height: new_track_height
@@ -335,7 +334,6 @@
 		
 
 		if (_.options.autoplay) {
-			
 			_.autoPlay(init);
 		}
 
@@ -710,9 +708,11 @@
 		$(window).on('orientationchange', $.proxy(_.orientationChange, _));
 
 
-		$(window).on('resize', _.resetSlider);
-		
-
+		var resizeId;
+		window.addEventListener('resize', function() {
+			clearTimeout(resizeId);
+			resizeId = setTimeout( _.resetSlider, 1000);
+		});
 
 		// $(window).on('resize', function () {
 			 
@@ -1396,11 +1396,10 @@
 
 		var _ = this;
 
+		console.log('pfewfkwe');
 		_.destroy(false);
 
-		clearTimeout(window.resizedFinished);
-
-		window.resizedFinished = setTimeout(_.init(), 250);
+		_.init()
 		
 	};
 
